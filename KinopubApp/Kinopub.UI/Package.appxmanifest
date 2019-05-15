@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="a211da5e-ada9-47a5-b05b-72cf53bd5e50"
-    Publisher="CN=tumis"
+    Name="a8d97767-5d97-4335-868d-6f51d5115123"
+    Publisher="CN=Oit"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="a211da5e-ada9-47a5-b05b-72cf53bd5e50" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="a8d97767-5d97-4335-868d-6f51d5115123" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>KinopubUWPApp</DisplayName>
-    <PublisherDisplayName>tumis</PublisherDisplayName>
+    <DisplayName>Kinopub.UI</DisplayName>
+    <PublisherDisplayName>Oit</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="KinopubUWPApp.App">
+      EntryPoint="Kinopub.UI.App">
       <uap:VisualElements
-        DisplayName="KinopubUWPApp"
+        DisplayName="Kinopub.UI"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="KinopubUWPApp"
+        Description="Kinopub.UI"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace KinopubApi.Entities.Auth
 {
+    /// <summary>
+    /// Класс для десериализации запроса на код устройства
+    /// </summary>
     public class DeviceCodeRequest
     {
         /// <summary>

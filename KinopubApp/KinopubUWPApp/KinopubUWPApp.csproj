@@ -155,6 +155,12 @@
       <Version>6.2.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kinopub.Api\Kinopub.Api.csproj">
+      <Project>{1291a7fb-8bc1-4258-b0f1-3c7836a78ae7}</Project>
+      <Name>Kinopub.Api</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

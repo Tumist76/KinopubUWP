@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KinoPubApi\KinopubApiNet.csproj">
-      <Project>{a1ed9e8d-6802-414d-bce1-2d0ca94fec34}</Project>
-      <Name>KinopubApiNet</Name>
+    <ProjectReference Include="..\Kinopub.Api\Kinopub.Api.csproj">
+      <Project>{1291a7fb-8bc1-4258-b0f1-3c7836a78ae7}</Project>
+      <Name>Kinopub.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

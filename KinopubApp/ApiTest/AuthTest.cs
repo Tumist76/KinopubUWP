@@ -9,12 +9,11 @@ namespace ApiTest
         [TestMethod]
         public void ConneсtAndGetDeviceCode()
         {
-            var response = KinopubApiNet.Auth.GetDeviceCodeAsync("xbmc", "cgg3gtifu46urtfp2zp1nqtba0k2ezxh");
+            var response = KinopubApi.Auth.GetDeviceCodeAsync("xbmc", "cgg3gtifu46urtfp2zp1nqtba0k2ezxh");
             var statusCode = 200;
 
             Console.WriteLine("Device code: " + response.Data.code);
             Console.WriteLine("User code: " + response.Data.user_code);
-
 
             Assert.AreEqual(statusCode, (int)response.StatusCode);
         }

@@ -186,7 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kinopub.Api\Kinopub.Api.csproj">
-      <Project>{1291a7fb-8bc1-4258-b0f1-3c7836a78ae7}</Project>
+      <Project>{6795f304-3af2-45ed-9020-0864e838bb43}</Project>
       <Name>Kinopub.Api</Name>
     </ProjectReference>
   </ItemGroup>

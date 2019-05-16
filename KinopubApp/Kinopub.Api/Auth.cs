@@ -1,18 +1,15 @@
-﻿using KinopubApi.Entities.Auth;
-using KinopubApi.Settings;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using KinopubApi.Entities.Auth;
+using KinopubApi.Settings;
+using RestSharp.Portable;
+using RestSharp.Portable.HttpClient;
 
-namespace KinopubApi
+namespace Kinopub.Api
 {
     public static class Auth
     {
-        public static IRestResponse<DeviceCodeRequest> GetDeviceCodeAsync(string deviceId, string clientSecret)
+        public static async Task<IRestResponse<DeviceCodeRequest>> GetDeviceCodeAsync(string deviceId, string clientSecret)
         {
             var cancellationTokenSource = new CancellationTokenSource();
             var client = new RestClient(Constants.Domain);
@@ -24,8 +21,8 @@ namespace KinopubApi
             request.AddParameter("client_secret", clientSecret);
 
             // async with deserialization
-            var restResponse = client.ExecutePostTaskAsync<DeviceCodeRequest>(request, cancellationTokenSource.Token);
-            return restResponse.Result;
+            var restResponse = await client.Execute<DeviceCodeRequest>(request, cancellationTokenSource.Token);
+            return restResponse;
         }
     }
 }

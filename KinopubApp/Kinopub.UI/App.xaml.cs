@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Kinopub.UI.Views;
 
 namespace Kinopub.UI
 {
@@ -59,6 +61,7 @@ namespace Kinopub.UI
                 Window.Current.Content = rootFrame;
             }
 
+
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -66,13 +69,31 @@ namespace Kinopub.UI
                     // Если стек навигации не восстанавливается для перехода к первой странице,
                     // настройка новой страницы путем передачи необходимой информации в качестве параметра
                     // параметр
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    if (IsAuthorized())
+                    {
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(AuthorizationPage), e.Arguments);
+                    }
                 }
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
         }
 
+        private bool IsAuthorized()
+        {
+            // Save a setting locally on the device
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values["access_token"] == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
         /// <summary>
         /// Вызывается в случае сбоя навигации на определенную страницу
         /// </summary>

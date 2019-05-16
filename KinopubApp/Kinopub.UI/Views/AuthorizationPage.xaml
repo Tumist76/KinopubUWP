@@ -11,13 +11,15 @@
     <Page.DataContext>
         <vms:AuthorizationViewModel/>
     </Page.DataContext>
-    <Grid>
-
+    <Grid
+        Background="DarkGray">
         <StackPanel
             Width="300"
             Height="400"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center">
+            VerticalAlignment="Center"
+            Background="{ThemeResource CustomAcrylicBrush}"
+            >
             <TextBlock
                 x:Uid="CodeMessage"
                 HorizontalAlignment="Center"

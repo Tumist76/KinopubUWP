@@ -23,7 +23,7 @@
             <TextBlock
                 x:Uid="CodeMessage"
                 HorizontalAlignment="Center"
-
+                Text="буп"
                 />
             <TextBlock
                 Text="{Binding DeviceCodeRequest.Result.Data.user_code}"

@@ -26,7 +26,7 @@
                 Text="Код авторизации"
                 />
             <TextBlock
-                Text="{Binding UserCode}"
+                Text="{Binding CodeRequest.user_code}"
                 
                 HorizontalAlignment="Center"
                 FontSize="48"

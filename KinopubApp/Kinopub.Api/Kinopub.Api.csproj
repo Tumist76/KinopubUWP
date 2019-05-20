@@ -121,6 +121,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Auth.cs" />
+    <Compile Include="Entities\Auth\AccessTokenRequest.cs" />
     <Compile Include="Entities\Auth\DeviceCodeRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Constants.cs" />

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Kinopub.Api;
@@ -16,40 +17,58 @@ namespace Kinopub.UI.ViewModels
 
         public AuthorizationViewModel()
         {
-            //UserCode = "*****";
+            CodeRequest = new DeviceCodeRequest();
+
+            CodeRequest.user_code = "*****";
+
             GetDeviceCode();
+            //Подписываемся на обновление свойств внутри объекта с свойствами таска получения кода авторизации
+            this.DeviceCodeRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
         }
 
         #endregion
 
-
         #region Публичные поля
+
+        /// <summary>
+        /// Результат запроса на код авторизации
+        /// </summary>
+        public DeviceCodeRequest CodeRequest { get; set; }
+
+        #endregion
+
+        #region Приватные поля
+
         /// <summary>
         /// Таск с информацией о коде устройства
         /// </summary>
-        public NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> DeviceCodeRequest {
-            get => deviceCodeRequest;
-                set
-            {
-                deviceCodeRequest = value;
-                if (value.IsSuccessfullyCompleted) UserCode = value.Result.Data.user_code;
-            }
-        }
+        private NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> DeviceCodeRequestTask { get; set; }
 
-        public string UserCode {
-            get;
-            set;
-        }
         #endregion
 
-        private NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> deviceCodeRequest;
+        #region Методы
         /// <summary>
         /// Вызывает таск получения кода устройства
         /// </summary>
         public void GetDeviceCode()
         {
-            DeviceCodeRequest = new NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>(Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret));
+            DeviceCodeRequestTask = new NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>(Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret));
         }
 
+        public void 
+        #endregion
+
+        #region События
+
+        void AuthorizationViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Result":
+                    if (DeviceCodeRequestTask.IsSuccessfullyCompleted) CodeRequest = DeviceCodeRequestTask.Result.Data;
+                    break;
+            }
+        }
+        #endregion
     }
 }

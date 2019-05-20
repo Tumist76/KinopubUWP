@@ -15,6 +15,7 @@ namespace Kinopub.UI.ViewModels
         public AuthorizationViewModel()
         {
             GetDeviceCode();
+            UserCode = "*****";
         }
 
         #endregion
@@ -24,9 +25,19 @@ namespace Kinopub.UI.ViewModels
         /// <summary>
         /// Таск с информацией о коде устройства
         /// </summary>
-        public NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> DeviceCodeRequest { get; set; }
+        public NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> DeviceCodeRequest {
+            get => deviceCodeRequest;
+                set
+            {
+                deviceCodeRequest = value;
+                UserCode = value.Result.Data.user_code;
+            }
+        }
 
+        public string UserCode { get; set; }
         #endregion
+
+        private NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> deviceCodeRequest;
         /// <summary>
         /// Вызывает таск получения кода устройства
         /// </summary>

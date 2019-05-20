@@ -23,10 +23,11 @@
             <TextBlock
                 x:Uid="CodeMessage"
                 HorizontalAlignment="Center"
-                Text="буп"
+                Text="Код авторизации"
                 />
             <TextBlock
-                Text="{Binding DeviceCodeRequest.Result.Data.user_code}"
+                Text="{Binding UserCode}"
+                
                 HorizontalAlignment="Center"
                 FontSize="48"
                 FontWeight="ExtraBlack"

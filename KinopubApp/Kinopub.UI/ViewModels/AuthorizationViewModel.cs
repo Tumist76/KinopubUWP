@@ -1,21 +1,23 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using System.ComponentModel;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Kinopub.Api;
 using Kinopub.UI.Utilities;
 using KinopubApi.Entities.Auth;
-using Prism.Mvvm;
 using RestSharp.Portable;
 
 namespace Kinopub.UI.ViewModels
 {
-    public class AuthorizationViewModel : BindableBase
+    public class AuthorizationViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         #region Конструктор
 
         public AuthorizationViewModel()
         {
+            //UserCode = "*****";
             GetDeviceCode();
-            UserCode = "*****";
         }
 
         #endregion
@@ -30,11 +32,14 @@ namespace Kinopub.UI.ViewModels
                 set
             {
                 deviceCodeRequest = value;
-                UserCode = value.Result.Data.user_code;
+                if (value.IsSuccessfullyCompleted) UserCode = value.Result.Data.user_code;
             }
         }
 
-        public string UserCode { get; set; }
+        public string UserCode {
+            get;
+            set;
+        }
         #endregion
 
         private NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> deviceCodeRequest;

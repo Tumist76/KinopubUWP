@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Kinopub.Api.Entities.Auth
@@ -29,5 +30,6 @@ namespace Kinopub.Api.Entities.Auth
         /// Интервал в секундах, через который посылать запросы на проверку активации
         /// </summary>
         public int interval { get; set; }
+        public Action<object, PropertyChangedEventArgs> PropertyChanged { get; set; }
     }
 }

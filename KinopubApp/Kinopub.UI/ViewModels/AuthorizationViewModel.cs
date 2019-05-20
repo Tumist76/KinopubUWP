@@ -4,7 +4,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Kinopub.Api;
 using Kinopub.UI.Utilities;
-using KinopubApi.Entities.Auth;
+using Kinopub.Api.Entities.Auth;
 using RestSharp.Portable;
 
 namespace Kinopub.UI.ViewModels
@@ -55,7 +55,10 @@ namespace Kinopub.UI.ViewModels
             DeviceCodeRequestTask = new NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>(Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret));
         }
 
-        public void 
+        public void GetAccessToken()
+        {
+            //TODO
+        }
         #endregion
 
         #region События

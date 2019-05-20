@@ -9,7 +9,7 @@ namespace Kinopub.Api.Entities.Auth
     /// <summary>
     /// Поля запроса получения токена доступа
     /// </summary>
-    class AccessTokenRequest
+    public class AccessTokenRequest
     {
         /// <summary>
         /// Токен для доступа к API
@@ -22,7 +22,7 @@ namespace Kinopub.Api.Entities.Auth
         /// <summary>
         /// Время до окончания действия токена (в минутах, как я понимаю)
         /// </summary>
-        public string expires_in { get; set; }
+        public int expires_in { get; set; }
         /// <summary>
         /// Токен для запроса на обновление access_token
         /// </summary>

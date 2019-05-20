@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KinopubApi.Entities.Auth
+namespace Kinopub.Api.Entities.Auth
 {
     /// <summary>
     /// Класс для десериализации запроса на код устройства

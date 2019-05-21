@@ -6,6 +6,8 @@ using Kinopub.Api;
 using Kinopub.UI.Utilities;
 using Kinopub.Api.Entities.Auth;
 using RestSharp.Portable;
+using System;
+using Windows.UI.Xaml;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -35,6 +37,11 @@ namespace Kinopub.UI.ViewModels
         /// </summary>
         public DeviceCodeRequest CodeRequest { get; set; }
 
+        /// <summary>
+        /// Обратный счётчик до окончания действия кода авторизации
+        /// </summary>
+        public int CountdownCounter { get; set; }
+
         #endregion
 
         #region Приватные поля
@@ -44,9 +51,14 @@ namespace Kinopub.UI.ViewModels
         /// </summary>
         private NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> DeviceCodeRequestTask { get; set; }
 
+        private NotifyTaskCompletion<IRestResponse<AccessTokenRequest>> AccessTokenRequestTask { get; set; }
+
+        private DispatcherTimer countdownTimer;
+
         #endregion
 
         #region Методы
+
         /// <summary>
         /// Вызывает таск получения кода устройства
         /// </summary>
@@ -57,8 +69,29 @@ namespace Kinopub.UI.ViewModels
 
         public void GetAccessToken()
         {
-            //TODO
+            AccessTokenRequestTask = new NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>(Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, CodeRequest.code));
+            this.AccessTokenRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
+            ExpirationCountdown();
         }
+
+        public async Task StartTokenRequest()
+        {
+            //TODO 
+        }
+
+        /// <summary>
+        /// Запускает таймер обратного отсчёта до прекращения действия кода авторизации
+        /// </summary>
+        private void ExpirationCountdown()
+        {
+            CountdownCounter = CodeRequest.expires_in;
+            countdownTimer = new DispatcherTimer();
+            countdownTimer.Tick += CountdownTimer_Tick;
+            countdownTimer.Interval = new TimeSpan(0, 0, 1);
+            countdownTimer.Start();
+        }
+
+
         #endregion
 
         #region События
@@ -69,9 +102,22 @@ namespace Kinopub.UI.ViewModels
             {
                 case "Result":
                     if (DeviceCodeRequestTask.IsSuccessfullyCompleted) CodeRequest = DeviceCodeRequestTask.Result.Data;
+                    GetAccessToken();
                     break;
             }
         }
+
+        private void CountdownTimer_Tick(object sender, object e)
+        {
+            CountdownCounter--;
+            //Обновляет код по окончанию его действия
+            if (CountdownCounter <= 0)
+            {
+                countdownTimer.Stop();
+                GetDeviceCode();
+            }
+        }
+
         #endregion
     }
 }

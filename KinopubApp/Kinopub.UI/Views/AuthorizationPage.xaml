@@ -32,6 +32,8 @@
                 FontSize="48"
                 FontWeight="ExtraBlack"
                 />
+            <ProgressBar x:Name="Countdown" Value="{Binding CountdownCounter}" Maximum="{Binding CodeRequest.expires_in}" Margin="0,12"/>
+            <TextBlock Text="{Binding CountdownCounter}"/>
         </StackPanel>
     </Grid>
 </Page>

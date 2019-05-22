@@ -23,8 +23,11 @@
             Width="Auto"
             Height="Auto"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
             >
+            <StackPanel.RenderTransform>
+                <CompositeTransform Rotation="0.145"/>
+            </StackPanel.RenderTransform>
             <TextBlock
                 x:Uid="CodeMessage"
                 HorizontalAlignment="Left"

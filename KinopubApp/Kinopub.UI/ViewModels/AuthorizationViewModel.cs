@@ -72,7 +72,7 @@ namespace Kinopub.UI.ViewModels
         {
             AccessTokenRequestTask = new NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>(Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, CodeRequest.code));
             this.AccessTokenRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
-            ExpirationCountdown();
+            
         }
 
         public async Task StartTokenRequest()
@@ -92,19 +92,43 @@ namespace Kinopub.UI.ViewModels
             countdownTimer.Start();
         }
 
+        public void SaveAuthData()
+        {
 
+        }
         #endregion
 
         #region События
 
         void AuthorizationViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
+            if (sender.GetType() == typeof(NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>))
             {
-                case "Result":
-                    if (DeviceCodeRequestTask.IsSuccessfullyCompleted) CodeRequest = DeviceCodeRequestTask.Result.Data;
+                switch (e.PropertyName)
+                {
+                    case "Result":
+                        if (DeviceCodeRequestTask.IsSuccessfullyCompleted) CodeRequest = DeviceCodeRequestTask.Result.Data;
+                        ExpirationCountdown();
+                        break;
+                }
+            }
+            if (sender.GetType() == typeof(NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>))
+            {
+                if (!AccessTokenRequestTask.IsSuccessfullyCompleted)
+                {
                     GetAccessToken();
-                    break;
+                    return;
+                }
+                switch (e.PropertyName)
+                {
+                    case "Result":
+                        if (!String.IsNullOrEmpty(AccessTokenRequestTask.Result.Data.access_token))
+                        {
+                            SaveAuthData();
+                            break;
+                        }
+                        break;
+                }
             }
         }
 
@@ -116,6 +140,10 @@ namespace Kinopub.UI.ViewModels
             {
                 countdownTimer.Stop();
                 GetDeviceCode();
+            }
+            if (CountdownCounter % CodeRequest.interval == 0)
+            {
+                GetAccessToken();
             }
         }
 

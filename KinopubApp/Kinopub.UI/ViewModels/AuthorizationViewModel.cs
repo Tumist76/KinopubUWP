@@ -24,8 +24,7 @@ namespace Kinopub.UI.ViewModels
             CodeRequest.user_code = "*****";
 
             GetDeviceCode();
-            //Подписываемся на обновление свойств внутри объекта с свойствами таска получения кода авторизации
-            this.DeviceCodeRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
+
         }
 
         #endregion
@@ -65,6 +64,8 @@ namespace Kinopub.UI.ViewModels
         public void GetDeviceCode()
         {
             DeviceCodeRequestTask = new NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>(Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret));
+            //Подписываемся на обновление свойств внутри объекта с свойствами таска получения кода авторизации
+            this.DeviceCodeRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
         }
 
         public void GetAccessToken()

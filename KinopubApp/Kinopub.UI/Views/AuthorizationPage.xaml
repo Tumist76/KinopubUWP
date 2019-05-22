@@ -6,34 +6,73 @@
     xmlns:vms="using:Kinopub.UI.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
         <vms:AuthorizationViewModel/>
     </Page.DataContext>
+    <Page.Resources>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
+        <converters:StringSubstringConverter x:Key="StringSubstringConverter" />
+    </Page.Resources>
     <Grid
-        Background="DarkGray">
+        Padding="24"
+        Background="#1A1A1A">
         <StackPanel
-            Width="300"
-            Height="400"
-            HorizontalAlignment="Center"
+            Width="Auto"
+            Height="Auto"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Background="{ThemeResource CustomAcrylicBrush}"
             >
             <TextBlock
                 x:Uid="CodeMessage"
-                HorizontalAlignment="Center"
-                Text="Код авторизации"
+                HorizontalAlignment="Left"
+                Margin="0,0,0,50"
+                Text="Привязка устройства"
+                Style="{StaticResource HeaderTextBlockStyle}"
                 />
             <TextBlock
-                Text="{Binding CodeRequest.user_code}"
-                
-                HorizontalAlignment="Center"
-                FontSize="48"
-                FontWeight="ExtraBlack"
-                />
-            <ProgressBar x:Name="Countdown" Value="{Binding CountdownCounter}" Maximum="{Binding CodeRequest.expires_in}" Margin="0,12"/>
-            <TextBlock Text="{Binding CountdownCounter}"/>
+                x:Uid="AuthGuide1"
+                Text="Перейдите на"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Margin="0 0 0 0"/>
+            <TextBlock
+                Text="{Binding CodeRequest.verification_uri}"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Foreground="#86ADFB"
+                Margin="0 0 0 0"/>
+            <TextBlock
+                x:Uid="AuthGuide2"
+                Text="и введите код"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Margin="0 0 0 10"/>
+            <StackPanel 
+                x:Name="CodePanel"
+                Orientation="Horizontal"
+                Width="Auto"
+                HorizontalAlignment="Left"
+                Margin="0 0 0 15">
+                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='0,1'}"
+                           FontSize="70" Width="75" TextAlignment="Center"/>
+                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='1,1'}"
+                           FontSize="70" Width="75" TextAlignment="Center"/>
+                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='2,1'}"
+                           FontSize="70" Width="75" TextAlignment="Center"/>
+                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='3,1'}"
+                           FontSize="70" Width="75" TextAlignment="Center"/>
+                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='4,1'}"
+                           FontSize="70" Width="75" TextAlignment="Center"
+                           />
+            </StackPanel>
+
+            <ProgressBar 
+                x:Name="Countdown" 
+                Value="{Binding CountdownCounter}" 
+                Maximum="{Binding CodeRequest.expires_in}" 
+                Height="15"
+                Width="{Binding ElementName=CodePanel, Path=ActualWidth}"
+                HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>
 </Page>

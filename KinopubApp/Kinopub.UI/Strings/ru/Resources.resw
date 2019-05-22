@@ -124,7 +124,7 @@
     <value>Проверьте соединение с интернетом. Если всё в порядке, скорее всего, сервер авторизации недоступен. Возможно, он заблокирован в вашей стране или сменил адрес.</value>
   </data>
   <data name="AuthGuide1.Text" xml:space="preserve">
-    <value>Перейдите по ссылке</value>
+    <value>Перейдите на</value>
   </data>
   <data name="AuthGuide2.Text" xml:space="preserve">
     <value>и введите код</value>

@@ -77,7 +77,7 @@
             <TextBlock
                 HorizontalAlignment="Left"
                 x:Name="UserCodeTextBlock"
-                Text="{Binding CodeRequest.user_code}"
+                Text="{Binding DeviceCodeRequestTask.Result.Data.user_code}"
                 FontSize="70"
                 TextAlignment="Center"
                 Width="300"
@@ -90,6 +90,12 @@
                 Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
                 Opacity="{Binding CodeRequest.code, Converter={StaticResource NullOpacityConverter}}"
                 HorizontalAlignment="Left"/>
+            <!--<TextBlock
+                Text="{Binding CountdownCounter}"/>-->
+            <!--<TextBlock
+                Text="{Binding AccessTokenRequestTask.ErrorMessage}"/>
+            <TextBlock
+                Text="{Binding AccessTokenRequestTask.Result.Data.access_token}"/>-->
         </StackPanel>
     </Grid>
 </Page>

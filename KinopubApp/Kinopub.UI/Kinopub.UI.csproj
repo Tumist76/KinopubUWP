@@ -128,6 +128,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\NotifyTaskCompletion.cs" />
     <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\WindowNavigation.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
     <Compile Include="Views\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>

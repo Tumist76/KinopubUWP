@@ -41,6 +41,10 @@ namespace Kinopub.UI.ViewModels
         /// </summary>
         public int CountdownCounter { get; set; }
 
+        public NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> DeviceCodeRequestTask { get; set; }
+
+        public NotifyTaskCompletion<IRestResponse<AccessTokenRequest>> AccessTokenRequestTask { get; set; }
+
         #endregion
 
         #region Приватные поля
@@ -48,9 +52,9 @@ namespace Kinopub.UI.ViewModels
         /// <summary>
         /// Таск с информацией о коде устройства
         /// </summary>
-        private NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> DeviceCodeRequestTask { get; set; }
+        public NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>> deviceCodeRequestTask;
 
-        private NotifyTaskCompletion<IRestResponse<AccessTokenRequest>> AccessTokenRequestTask { get; set; }
+        public NotifyTaskCompletion<IRestResponse<AccessTokenRequest>> accessTokenRequestTask;
 
         private DispatcherTimer countdownTimer;
 
@@ -63,19 +67,21 @@ namespace Kinopub.UI.ViewModels
         /// </summary>
         public void GetDeviceCode()
         {
-            DeviceCodeRequestTask = new NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>(Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret));
+            //if (deviceCodeRequestTask != null) this.deviceCodeRequestTask.PropertyChanged -= AuthorizationViewModel_PropertyChanged;
+            deviceCodeRequestTask = new NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>(Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret));
             //Подписываемся на обновление свойств внутри объекта с свойствами таска получения кода авторизации
-            this.DeviceCodeRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
+            this.deviceCodeRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
         }
 
         public void GetAccessToken()
         {
-            AccessTokenRequestTask = new NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>(Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, CodeRequest.code));
-            this.AccessTokenRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
+            if (accessTokenRequestTask != null) this.accessTokenRequestTask.PropertyChanged -= AuthorizationViewModel_PropertyChanged;
+            accessTokenRequestTask = new NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>(Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, CodeRequest.code));
+            this.accessTokenRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
             
         }
 
-        public async Task StartTokenRequest()
+        public async Task CheckRequestTask()
         {
             //TODO 
         }
@@ -91,10 +97,13 @@ namespace Kinopub.UI.ViewModels
             countdownTimer.Interval = new TimeSpan(0, 0, 1);
             countdownTimer.Start();
         }
-
-        public void SaveAuthData()
+        /// <summary>
+        /// Сохраняет данные авторизации и перенаправляет на главную страницу
+        /// </summary>
+        private void FinishAuthoriztion()
         {
-
+            countdownTimer.Stop();
+            WindowNavigation.WindowNavigateTo(typeof(MainPage), null);
         }
         #endregion
 
@@ -104,27 +113,28 @@ namespace Kinopub.UI.ViewModels
         {
             if (sender.GetType() == typeof(NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>))
             {
+                DeviceCodeRequestTask = sender as NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>;
                 switch (e.PropertyName)
                 {
                     case "Result":
-                        if (DeviceCodeRequestTask.IsSuccessfullyCompleted) CodeRequest = DeviceCodeRequestTask.Result.Data;
+                        if (deviceCodeRequestTask.IsSuccessfullyCompleted) CodeRequest = deviceCodeRequestTask.Result.Data;
                         ExpirationCountdown();
                         break;
                 }
             }
             if (sender.GetType() == typeof(NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>))
             {
-                if (!AccessTokenRequestTask.IsSuccessfullyCompleted)
+                AccessTokenRequestTask = sender as NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>;
+                if (!accessTokenRequestTask.IsSuccessfullyCompleted)
                 {
-                    GetAccessToken();
                     return;
                 }
                 switch (e.PropertyName)
                 {
                     case "Result":
-                        if (!String.IsNullOrEmpty(AccessTokenRequestTask.Result.Data.access_token))
+                        if (!String.IsNullOrEmpty(accessTokenRequestTask.Result.Data.access_token))
                         {
-                            SaveAuthData();
+                            FinishAuthoriztion();
                             break;
                         }
                         break;
@@ -144,6 +154,7 @@ namespace Kinopub.UI.ViewModels
             if (CountdownCounter % CodeRequest.interval == 0)
             {
                 GetAccessToken();
+                return;
             }
         }
 

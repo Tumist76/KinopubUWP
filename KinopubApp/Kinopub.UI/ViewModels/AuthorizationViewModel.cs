@@ -8,6 +8,7 @@ using Kinopub.Api.Entities.Auth;
 using RestSharp.Portable;
 using System;
 using Windows.UI.Xaml;
+using Windows.Storage;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -67,7 +68,7 @@ namespace Kinopub.UI.ViewModels
         /// </summary>
         public void GetDeviceCode()
         {
-            //if (deviceCodeRequestTask != null) this.deviceCodeRequestTask.PropertyChanged -= AuthorizationViewModel_PropertyChanged;
+            if (deviceCodeRequestTask != null) this.deviceCodeRequestTask.PropertyChanged -= AuthorizationViewModel_PropertyChanged;
             deviceCodeRequestTask = new NotifyTaskCompletion<IRestResponse<DeviceCodeRequest>>(Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret));
             //Подписываемся на обновление свойств внутри объекта с свойствами таска получения кода авторизации
             this.deviceCodeRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
@@ -79,11 +80,6 @@ namespace Kinopub.UI.ViewModels
             accessTokenRequestTask = new NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>(Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, CodeRequest.code));
             this.accessTokenRequestTask.PropertyChanged += AuthorizationViewModel_PropertyChanged;
             
-        }
-
-        public async Task CheckRequestTask()
-        {
-            //TODO 
         }
 
         /// <summary>
@@ -103,8 +99,20 @@ namespace Kinopub.UI.ViewModels
         private void FinishAuthoriztion()
         {
             countdownTimer.Stop();
+            SaveAuthData();
             WindowNavigation.WindowNavigateTo(typeof(MainPage), null);
         }
+
+        private void SaveAuthData()
+        {
+            var composite = new ApplicationDataCompositeValue();
+            composite["AuthAccessToken"] = AccessTokenRequestTask.Result.Data.access_token;
+            composite["AuthRefreshToken"] = AccessTokenRequestTask.Result.Data.refresh_token;
+            DateTime tokenExpiration = DateTime.Now.AddMinutes(AccessTokenRequestTask.Result.Data.expires_in);
+            composite["AuthExpiraton"] = tokenExpiration;
+            SettingsManager.SetLocalCompositeContainer("AuthData", composite);
+        }
+
         #endregion
 
         #region События
@@ -125,10 +133,6 @@ namespace Kinopub.UI.ViewModels
             if (sender.GetType() == typeof(NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>))
             {
                 AccessTokenRequestTask = sender as NotifyTaskCompletion<IRestResponse<AccessTokenRequest>>;
-                if (!accessTokenRequestTask.IsSuccessfullyCompleted)
-                {
-                    return;
-                }
                 switch (e.PropertyName)
                 {
                     case "Result":

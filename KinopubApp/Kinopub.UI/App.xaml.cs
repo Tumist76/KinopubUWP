@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Kinopub.UI.Utilities;
 using Kinopub.UI.Views;
 
 namespace Kinopub.UI
@@ -85,15 +86,13 @@ namespace Kinopub.UI
 
         private bool IsAuthorized()
         {
-            // Save a setting locally on the device
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            if (localSettings.Values["access_token"] == null)
+            if (SettingsManager.GetLocalCompositeSetting("AuthData", "AccessToken") == null)
             {
                 return false;
             }
-
             return true;
         }
+        private
         /// <summary>
         /// Вызывается в случае сбоя навигации на определенную страницу
         /// </summary>

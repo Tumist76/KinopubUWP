@@ -130,6 +130,6 @@
     <value>и введите код</value>
   </data>
   <data name="CodeMessage.Text" xml:space="preserve">
-    <value>Код авторизации</value>
+    <value>Привязка устройства</value>
   </data>
 </root>

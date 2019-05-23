@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\NullOpacityConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringSubstringConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -256,6 +257,16 @@
     <Content Include="Assets\Fonts\Roboto\Roboto-ThinItalic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-Bold.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-BoldItalic.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-Italic.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-Light.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-LightItalic.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-Medium.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-MediumItalic.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-Regular.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-Thin.ttf" />
+    <Content Include="Assets\Fonts\RobotoMono\RobotoMono-ThinItalic.ttf" />
     <None Include="Kinopub.UI_TemporaryKey.pfx" />
     <PRIResource Include="Strings\ru\Resources.resw">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

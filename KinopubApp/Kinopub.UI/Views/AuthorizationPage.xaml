@@ -15,6 +15,7 @@
     <Page.Resources>
         <converters:StringFormatConverter x:Key="StringFormatConverter" />
         <converters:StringSubstringConverter x:Key="StringSubstringConverter" />
+        <converters:NullOpacityConverter x:Key="NullOpacityConverter" />
     </Page.Resources>
     <Grid
         Padding="24"
@@ -35,6 +36,9 @@
                 Text="Привязка устройства"
                 Style="{StaticResource HeaderTextBlockStyle}"
                 />
+            <StackPanel
+                x:Name="AuthGuidePanel"
+                Opacity="{Binding CodeRequest.code, Converter={StaticResource NullOpacityConverter}}">
             <TextBlock
                 x:Uid="AuthGuide1"
                 Text="Перейдите на"
@@ -50,14 +54,16 @@
                 Text="и введите код"
                 Style="{StaticResource TitleTextBlockStyle}"
                 Margin="0 0 0 10"/>
-            <StackPanel 
+            </StackPanel>
+            <!--<StackPanel 
                 x:Name="CodePanel"
                 Orientation="Horizontal"
                 Width="Auto"
                 HorizontalAlignment="Left"
                 Margin="0 0 0 15">
                 <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='0,1'}"
-                           FontSize="70" Width="75" TextAlignment="Center"/>
+                           FontSize="70" Width="75" TextAlignment="Center"
+                           />
                 <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='1,1'}"
                            FontSize="70" Width="75" TextAlignment="Center"/>
                 <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='2,1'}"
@@ -67,14 +73,22 @@
                 <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='4,1'}"
                            FontSize="70" Width="75" TextAlignment="Center"
                            />
-            </StackPanel>
-
+            </StackPanel>-->
+            <TextBlock
+                HorizontalAlignment="Left"
+                x:Name="UserCodeTextBlock"
+                Text="{Binding CodeRequest.user_code}"
+                FontSize="70"
+                TextAlignment="Center"
+                Width="300"
+                />
             <ProgressBar 
                 x:Name="Countdown" 
                 Value="{Binding CountdownCounter}" 
                 Maximum="{Binding CodeRequest.expires_in}" 
                 Height="15"
-                Width="{Binding ElementName=CodePanel, Path=ActualWidth}"
+                Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
+                Opacity="{Binding CodeRequest.code, Converter={StaticResource NullOpacityConverter}}"
                 HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>

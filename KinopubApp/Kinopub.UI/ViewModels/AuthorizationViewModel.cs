@@ -108,7 +108,7 @@ namespace Kinopub.UI.ViewModels
             var composite = new ApplicationDataCompositeValue();
             composite["AuthAccessToken"] = AccessTokenRequestTask.Result.Data.access_token;
             composite["AuthRefreshToken"] = AccessTokenRequestTask.Result.Data.refresh_token;
-            DateTime tokenExpiration = DateTime.Now.AddMinutes(AccessTokenRequestTask.Result.Data.expires_in);
+            var tokenExpiration = DateTimeOffset.Now.AddSeconds(AccessTokenRequestTask.Result.Data.expires_in);
             composite["AuthExpiraton"] = tokenExpiration;
             SettingsManager.SetLocalCompositeContainer("AuthData", composite);
         }

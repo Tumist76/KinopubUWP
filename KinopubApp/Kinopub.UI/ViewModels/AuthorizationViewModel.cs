@@ -9,6 +9,7 @@ using RestSharp.Portable;
 using System;
 using Windows.UI.Xaml;
 using Windows.Storage;
+using Kinopub.UI.Models;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -99,19 +100,15 @@ namespace Kinopub.UI.ViewModels
         private void FinishAuthoriztion()
         {
             countdownTimer.Stop();
-            SaveAuthData();
+            var authModel = new AuthorizationModel();
+            authModel.SaveAuthData
+                (AccessTokenRequestTask.Result.Data.access_token,
+                AccessTokenRequestTask.Result.Data.refresh_token,
+                AccessTokenRequestTask.Result.Data.expires_in
+                );
             WindowNavigation.WindowNavigateTo(typeof(MainPage), null);
         }
 
-        private void SaveAuthData()
-        {
-            var composite = new ApplicationDataCompositeValue();
-            composite["AuthAccessToken"] = AccessTokenRequestTask.Result.Data.access_token;
-            composite["AuthRefreshToken"] = AccessTokenRequestTask.Result.Data.refresh_token;
-            var tokenExpiration = DateTimeOffset.Now.AddSeconds(AccessTokenRequestTask.Result.Data.expires_in);
-            composite["AuthExpiraton"] = tokenExpiration;
-            SettingsManager.SetLocalCompositeContainer("AuthData", composite);
-        }
 
         #endregion
 
@@ -155,6 +152,7 @@ namespace Kinopub.UI.ViewModels
                 countdownTimer.Stop();
                 GetDeviceCode();
             }
+            //Выполняет запрос на получение токена доступа через заданный API интервал
             if (CountdownCounter % CodeRequest.interval == 0)
             {
                 GetAccessToken();

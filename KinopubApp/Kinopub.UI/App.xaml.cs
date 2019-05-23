@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Kinopub.UI.Utilities;
 using Kinopub.UI.Views;
+using Kinopub.UI.Models;
 
 namespace Kinopub.UI
 {
@@ -70,7 +71,7 @@ namespace Kinopub.UI
                     // Если стек навигации не восстанавливается для перехода к первой странице,
                     // настройка новой страницы путем передачи необходимой информации в качестве параметра
                     // параметр
-                    if (IsAuthorized())
+                    if (MoveToMainPage())
                     {
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                     }
@@ -83,14 +84,37 @@ namespace Kinopub.UI
                 Window.Current.Activate();
             }
         }
-
-        private bool IsAuthorized()
+        /// <summary>
+        /// Проверяет статус авторизации и токенов
+        /// </summary>
+        /// <returns>Возможость перемещения на главную страницу</returns>
+        private bool MoveToMainPage()
         {
-            if (SettingsManager.GetLocalCompositeSetting("AuthData", "AccessToken") == null)
+            var authModel = new AuthorizationModel();
+            var authData = authModel.GetAuthData();
+            if (authData != null)
             {
-                return false;
+                if (authModel.IsAccessTokenPresent(authData))
+                {
+                    if (authModel.IsAccessTokenValid(authData))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        if (authModel.IsRefreshTokenValid(authData))
+                        {
+                            authModel.RefreshAccessToken();
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
             }
-            return true;
+            return false;
         }
         private
         /// <summary>

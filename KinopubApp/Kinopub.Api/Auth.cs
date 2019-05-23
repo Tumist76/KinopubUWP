@@ -36,7 +36,7 @@ namespace Kinopub.Api
             return restResponse;
         }
 
-        public static async Task<IRestResponse<AccessTokenRequest>> GetRefreshTokenAsync
+        public static async Task<IRestResponse<AccessTokenRequest>> RefreshTokenAsync
             (string deviceId, string clientSecret, string refreshToken)
         {
             var cancellationTokenSource = new CancellationTokenSource();

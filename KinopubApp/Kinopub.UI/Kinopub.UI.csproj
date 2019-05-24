@@ -129,6 +129,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\NotifyTaskCompletion.cs" />
     <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\SettingsConstants.cs" />
     <Compile Include="Utilities\SettingsManager.cs" />
     <Compile Include="Utilities\WindowNavigation.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />

@@ -20,7 +20,7 @@ namespace Kinopub.UI.Models
         /// <returns></returns>
         public ApplicationDataCompositeValue GetAuthData()
         {
-            return SettingsManager.GetLocalCompositeContainer("AuthData");
+            return SettingsManager.GetLocalCompositeContainer(SettingsConstants.AuthData);
         }
         /// <summary>
         /// Проверяет наличие и валидность токена авторизации
@@ -45,7 +45,7 @@ namespace Kinopub.UI.Models
         /// <returns></returns>
         public async Task RefreshAccessToken()
         {
-            var refreshTokenTask = await Auth.RefreshTokenAsync(Constants.DeviceId, Constants.DeviceSecret, GetAuthData()["AuthRefreshToken"].ToString());
+            var refreshTokenTask = await Auth.RefreshTokenAsync(Constants.DeviceId, Constants.DeviceSecret, GetAuthData()[SettingsConstants.AuthRefreshToken].ToString());
             if (refreshTokenTask.IsSuccess)
             {
                 SaveAuthData(
@@ -65,7 +65,7 @@ namespace Kinopub.UI.Models
             {
                 return false;
             }
-            if ((DateTimeOffset)authData["AuthAccessTokenExpiration"] <= DateTimeOffset.Now)
+            if ((DateTimeOffset)authData[SettingsConstants.AuthAccessTokenExpiration] <= DateTimeOffset.Now)
             {
                 return false;
             }
@@ -82,7 +82,7 @@ namespace Kinopub.UI.Models
             {
                 return false;
             }
-            if (authData["AuthAccessToken"] == null)
+            if (authData[SettingsConstants.AuthAccessToken] == null)
             {
                 return false;
             }
@@ -99,7 +99,7 @@ namespace Kinopub.UI.Models
             {
                 return false;
             }
-            if ((DateTimeOffset)authData["AuthRefreshTokenExpiration"] <= DateTimeOffset.Now)
+            if ((DateTimeOffset)authData[SettingsConstants.AuthRefreshTokenExpiration] <= DateTimeOffset.Now)
             {
                 return false;
             }
@@ -117,16 +117,16 @@ namespace Kinopub.UI.Models
             int secondsToExpiration)
         {
             var composite = new ApplicationDataCompositeValue();
-            composite["AuthAccessToken"] = accessToken;
-            composite["AuthRefreshToken"] = refreshToken;
+            composite[SettingsConstants.AuthAccessToken] = accessToken;
+            composite[SettingsConstants.AuthRefreshToken] = refreshToken;
 
             var accessTokenExpiration = DateTimeOffset.Now.AddSeconds(secondsToExpiration);
-            composite["AuthAccessTokenExpiration"] = accessTokenExpiration;
+            composite[SettingsConstants.AuthAccessTokenExpiration] = accessTokenExpiration;
 
             var refreshTokenExpiration = DateTimeOffset.Now.AddMonths(1);
-            composite["AuthRefreshTokenExpiration"] = refreshTokenExpiration;
+            composite[SettingsConstants.AuthRefreshTokenExpiration] = refreshTokenExpiration;
 
-            SettingsManager.SetLocalCompositeContainer("AuthData", composite);
+            SettingsManager.SetLocalCompositeContainer(SettingsConstants.AuthData, composite);
         }
     }
 }

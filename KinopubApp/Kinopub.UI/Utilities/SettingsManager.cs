@@ -15,7 +15,7 @@ namespace Kinopub.UI.Utilities
         public static object GetLocalSetting(string settingName)
         {
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            return localSettings.Values["access_token"];
+            return localSettings.Values[settingName];
         }
 
         public static object GetLocalCompositeSetting(string containerName, string settingName)

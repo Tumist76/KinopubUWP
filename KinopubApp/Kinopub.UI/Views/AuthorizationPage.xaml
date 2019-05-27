@@ -16,15 +16,32 @@
         <converters:StringFormatConverter x:Key="StringFormatConverter" />
         <converters:StringSubstringConverter x:Key="StringSubstringConverter" />
         <converters:NullOpacityConverter x:Key="NullOpacityConverter" />
+        <converters:ReverseNullOpacityConverter x:Key="ReverseNullOpacityConverter" />
     </Page.Resources>
     <Grid
         Padding="24"
         Background="#1A1A1A">
         <StackPanel
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Opacity="{Binding CodeRequest.code, Converter={StaticResource ReverseNullOpacityConverter}}">
+        <ProgressRing 
+            IsActive="True" 
+            Foreground="#86ADFB" 
+            Height="150" Margin="24,0,0,0" Width="188"
+            />
+        <TextBlock
+            x:Uid="AuthLoadingText"
+            Text="Сейчас всё будет, подождите чуток"
+            Style="{StaticResource TitleTextBlockStyle}"
+            />
+        </StackPanel>
+        <StackPanel
             Width="Auto"
             Height="Auto"
             HorizontalAlignment="Left"
             VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
+            Opacity="{Binding CodeRequest.code, Converter={StaticResource NullOpacityConverter}}"
             >
             <StackPanel.RenderTransform>
                 <CompositeTransform Rotation="0.145"/>
@@ -38,18 +55,18 @@
                 />
             <StackPanel
                 x:Name="AuthGuidePanel"
-                Opacity="{Binding CodeRequest.code, Converter={StaticResource NullOpacityConverter}}">
-            <TextBlock
+                >
+                <TextBlock
                 x:Uid="AuthGuide1"
                 Text="Перейдите на"
                 Style="{StaticResource TitleTextBlockStyle}"
                 Margin="0 0 0 0"/>
-            <TextBlock
+                <TextBlock
                 Text="{Binding CodeRequest.verification_uri}"
                 Style="{StaticResource TitleTextBlockStyle}"
                 Foreground="#86ADFB"
                 Margin="0 0 0 0"/>
-            <TextBlock
+                <TextBlock
                 x:Uid="AuthGuide2"
                 Text="и введите код"
                 Style="{StaticResource TitleTextBlockStyle}"

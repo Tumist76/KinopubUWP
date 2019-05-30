@@ -31,6 +31,8 @@ namespace Kinopub.UI.Models
         /// </summary>
         public IRestResponse<DeviceCodeRequest> DeviceCodeRequest { get; set; }
 
+        public bool Authorized { get; set; }
+
         #endregion
 
 
@@ -73,7 +75,7 @@ namespace Kinopub.UI.Models
                     tokenRequest.Data.refresh_token,
                     tokenRequest.Data.expires_in
                 );
-                WindowNavigation.WindowNavigateTo(typeof(MainPage), null);
+                Authorized = true;
             }
         }
 

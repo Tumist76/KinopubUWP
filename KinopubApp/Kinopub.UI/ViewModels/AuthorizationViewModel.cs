@@ -52,6 +52,9 @@ namespace Kinopub.UI.ViewModels
                 case "CountdownCounter":
                     CountdownCounter = ((AuthorizationModel)sender).CountdownCounter;
                     break;
+                case "Authorized":
+                    WindowNavigation.WindowNavigateTo(typeof(MainPage), null);
+                    break;
             }
         }
 

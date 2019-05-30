@@ -57,7 +57,7 @@
                 Style="{StaticResource TitleTextBlockStyle}"
                 Margin="0 0 0 0"/>
                 <TextBlock
-                Text="{Binding DeviceCodeRequest.Data.verification_uri}"
+                Text="{Binding DeviceCodeRequest.Data.VerificationUri}"
                 Style="{StaticResource TitleTextBlockStyle}"
                 Foreground="#86ADFB"
                 Margin="0 0 0 0"/>
@@ -70,7 +70,7 @@
             <TextBlock
                 HorizontalAlignment="Left"
                 x:Name="UserCodeTextBlock"
-                Text="{Binding DeviceCodeRequest.Data.user_code}"
+                Text="{Binding DeviceCodeRequest.Data.UserCode}"
                 FontSize="70"
                 TextAlignment="Center"
                 Width="300"
@@ -78,7 +78,7 @@
             <ProgressBar 
                 x:Name="Countdown" 
                 Value="{Binding CountdownCounter}" 
-                Maximum="{Binding DeviceCodeRequest.Data.expires_in}" 
+                Maximum="{Binding DeviceCodeRequest.Data.ExpiresIn}" 
                 Height="15"
                 Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
                 HorizontalAlignment="Left"/>

@@ -70,15 +70,15 @@ namespace Kinopub.UI.Models
         /// <returns></returns>
         public async Task GetAccessTokenAsync()
         {
-            var tokenRequest = await Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, DeviceCodeRequest.Data.code);
+            var tokenRequest = await Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, DeviceCodeRequest.Data.Code);
 
             if (tokenRequest.IsSuccess)
             {
                 countdownTimer.Stop();
                 AuthTokenManagementModel.SaveAuthData
-                (tokenRequest.Data.access_token,
-                    tokenRequest.Data.refresh_token,
-                    tokenRequest.Data.expires_in
+                (tokenRequest.Data.AccessToken,
+                    tokenRequest.Data.RefreshToken,
+                    tokenRequest.Data.ExpiresIn
                 );
                 Authorized = true;
             }
@@ -89,7 +89,7 @@ namespace Kinopub.UI.Models
         /// </summary>
         private void ExpirationCountdown()
         {
-            CountdownCounter = DeviceCodeRequest.Data.expires_in;
+            CountdownCounter = DeviceCodeRequest.Data.ExpiresIn;
             countdownTimer = new DispatcherTimer();
             countdownTimer.Tick += CountdownTimer_Tick;
             countdownTimer.Interval = new TimeSpan(0, 0, 1);
@@ -113,7 +113,7 @@ namespace Kinopub.UI.Models
                 GetDeviceCodeAsync();
             }
             //Выполняет запрос на получение токена доступа через заданный API интервал
-            if (CountdownCounter % DeviceCodeRequest.Data.interval == 0)
+            if (CountdownCounter % DeviceCodeRequest.Data.Interval == 0)
             {
                 GetAccessTokenAsync();
                 return;

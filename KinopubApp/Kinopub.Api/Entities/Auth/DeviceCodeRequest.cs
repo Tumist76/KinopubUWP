@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -13,23 +14,28 @@ namespace Kinopub.Api.Entities.Auth
         /// <summary>
         /// Код для дальнейшего получения access token'a
         /// </summary>
-        public string code { get; set; }
+        [JsonProperty("code")]
+        public string Code { get; set; }
         /// <summary>
         /// Код, который нужно показать пользователю
         /// </summary>
-        public string user_code { get; set; }
+        [JsonProperty("user_code")]
+        public string UserCode { get; set; }
         /// <summary>
         /// URL, где нужно ввести пользовательский код
         /// </summary>
-        public string verification_uri { get; set; }
+        [JsonProperty("verification_uri")]
+        public string VerificationUri { get; set; }
         /// <summary>
         /// Через сколько данный device_code истекает, в секундах
         /// </summary>
-        public int expires_in { get; set; }
+        [JsonProperty("expires_in")]
+        public int ExpiresIn { get; set; }
         /// <summary>
         /// Интервал в секундах, через который посылать запросы на проверку активации
         /// </summary>
-        public int interval { get; set; }
+        [JsonProperty("interval")]
+        public int Interval { get; set; }
         public Action<object, PropertyChangedEventArgs> PropertyChanged { get; set; }
     }
 }

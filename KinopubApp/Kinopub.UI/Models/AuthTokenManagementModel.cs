@@ -46,9 +46,9 @@ namespace Kinopub.UI.Models
             if (refreshTokenTask.IsSuccess)
             {
                 SaveAuthData(
-                    refreshTokenTask.Data.access_token,
-                    refreshTokenTask.Data.refresh_token,
-                    refreshTokenTask.Data.expires_in);
+                    refreshTokenTask.Data.AccessToken,
+                    refreshTokenTask.Data.RefreshToken,
+                    refreshTokenTask.Data.ExpiresIn);
             }
         }
         /// <summary>

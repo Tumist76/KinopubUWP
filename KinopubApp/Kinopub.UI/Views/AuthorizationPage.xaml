@@ -37,15 +37,10 @@
             />
         </StackPanel>
         <StackPanel
-            Width="Auto"
-            Height="Auto"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
-            Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource NullOpacityConverter}}"
-            >
-            <StackPanel.RenderTransform>
-                <CompositeTransform Rotation="0.145"/>
-            </StackPanel.RenderTransform>
+            VerticalAlignment="Center" 
+            Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource NullOpacityConverter}}">
+            
             <TextBlock
                 x:Uid="CodeMessage"
                 HorizontalAlignment="Left"
@@ -72,25 +67,6 @@
                 Style="{StaticResource TitleTextBlockStyle}"
                 Margin="0 0 0 10"/>
             </StackPanel>
-            <!--<StackPanel 
-                x:Name="CodePanel"
-                Orientation="Horizontal"
-                Width="Auto"
-                HorizontalAlignment="Left"
-                Margin="0 0 0 15">
-                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='0,1'}"
-                           FontSize="70" Width="75" TextAlignment="Center"
-                           />
-                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='1,1'}"
-                           FontSize="70" Width="75" TextAlignment="Center"/>
-                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='2,1'}"
-                           FontSize="70" Width="75" TextAlignment="Center"/>
-                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='3,1'}"
-                           FontSize="70" Width="75" TextAlignment="Center"/>
-                <TextBlock Text="{Binding CodeRequest.user_code, Converter={StaticResource StringSubstringConverter}, ConverterParameter='4,1'}"
-                           FontSize="70" Width="75" TextAlignment="Center"
-                           />
-            </StackPanel>-->
             <TextBlock
                 HorizontalAlignment="Left"
                 x:Name="UserCodeTextBlock"
@@ -107,12 +83,7 @@
                 Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
                 Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource NullOpacityConverter}}"
                 HorizontalAlignment="Left"/>
-            <!--<TextBlock
-                Text="{Binding CountdownCounter}"/>-->
-            <!--<TextBlock
-                Text="{Binding AccessTokenRequestTask.ErrorMessage}"/>
-            <TextBlock
-                Text="{Binding AccessTokenRequestTask.Result.Data.access_token}"/>-->
+
         </StackPanel>
     </Grid>
 </Page>

@@ -127,6 +127,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthorizationModel.cs" />
+    <Compile Include="Models\AuthTokenManagementModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\NotifyTaskCompletion.cs" />
     <Compile Include="Utilities\Constants.cs" />

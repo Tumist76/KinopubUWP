@@ -90,21 +90,20 @@ namespace Kinopub.UI
         /// <returns>Возможость перемещения на главную страницу</returns>
         private bool MoveToMainPage()
         {
-            var authModel = new AuthorizationModel();
-            var authData = authModel.GetAuthData();
+            var authData = AuthTokenManagementModel.GetAuthData();
             if (authData != null)
             {
-                if (authModel.IsAccessTokenPresent(authData))
+                if (AuthTokenManagementModel.IsAccessTokenPresent(authData))
                 {
-                    if (authModel.IsAccessTokenValid(authData))
+                    if (AuthTokenManagementModel.IsAccessTokenValid(authData))
                     {
                         return true;
                     }
                     else
                     {
-                        if (authModel.IsRefreshTokenValid(authData))
+                        if (AuthTokenManagementModel.IsRefreshTokenValid(authData))
                         {
-                            authModel.RefreshAccessToken();
+                            AuthTokenManagementModel.RefreshAccessToken();
                             return true;
                         }
                         else

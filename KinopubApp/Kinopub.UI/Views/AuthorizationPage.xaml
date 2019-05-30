@@ -24,7 +24,7 @@
         <StackPanel
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource ReverseNullOpacityConverter}}">
+            Opacity="{Binding DeviceCodeRequest, Converter={StaticResource ReverseNullOpacityConverter}}">
         <ProgressRing 
             IsActive="True" 
             Foreground="#86ADFB" 
@@ -39,7 +39,7 @@
         <StackPanel
             HorizontalAlignment="Left"
             VerticalAlignment="Center" 
-            Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource NullOpacityConverter}}">
+            Opacity="{Binding DeviceCodeRequest, Converter={StaticResource NullOpacityConverter}}">
             
             <TextBlock
                 x:Uid="CodeMessage"
@@ -81,9 +81,7 @@
                 Maximum="{Binding DeviceCodeRequest.Data.expires_in}" 
                 Height="15"
                 Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
-                Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource NullOpacityConverter}}"
                 HorizontalAlignment="Left"/>
-
         </StackPanel>
     </Grid>
 </Page>

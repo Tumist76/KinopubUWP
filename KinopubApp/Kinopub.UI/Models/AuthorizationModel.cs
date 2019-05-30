@@ -20,6 +20,11 @@ namespace Kinopub.UI.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public AuthorizationModel()
+        {
+            DeviceCodeRequest = null;
+        }
+
         #region Публичные поля
 
         /// <summary>

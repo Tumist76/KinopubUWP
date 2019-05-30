@@ -123,6 +123,8 @@
     <Compile Include="Auth.cs" />
     <Compile Include="Entities\Auth\AccessTokenRequest.cs" />
     <Compile Include="Entities\Auth\DeviceCodeRequest.cs" />
+    <Compile Include="Entities\Error.cs" />
+    <Compile Include="ErrorHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Constants.cs" />
     <EmbeddedResource Include="Properties\Kinopub.Api.rd.xml" />

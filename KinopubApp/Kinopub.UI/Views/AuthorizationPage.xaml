@@ -24,7 +24,7 @@
         <StackPanel
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Opacity="{Binding CodeRequest.code, Converter={StaticResource ReverseNullOpacityConverter}}">
+            Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource ReverseNullOpacityConverter}}">
         <ProgressRing 
             IsActive="True" 
             Foreground="#86ADFB" 
@@ -41,7 +41,7 @@
             Height="Auto"
             HorizontalAlignment="Left"
             VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
-            Opacity="{Binding CodeRequest.code, Converter={StaticResource NullOpacityConverter}}"
+            Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource NullOpacityConverter}}"
             >
             <StackPanel.RenderTransform>
                 <CompositeTransform Rotation="0.145"/>
@@ -62,7 +62,7 @@
                 Style="{StaticResource TitleTextBlockStyle}"
                 Margin="0 0 0 0"/>
                 <TextBlock
-                Text="{Binding CodeRequest.verification_uri}"
+                Text="{Binding DeviceCodeRequest.Data.verification_uri}"
                 Style="{StaticResource TitleTextBlockStyle}"
                 Foreground="#86ADFB"
                 Margin="0 0 0 0"/>
@@ -94,7 +94,7 @@
             <TextBlock
                 HorizontalAlignment="Left"
                 x:Name="UserCodeTextBlock"
-                Text="{Binding DeviceCodeRequestTask.Result.Data.user_code}"
+                Text="{Binding DeviceCodeRequest.Data.user_code}"
                 FontSize="70"
                 TextAlignment="Center"
                 Width="300"
@@ -102,10 +102,10 @@
             <ProgressBar 
                 x:Name="Countdown" 
                 Value="{Binding CountdownCounter}" 
-                Maximum="{Binding CodeRequest.expires_in}" 
+                Maximum="{Binding DeviceCodeRequest.Data.expires_in}" 
                 Height="15"
                 Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
-                Opacity="{Binding CodeRequest.code, Converter={StaticResource NullOpacityConverter}}"
+                Opacity="{Binding DeviceCodeRequest.Data.user_code, Converter={StaticResource NullOpacityConverter}}"
                 HorizontalAlignment="Left"/>
             <!--<TextBlock
                 Text="{Binding CountdownCounter}"/>-->

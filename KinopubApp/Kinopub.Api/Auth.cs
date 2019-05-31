@@ -1,5 +1,9 @@
-﻿using System.Threading;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Appointments;
+using Windows.Graphics.Printing;
 using Kinopub.Api.Entities.Auth;
 using KinopubApi.Settings;
 using RestSharp.Portable;
@@ -11,42 +15,33 @@ namespace Kinopub.Api
     {
         public static async Task<IRestResponse<DeviceCodeRequest>> GetDeviceCodeAsync(string deviceId, string clientSecret)
         {
-            var cancellationTokenSource = new CancellationTokenSource();
-            var client = new RestClient(Constants.Domain);
-
             //Тип запроса - получение кода устройства
             var request = BuildAuthRequest("device_code", deviceId, clientSecret);
 
             // асихронно с десериализацией
-            var restResponse = await client.Execute<DeviceCodeRequest>(request, cancellationTokenSource.Token);
+            var restResponse = await GetRestClient().Execute<DeviceCodeRequest>(request, GetCancelletionTokenSource().Token);
             return restResponse;
         }
 
         public static async Task<IRestResponse<AccessTokenRequest>> GetAccessTokenAsync
             (string deviceId, string clientSecret, string code)
         {
-            var cancellationTokenSource = new CancellationTokenSource();
-            var client = new RestClient(Constants.Domain);
-
             //Тип запроса - получение токена
             var request = BuildAuthRequest("device_token", deviceId, clientSecret);
             request.AddParameter("Code", code);
 
-            var restResponse = await client.Execute<AccessTokenRequest>(request, cancellationTokenSource.Token);
+            var restResponse = await GetRestClient().Execute<AccessTokenRequest>(request, GetCancelletionTokenSource().Token);
             return restResponse;
         }
 
         public static async Task<IRestResponse<AccessTokenRequest>> RefreshTokenAsync
             (string deviceId, string clientSecret, string refreshToken)
         {
-            var cancellationTokenSource = new CancellationTokenSource();
-            var client = new RestClient(Constants.Domain);
-
             //Тип запроса - обновление токена доступа
             var request = BuildAuthRequest("refresh_token", deviceId, clientSecret);
             request.AddParameter("refresh_token", refreshToken);
 
-            var restResponse = await client.Execute<AccessTokenRequest>(request, cancellationTokenSource.Token);
+            var restResponse = await GetRestClient().Execute<AccessTokenRequest>(request, GetCancelletionTokenSource().Token);
             return restResponse;
         }
 
@@ -65,6 +60,19 @@ namespace Kinopub.Api
             request.AddParameter("client_secret", clientSecret);
 
             return request;
+        }
+
+        private static CancellationTokenSource GetCancelletionTokenSource()
+        {
+            return new CancellationTokenSource();
+        }
+
+        private static RestClient GetRestClient()
+        {
+            var client = new RestClient(Constants.Domain);
+            //Ставим таймаут на запрос - 15 секунд
+            client.Timeout = new TimeSpan(0, 0, 0, 15);
+            return client;
         }
     }
 }

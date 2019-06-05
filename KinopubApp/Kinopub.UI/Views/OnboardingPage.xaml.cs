@@ -26,5 +26,11 @@ namespace Kinopub.UI.Views
         {
             this.InitializeComponent();
         }
+
+        private void AuthButton_Click(object sender, RoutedEventArgs e)
+        {
+            AuthViewFrame.Navigate(typeof(AuthorizationPage));
+            AuthViewFrame.Visibility = Visibility.Visible;
+        }
     }
 }

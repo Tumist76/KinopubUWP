@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     >
     <Page.DataContext>
         <vms:AuthorizationViewModel />
@@ -21,34 +20,21 @@
     </Page.Resources>
     <Grid
         Padding="24"
-        Background="#1A1A1A">
+        >
         <StackPanel
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Opacity="{Binding DeviceCodeRequest, Converter={StaticResource ReverseNullOpacityConverter}}">
-        <ProgressRing 
+            <ProgressRing 
             IsActive="True" 
             Foreground="#86ADFB" 
             Height="150" Margin="24,0,0,0" Width="188"
             />
-        <TextBlock
-            x:Uid="AuthLoadingText"
-            Text="Сейчас всё будет, подождите чуток"
-            Style="{StaticResource TitleTextBlockStyle}"
-            />
         </StackPanel>
         <StackPanel
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center" 
             Opacity="{Binding DeviceCodeRequest, Converter={StaticResource NullOpacityConverter}}">
-            
-            <TextBlock
-                x:Uid="CodeMessage"
-                HorizontalAlignment="Left"
-                Margin="0,0,0,50"
-                Text="Привязка устройства"
-                Style="{StaticResource HeaderTextBlockStyle}"
-                />
             <StackPanel
                 x:Name="AuthGuidePanel"
                 >
@@ -57,9 +43,9 @@
                 Text="Перейдите на"
                 Style="{StaticResource TitleTextBlockStyle}"
                 Margin="0 0 0 0"/>
-                <TextBlock
-                Text="{Binding DeviceCodeRequest.Data.VerificationUri}"
-                Style="{StaticResource TitleTextBlockStyle}"
+                <HyperlinkButton
+                Content="{Binding DeviceCodeRequest.Data.VerificationUri}"
+                FontSize="24"
                 Foreground="#86ADFB"
                 Margin="0 0 0 0"/>
                 <TextBlock

@@ -75,7 +75,7 @@ namespace Kinopub.UI.ViewModels
                     {
 
                     };
-                    ShowTestDialog();
+                    //ShowTestDialog();
                     break;
                 case "CountdownCounter":
                     CountdownCounter = ((AuthorizationModel)sender).CountdownCounter;

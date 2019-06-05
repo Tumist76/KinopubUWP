@@ -85,6 +85,9 @@ namespace Kinopub.UI
                         rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
                     }
                 }
+                // Устанавливаем ПРЕДПОЧТИТЕЛЬНЫЙ минимальный размер окна
+                // TODO Не работает, кстати
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(640, 480));
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }

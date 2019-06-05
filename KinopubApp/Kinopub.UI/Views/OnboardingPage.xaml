@@ -13,21 +13,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/ButtonStyles.xaml" />
+                <ResourceDictionary Source="../Resources/TextStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="TitleStyle" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="34"/>
-                <Setter Property="FontWeight" Value="SemiBold"/>
-            </Style>
-            <Style x:Key="SubtitleStyle" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="24"/>
-                <Setter Property="FontWeight" Value="Normal"/>
-            </Style>
-
-            </ResourceDictionary>
-        
+        </ResourceDictionary>
     </Page.Resources>
-
 
     <Grid>
         <Grid.RowDefinitions>
@@ -50,10 +39,11 @@
             Grid.Row="0"
             Margin="40 20 0 0"
             >
-            <Image Source="/Assets/Images/Logo.svg"
-                   Height="100"
-                   Width="100"
-                   ></Image>
+            <Image 
+                Source="/Assets/Images/Logo.svg"
+                Height="100"
+                Width="100"
+                   />
             <TextBlock
                 Text="Добро пожаловать в Кинопаб"
                 Style="{StaticResource TitleStyle}"
@@ -73,31 +63,32 @@
             HorizontalAlignment="Stretch" 
             >
             <StackPanel
-            Orientation="Horizontal"
-            HorizontalAlignment="Center"
-            >
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                >
                 <StackPanel
-                Height="250"
-                VerticalAlignment="Center"
-                Margin="0 0 80 0">
+                    Height="250"
+                    VerticalAlignment="Center"
+                    Margin="0 0 80 0"
+                    >
                     <TextBlock
-                    Text="Уже есть аккаунт и подписка?"
-                    TextAlignment="Center"
-                    Style="{StaticResource TitleTextBlockStyle}"/>
+                        Text="Уже есть аккаунт и подписка?"
+                        TextAlignment="Center"
+                        Style="{StaticResource TitleTextBlockStyle}"/>
                     <TextBlock
-                    Height="90"
-                    Text="Привяжите устройство и начинайте смотреть"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    TextAlignment="Center"
-                    Width="300"
-                    Margin="0 20 0 0"/>
+                        Height="90"
+                        Text="Привяжите устройство и начинайте смотреть"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        Width="300"
+                        Margin="0 20 0 0"/>
                     <Button
-                Background="{ThemeResource SystemControlAcrylicElementBrush}"
-                Content="Авторизоваться"
-                Width="320"
-                Height="50"
-                Margin="0 20 0 0"
-                Style="{StaticResource ButtonRevealStyle}" Click="AuthButton_Click"/>
+                        Background="{ThemeResource SystemControlAcrylicElementBrush}"
+                        Content="Авторизоваться"
+                        Width="320"
+                        Height="50"
+                        Margin="0 20 0 0"
+                        Style="{StaticResource ButtonRevealStyle}" Click="AuthButton_Click"/>
                 </StackPanel>
 
                 <StackPanel
@@ -105,34 +96,33 @@
                 VerticalAlignment="Center"
                 Margin="80 0 0 0">
                     <TextBlock
-                    Text="Нет аккаунта?"
-                    TextAlignment="Center"
-                    Style="{StaticResource TitleTextBlockStyle}"/>
+                        Text="Нет аккаунта?"
+                        TextAlignment="Center"
+                        Style="{StaticResource TitleTextBlockStyle}"/>
                     <TextBlock
-                    Height="90"
-                    Text="Зарегистрируйтесь и начните просмотр всего через несколько минут"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    TextAlignment="Center"
-                    Width="300"
-                    Margin="0 20 0 0"/>
+                        Height="90"
+                        Text="Зарегистрируйтесь и начните просмотр всего через несколько минут"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        Width="300"
+                        Margin="0 20 0 0"/>
                     <Button
-                    Background="{ThemeResource SystemControlAcrylicElementBrush}"
-                    Content="Зарегистрироваться"
-                    Width="320"
-                    Height="50"
-                    Margin="0 20 0 0"
-                    Style="{StaticResource ButtonRevealStyle}"/>
+                        Background="{ThemeResource SystemControlAcrylicElementBrush}"
+                        Content="Зарегистрироваться"
+                        Width="320"
+                        Height="50"
+                        Margin="0 20 0 0"
+                        Style="{StaticResource ButtonRevealStyle}"/>
                 </StackPanel>
             </StackPanel>
             <TextBlock
-        Text="Для использования приложения требуется активная подписка"
-        HorizontalAlignment="Center"
-        Grid.Row="1"
-        VerticalAlignment="Bottom"
-        Margin="0 0 0 30"
-        Style="{StaticResource BodyTextBlockStyle}"/>
+                Text="Для использования приложения требуется активная подписка"
+                HorizontalAlignment="Center"
+                Grid.Row="1"
+                VerticalAlignment="Bottom"
+                Margin="0 0 0 30"
+                Style="{StaticResource BodyTextBlockStyle}"/>
         </StackPanel>
-
         <Frame
             VerticalAlignment="Bottom"
             x:Name="AuthViewFrame"

@@ -18,6 +18,9 @@ using Windows.UI.Xaml.Navigation;
 using Kinopub.UI.Utilities;
 using Kinopub.UI.Views;
 using Kinopub.UI.Models;
+using Windows.UI.ViewManagement;
+using Windows.ApplicationModel.Core;
+using Windows.UI;
 
 namespace Kinopub.UI
 {
@@ -43,6 +46,8 @@ namespace Kinopub.UI
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            this.ExtendAcrylicIntoTitleBar();
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Не повторяйте инициализацию приложения, если в окне уже имеется содержимое,
@@ -77,7 +82,7 @@ namespace Kinopub.UI
                     }
                     else
                     {
-                        rootFrame.Navigate(typeof(AuthorizationPage), e.Arguments);
+                        rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
                     }
                 }
                 // Обеспечение активности текущего окна
@@ -139,5 +144,17 @@ namespace Kinopub.UI
             //TODO: Сохранить состояние приложения и остановить все фоновые операции
             deferral.Complete();
         }
+
+        #region Стилизация окна
+
+        private void ExtendAcrylicIntoTitleBar()
+        {
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+        }
+
+        #endregion
     }
 }

@@ -57,7 +57,6 @@ namespace Kinopub.UI.ViewModels
                 Title = "No wifi connection",
                 Content = "Check your connection and try again.",
                 CloseButtonText = "Ok"
-                
             };
 
             ContentDialogResult result = await noWifiDialog.ShowAsync();
@@ -73,9 +72,8 @@ namespace Kinopub.UI.ViewModels
                     DeviceCodeRequest = ((AuthorizationModel)sender).DeviceCodeRequest;
                     if ((int)DeviceCodeRequest.StatusCode == 0)
                     {
-
+                        //TODO Реализовать ошибку загрузки кода
                     };
-                    //ShowTestDialog();
                     break;
                 case "CountdownCounter":
                     CountdownCounter = ((AuthorizationModel)sender).CountdownCounter;

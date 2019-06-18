@@ -43,8 +43,6 @@ namespace Kinopub.Api.Entities.VideoContent
         public List<Audio> Audios { get; set; }
 
         [JsonProperty("files")]
-
-        [JsonProperty("title")]
-        [JsonProperty("title")]
+        public List<File> Files { get; set; }
     }
 }

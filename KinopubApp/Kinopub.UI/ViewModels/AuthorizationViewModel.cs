@@ -26,6 +26,8 @@ namespace Kinopub.UI.ViewModels
 
         private AuthorizationModel authorizationModel;
 
+        private RelayCommand refreshCodeCommand;
+
         #endregion
 
 
@@ -47,6 +49,18 @@ namespace Kinopub.UI.ViewModels
         public IRestResponse<DeviceCodeRequest> DeviceCodeRequest { get; set; }
 
         public int CountdownCounter { get; set; }
+
+        public RelayCommand RefreshCodeCommand
+        {
+            get
+            {
+                return refreshCodeCommand ??
+                       (refreshCodeCommand = new RelayCommand(obj =>
+                       {
+                           authorizationModel.GetDeviceCodeAsync();
+                       }));
+            }
+        }
 
         #endregion
 

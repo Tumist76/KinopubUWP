@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace Kinopub.Api
             request.AddParameter("Code", code);
 
             var restResponse = await GetRestClient().Execute<AccessTokenRequest>(request, GetCancelletionTokenSource().Token);
+            Debug.WriteLine("Token" + restResponse.Data.AccessToken);
             return restResponse;
         }
 

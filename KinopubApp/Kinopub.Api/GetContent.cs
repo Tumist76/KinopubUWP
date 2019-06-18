@@ -80,7 +80,11 @@ namespace Kinopub.Api
             var restResponse = await GetRestClient().Execute<SearchEntity>(request, GetCancelletionTokenSource().Token);
             return restResponse;
         }
-
+        /// <summary>
+        /// Найти похожие видео
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public async Task<IRestResponse<SearchEntity>> GetSimilarItems(int itemId)
         {
             var request = new RestRequest("/v1/items/similar", Method.GET);
@@ -95,7 +99,7 @@ namespace Kinopub.Api
         /// <param name="itemId"></param>
         /// <returns></returns>
         public async Task<IRestResponse<VideoItem>> GetItem
-            (int itemId)
+            (long itemId)
         {
             var request = new RestRequest("/v1/items/" + itemId,
                 Method.GET);

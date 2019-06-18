@@ -69,6 +69,12 @@
                 Height="15"
                 Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
                 HorizontalAlignment="Left"/>
+            <HyperlinkButton
+                Command="{Binding RefreshCodeCommand}"
+                HorizontalAlignment="Center"
+                Content="Обновить код"
+                Foreground="#86ADFB"
+                Margin="0 20 0 0"/>
         </StackPanel>
     </Grid>
 </Page>

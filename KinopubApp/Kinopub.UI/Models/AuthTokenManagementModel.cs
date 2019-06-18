@@ -12,6 +12,19 @@ namespace Kinopub.UI.Models
     public static class AuthTokenManagementModel
     {
         /// <summary>
+        /// Возвращает токен авторизации
+        /// </summary>
+        /// <returns></returns>
+        public static string GetAuthToken()
+        {
+            if (isAuthorized())
+            {
+                return (string)GetAuthData()[SettingsConstants.AuthAccessToken];
+            }
+
+            return null;
+        }
+        /// <summary>
         /// Возвращает композитное значение сохраненных данных авторизации
         /// </summary>
         /// <returns></returns>

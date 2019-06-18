@@ -15,5 +15,11 @@ namespace Kinopub.Api.Entities.VideoContent
         /// </summary>
         [JsonProperty("perpage")]
         public string PerPage { get; set; }
+
+        /// <summary>
+        /// Общее количество записей
+        /// </summary>
+        [JsonProperty("total_items")]
+        public int TotalItems { get; set; }
     }
 }

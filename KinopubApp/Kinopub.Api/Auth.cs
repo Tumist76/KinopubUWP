@@ -55,7 +55,7 @@ namespace Kinopub.Api
         private static RestRequest BuildAuthRequest(string grantType, string deviceId, string clientSecret)
         {
             var request = new RestRequest("/oauth2/device", Method.POST);
-            request.AddParameter("grant_type", grantType); //Выбираем тип последующей авторизации - получение токена
+            request.AddParameter("grant_type", grantType); //Выбираем тип последующей авторизации
             request.AddParameter("client_id", deviceId);
             request.AddParameter("client_secret", clientSecret);
 

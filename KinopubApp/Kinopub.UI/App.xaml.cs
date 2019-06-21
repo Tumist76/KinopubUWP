@@ -82,7 +82,7 @@ namespace Kinopub.UI
                     }
                     else
                     {
-                        rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
+                        rootFrame.Navigate(typeof(AuthorizationPage), e.Arguments);
                     }
                 }
                 // Устанавливаем ПРЕДПОЧТИТЕЛЬНЫЙ минимальный размер окна

@@ -9,6 +9,7 @@ using Kinopub.Api.Entities.Auth;
 using KinopubApi.Settings;
 using RestSharp.Portable;
 using RestSharp.Portable.HttpClient;
+using Newtonsoft.Json;
 
 namespace Kinopub.Api
 {
@@ -24,16 +25,25 @@ namespace Kinopub.Api
             return restResponse;
         }
 
-        public static async Task<IRestResponse<AccessTokenRequest>> GetAccessTokenAsync
+        public static async Task<AccessTokenRequest> GetAccessTokenAsync
             (string deviceId, string clientSecret, string code)
         {
             //Тип запроса - получение токена
             var request = BuildAuthRequest("device_token", deviceId, clientSecret);
             request.AddParameter("Code", code);
 
-            var restResponse = await GetRestClient().Execute<AccessTokenRequest>(request, GetCancelletionTokenSource().Token);
-            Debug.WriteLine("Token" + restResponse.Data.AccessToken);
-            return restResponse;
+            var restResponse = await GetRestClient().Execute(request, GetCancelletionTokenSource().Token);
+            if (restResponse.IsSuccess)
+            {
+                
+            }
+            else
+            {
+                return null;
+            }
+
+            var tokenRequestData = JsonConvert.DeserializeObject<AccessTokenRequest>(restResponse.Content);
+            return tokenRequestData;
         }
 
         public static async Task<IRestResponse<AccessTokenRequest>> RefreshTokenAsync
@@ -43,8 +53,7 @@ namespace Kinopub.Api
             var request = BuildAuthRequest("refresh_token", deviceId, clientSecret);
             request.AddParameter("refresh_token", refreshToken);
 
-            var restResponse = await GetRestClient().Execute<AccessTokenRequest>(request, GetCancelletionTokenSource().Token);
-            return restResponse;
+            return await GetRestClient().Execute<AccessTokenRequest>(request, GetCancelletionTokenSource().Token);
         }
 
         /// <summary>

@@ -72,13 +72,13 @@ namespace Kinopub.UI.Models
         {
             var tokenRequest = await Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, DeviceCodeRequest.Data.Code);
 
-            if (tokenRequest.IsSuccess)
+            if (tokenRequest != null)
             {
                 countdownTimer.Stop();
                 AuthTokenManagementModel.SaveAuthData
-                (tokenRequest.Data.AccessToken,
-                    tokenRequest.Data.RefreshToken,
-                    tokenRequest.Data.ExpiresIn
+                (tokenRequest.AccessToken,
+                    tokenRequest.RefreshToken,
+                    tokenRequest.ExpiresIn
                 );
                 Authorized = true;
             }

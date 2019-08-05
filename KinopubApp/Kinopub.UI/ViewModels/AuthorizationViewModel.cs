@@ -46,7 +46,7 @@ namespace Kinopub.UI.ViewModels
 
         #region Публичные поля
 
-        public IRestResponse<DeviceCodeRequest> DeviceCodeRequest { get; set; }
+        public DeviceCodeRequest DeviceCodeRequest { get; set; }
 
         public int CountdownCounter { get; set; }
 
@@ -84,10 +84,10 @@ namespace Kinopub.UI.ViewModels
             {
                 case "DeviceCodeRequest":
                     DeviceCodeRequest = ((AuthorizationModel)sender).DeviceCodeRequest;
-                    if ((int)DeviceCodeRequest.StatusCode == 0)
-                    {
-                        //TODO Реализовать ошибку загрузки кода
-                    };
+                    //if ((int)DeviceCodeRequest.StatusCode == 0)
+                    //{
+                    //    //TODO Реализовать ошибку загрузки кода
+                    //};
                     break;
                 case "CountdownCounter":
                     CountdownCounter = ((AuthorizationModel)sender).CountdownCounter;

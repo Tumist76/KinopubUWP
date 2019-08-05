@@ -34,7 +34,9 @@ namespace Kinopub.UI.Models
         /// <summary>
         /// Запрос на код устройства
         /// </summary>
-        public IRestResponse<DeviceCodeRequest> DeviceCodeRequest { get; set; }
+        public DeviceCodeRequest DeviceCodeRequest {
+            get;
+            set; }
 
         public bool Authorized { get; set; }
 
@@ -58,10 +60,10 @@ namespace Kinopub.UI.Models
         public async Task GetDeviceCodeAsync()
         {
             DeviceCodeRequest = await Auth.GetDeviceCodeAsync(Constants.DeviceId, Constants.DeviceSecret);
-            if (DeviceCodeRequest.IsSuccess)
-            {
+            //if (DeviceCodeRequest.IsSuccess)
+            //{
                 ExpirationCountdown();
-            }
+            //}
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Kinopub.UI.Models
         /// <returns></returns>
         public async Task GetAccessTokenAsync()
         {
-            var tokenRequest = await Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, DeviceCodeRequest.Data.Code);
+            var tokenRequest = await Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, DeviceCodeRequest.Code);
 
             if (tokenRequest != null)
             {
@@ -89,7 +91,7 @@ namespace Kinopub.UI.Models
         /// </summary>
         private void ExpirationCountdown()
         {
-            CountdownCounter = DeviceCodeRequest.Data.ExpiresIn;
+            CountdownCounter = DeviceCodeRequest.ExpiresIn;
             countdownTimer = new DispatcherTimer();
             countdownTimer.Tick += CountdownTimer_Tick;
             countdownTimer.Interval = new TimeSpan(0, 0, 1);
@@ -113,7 +115,7 @@ namespace Kinopub.UI.Models
                 GetDeviceCodeAsync();
             }
             //Выполняет запрос на получение токена доступа через заданный API интервал
-            if (CountdownCounter % DeviceCodeRequest.Data.Interval == 0)
+            if (CountdownCounter % DeviceCodeRequest.Interval == 0)
             {
                 GetAccessTokenAsync();
                 return;

@@ -7,22 +7,42 @@ using Windows.ApplicationModel.Appointments;
 using Windows.Graphics.Printing;
 using Kinopub.Api.Entities.Auth;
 using KinopubApi.Settings;
-using RestSharp.Portable;
-using RestSharp.Portable.HttpClient;
+using RestSharp;
 using Newtonsoft.Json;
 
 namespace Kinopub.Api
 {
     public static class Auth
     {
-        public static async Task<IRestResponse<DeviceCodeRequest>> GetDeviceCodeAsync(string deviceId, string clientSecret)
+        public static async Task<DeviceCodeRequest> GetDeviceCodeAsync(string deviceId, string clientSecret)
         {
             //Тип запроса - получение кода устройства
             var request = BuildAuthRequest("device_code", deviceId, clientSecret);
 
             // асихронно с десериализацией
-            var restResponse = await GetRestClient().Execute<DeviceCodeRequest>(request, GetCancelletionTokenSource().Token);
-            return restResponse;
+            IRestResponse<DeviceCodeRequest> responseResult = null;
+            GetRestClient().ExecuteAsync<DeviceCodeRequest>(request, response =>
+            {
+                responseResult = response;
+            });
+
+            CheckResult(responseResult);
+
+            return responseResult.Data;
+        }
+
+        /// <summary>
+        /// Выполняет проверку результатов запроса
+        /// </summary>
+        /// <param name="response"></param>
+        private static void CheckResult(IRestResponse response)
+        {
+            if (response.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, response.ErrorException);
+                throw twilioException;
+            }
         }
 
         public static async Task<AccessTokenRequest> GetAccessTokenAsync
@@ -32,28 +52,33 @@ namespace Kinopub.Api
             var request = BuildAuthRequest("device_token", deviceId, clientSecret);
             request.AddParameter("Code", code);
 
-            var restResponse = await GetRestClient().Execute(request, GetCancelletionTokenSource().Token);
-            if (restResponse.IsSuccess)
+            IRestResponse<AccessTokenRequest> responseResult = null;
+            GetRestClient().ExecuteAsync<AccessTokenRequest>(request, response =>
             {
-                
-            }
-            else
-            {
-                return null;
-            }
+                responseResult = response;
+            });
 
-            var tokenRequestData = JsonConvert.DeserializeObject<AccessTokenRequest>(restResponse.Content);
-            return tokenRequestData;
+            CheckResult(responseResult);
+
+            return responseResult.Data;
         }
 
-        public static async Task<IRestResponse<AccessTokenRequest>> RefreshTokenAsync
+        public static async Task<AccessTokenRequest> RefreshTokenAsync
             (string deviceId, string clientSecret, string refreshToken)
         {
             //Тип запроса - обновление токена доступа
             var request = BuildAuthRequest("refresh_token", deviceId, clientSecret);
             request.AddParameter("refresh_token", refreshToken);
 
-            return await GetRestClient().Execute<AccessTokenRequest>(request, GetCancelletionTokenSource().Token);
+            IRestResponse<AccessTokenRequest> responseResult = null;
+            GetRestClient().ExecuteAsync<AccessTokenRequest>(request, response =>
+            {
+                responseResult = response;
+            });
+
+            CheckResult(responseResult);
+
+            return responseResult.Data;
         }
 
         /// <summary>
@@ -82,7 +107,7 @@ namespace Kinopub.Api
         {
             var client = new RestClient(Constants.Domain);
             //Ставим таймаут на запрос - 15 секунд
-            client.Timeout = new TimeSpan(0, 0, 0, 15);
+            client.Timeout = 15000;
             return client;
         }
     }

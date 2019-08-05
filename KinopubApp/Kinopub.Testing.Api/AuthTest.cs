@@ -15,10 +15,10 @@ namespace ApiTest
 
             var expectedLength = 5;
 
-            Debug.WriteLine("Device Code: " + response.Result.Data.Code);
-            Debug.WriteLine("User Code: " + response.Result.Data.UserCode);
+            Debug.WriteLine("Device Code: " + response.Result.Code);
+            Debug.WriteLine("User Code: " + response.Result.UserCode);
 
-            Assert.AreEqual(expectedLength, response.Result.Data.UserCode.Length);
+            Assert.AreEqual(expectedLength, response.Result.UserCode.Length);
         }
     }
 }

@@ -56,13 +56,16 @@ namespace Kinopub.UI.Models
         public static async Task RefreshAccessToken()
         {
             var refreshTokenTask = await Auth.RefreshTokenAsync(Constants.DeviceId, Constants.DeviceSecret, GetAuthData()[SettingsConstants.AuthRefreshToken].ToString());
-            if (refreshTokenTask.IsSuccess)
-            {
+
+            //TODO Глянуть, будет ли корректно работать обработчик в классе Auth.
+            //Кажется, необходимо строить свой
+            //if (refreshTokenTask.IsSuccess)
+            //{
                 SaveAuthData(
-                    refreshTokenTask.Data.AccessToken,
-                    refreshTokenTask.Data.RefreshToken,
-                    refreshTokenTask.Data.ExpiresIn);
-            }
+                    refreshTokenTask.AccessToken,
+                    refreshTokenTask.RefreshToken,
+                    refreshTokenTask.ExpiresIn);
+            //}
         }
         /// <summary>
         /// Проверяет валидность токена доступа

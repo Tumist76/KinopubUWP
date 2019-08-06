@@ -12,18 +12,20 @@
         <vms:MainPageVM/>
     </Page.DataContext>
     <Grid>
-    <TextBlock
+    <!--<TextBlock
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         FontSize="40"
-        Text="Тут пока ничего нет :("/>
+        Text="Тут пока ничего нет :("/>-->
     <ListView 
         MaxHeight="400"
         ItemsSource="{Binding Items}"
         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
         ScrollViewer.HorizontalScrollBarVisibility="Auto"
         ScrollViewer.HorizontalScrollMode="Enabled"                  
-        ScrollViewer.VerticalScrollMode="Disabled" ItemClick="ListView_ItemClick">
+        ScrollViewer.VerticalScrollMode="Disabled" 
+        IsItemClickEnabled="True"
+        ItemClick="ListView_ItemClick">
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>
                 <StackPanel Background="Transparent" Orientation="Horizontal" />

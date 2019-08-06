@@ -74,7 +74,7 @@ namespace Kinopub.UI.Models
         {
             var tokenRequest = await Auth.GetAccessTokenAsync(Constants.DeviceId, Constants.DeviceSecret, DeviceCodeRequest.Code);
 
-            if (tokenRequest != null)
+            if (tokenRequest.AccessToken != null)
             {
                 countdownTimer.Stop();
                 AuthTokenManagementModel.SaveAuthData

@@ -44,7 +44,7 @@
                 Style="{StaticResource TitleTextBlockStyle}"
                 Margin="0 0 0 0"/>
                 <HyperlinkButton
-                Content="{Binding DeviceCodeRequest.Data.VerificationUri}"
+                Content="{Binding DeviceCodeRequest.VerificationUri}"
                 FontSize="24"
                 Foreground="#86ADFB"
                 Margin="0 0 0 0"/>
@@ -57,7 +57,7 @@
             <TextBlock
                 HorizontalAlignment="Left"
                 x:Name="UserCodeTextBlock"
-                Text="{Binding DeviceCodeRequest.Data.UserCode}"
+                Text="{Binding DeviceCodeRequest.UserCode}"
                 FontSize="70"
                 TextAlignment="Center"
                 Width="300"
@@ -65,7 +65,7 @@
             <ProgressBar 
                 x:Name="Countdown" 
                 Value="{Binding CountdownCounter}" 
-                Maximum="{Binding DeviceCodeRequest.Data.ExpiresIn}" 
+                Maximum="{Binding DeviceCodeRequest.ExpiresIn}" 
                 Height="15"
                 Width="{Binding ElementName=UserCodeTextBlock, Path=Width}"
                 HorizontalAlignment="Left"/>

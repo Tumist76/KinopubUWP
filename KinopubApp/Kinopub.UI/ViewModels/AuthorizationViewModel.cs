@@ -46,7 +46,9 @@ namespace Kinopub.UI.ViewModels
 
         #region Публичные поля
 
-        public DeviceCodeRequest DeviceCodeRequest { get; set; }
+        public DeviceCodeRequest DeviceCodeRequest {
+            get;
+            set; }
 
         public int CountdownCounter { get; set; }
 

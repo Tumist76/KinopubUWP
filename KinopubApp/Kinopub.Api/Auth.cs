@@ -21,10 +21,7 @@ namespace Kinopub.Api
 
             // асихронно с десериализацией
             IRestResponse<DeviceCodeRequest> responseResult = null;
-            GetRestClient().ExecuteAsync<DeviceCodeRequest>(request, response =>
-            {
-                responseResult = response;
-            });
+            responseResult = await GetRestClient().ExecuteTaskAsync<DeviceCodeRequest>(request);
 
             CheckResult(responseResult);
 
@@ -53,10 +50,7 @@ namespace Kinopub.Api
             request.AddParameter("Code", code);
 
             IRestResponse<AccessTokenRequest> responseResult = null;
-            GetRestClient().ExecuteAsync<AccessTokenRequest>(request, response =>
-            {
-                responseResult = response;
-            });
+            responseResult = await GetRestClient().ExecuteTaskAsync<AccessTokenRequest>(request);
 
             CheckResult(responseResult);
 
@@ -71,10 +65,7 @@ namespace Kinopub.Api
             request.AddParameter("refresh_token", refreshToken);
 
             IRestResponse<AccessTokenRequest> responseResult = null;
-            GetRestClient().ExecuteAsync<AccessTokenRequest>(request, response =>
-            {
-                responseResult = response;
-            });
+            responseResult = await GetRestClient().ExecuteTaskAsync<AccessTokenRequest>(request);
 
             CheckResult(responseResult);
 

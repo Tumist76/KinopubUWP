@@ -10,6 +10,6 @@ namespace Kinopub.Api.Entities
         public List<VideoItem> Items { get; set; }
 
         [JsonProperty("pagination")]
-        public List<Pagination> Pagination { get; set; }
+        public Pagination Pagination { get; set; }
     }
 }

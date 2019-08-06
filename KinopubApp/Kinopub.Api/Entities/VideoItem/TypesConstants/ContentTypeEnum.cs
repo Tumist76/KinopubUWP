@@ -2,11 +2,12 @@
 {
     public enum ContentTypeEnum
     {
-        Movie = 0,
-        TvShow = 1,
-        Movie3d = 2,
-        Concert = 3,
-        MovieDocumental = 4, 
-        TvShowDocumental = 5
+        Empty = 0,
+        Movie = 1,
+        TvShow = 2,
+        Movie3d = 3,
+        Concert = 4,
+        MovieDocumental = 5, 
+        TvShowDocumental = 6
     }
 }

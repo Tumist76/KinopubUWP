@@ -146,8 +146,10 @@ namespace Kinopub.Api.Entities.VideoContent
         /// </summary>
         [JsonProperty("subscribed")]
         public bool Subscribed { get; set; }
+
         [JsonProperty("posters")]
-        public Poster Poster { get; set; }
+        public Poster Posters { get; set; }
+
         [JsonProperty("trailer")]
         public Trailer Trailer { get; set; }
         

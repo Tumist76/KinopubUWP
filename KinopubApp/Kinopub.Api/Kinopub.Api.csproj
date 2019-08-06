@@ -147,6 +147,7 @@
     <Compile Include="GetContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Constants.cs" />
+    <Compile Include="Tools\JsonSerilializer.cs" />
     <EmbeddedResource Include="Properties\Kinopub.Api.rd.xml" />
   </ItemGroup>
   <ItemGroup>

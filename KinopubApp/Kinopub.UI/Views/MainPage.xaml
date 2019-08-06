@@ -18,7 +18,17 @@
         FontSize="40"
         Text="Тут пока ничего нет :("/>
     <ListView 
-        ItemsSource="{Binding Items}">
+        MaxHeight="400"
+        ItemsSource="{Binding Items}"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+        ScrollViewer.HorizontalScrollMode="Enabled"                  
+        ScrollViewer.VerticalScrollMode="Disabled">
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Background="Transparent" Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel MaxWidth="180"

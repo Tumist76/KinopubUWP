@@ -23,7 +23,7 @@ namespace Kinopub.UI.ViewModels
         public MainPageVM()
         {
             var itemsList = new GetContent(AuthTokenManagementModel.GetAuthToken())
-                .GetHotItems(ContentTypeEnum.Movie, 1, 1).Result.Items;
+                .GetHotItems(ContentTypeEnum.Movie, 10, 1).Result.Items;
             Items = new ObservableCollection<VideoItem>(itemsList);
         }
     }

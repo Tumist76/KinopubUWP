@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Kinopub.UI.ViewModels;
+using Kinopub.Api.Entities.VideoContent;
+using Kinopub.UI.Views;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
@@ -28,5 +31,16 @@ namespace Kinopub.UI
             this.InitializeComponent();
         }
 
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ListViewItem listItem = ((sender as ListView).SelectedItem as ListViewItem);
+            var itemId = ((VideoItem) listItem.DataContext).Id;
+            Frame rootFrame = Window.Current.Content as Frame;
+            Frame.Navigate(typeof(ElementPage), itemId);
+            //TODO Перенести переход на другую страницу с code-behind в MVVM. Или нет, потому что добавляет сложности?
+            //var viewModel = (MainPageVM)DataContext;
+            //if (viewModel.MyCommand.CanExecute(null))
+            //    viewModel.MyCommand.Execute(null);
+        }
     }
 }

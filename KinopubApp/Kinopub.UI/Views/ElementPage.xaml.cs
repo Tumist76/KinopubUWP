@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Kinopub.UI.ViewModels;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -20,11 +21,12 @@ namespace Kinopub.UI.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class VideoElement : Page
+    public sealed partial class ElementPage : Page
     {
-        public VideoElement()
+        public ElementPage(long itemId)
         {
             this.InitializeComponent();
+            ((VideoItemVM)DataContext).ItemId = itemId;
         }
     }
 }

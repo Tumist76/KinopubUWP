@@ -102,7 +102,7 @@ namespace Kinopub.Api
         /// </summary>
         /// <param name="itemId"></param>
         /// <returns></returns>
-        public async Task<IRestResponse<VideoItem>> GetItem
+        public async Task<VideoItem> GetItem
             (long itemId)
         {
             var request = new RestRequest("/v1/items/" + itemId,
@@ -112,7 +112,7 @@ namespace Kinopub.Api
                 AccessToken);
 
             var restResponse = await GetRestClient().ExecuteTaskAsync<VideoItem>(request);
-            return restResponse;
+            return restResponse.Data;
         }
 
         #endregion

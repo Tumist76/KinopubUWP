@@ -23,13 +23,14 @@
         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
         ScrollViewer.HorizontalScrollBarVisibility="Auto"
         ScrollViewer.HorizontalScrollMode="Enabled"                  
-        ScrollViewer.VerticalScrollMode="Disabled">
+        ScrollViewer.VerticalScrollMode="Disabled" ItemClick="ListView_ItemClick">
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>
                 <StackPanel Background="Transparent" Orientation="Horizontal" />
             </ItemsPanelTemplate>
         </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
+            <ListView.ItemTemplate
+                >
                 <DataTemplate>
                     <StackPanel MaxWidth="180"
                         Orientation="Vertical">

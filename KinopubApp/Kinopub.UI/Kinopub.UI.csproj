@@ -123,7 +123,11 @@
     <Compile Include="Converters\NullOpacityConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringSubstringConverter.cs" />
+    <Compile Include="ViewModels\VideoItemVM.cs" />
     <Compile Include="ViewModels\MainPageVM.cs" />
+    <Compile Include="Views\ElementPage.xaml.cs">
+      <DependentUpon>ElementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -142,9 +146,6 @@
     </Compile>
     <Compile Include="Views\OnboardingPage.xaml.cs">
       <DependentUpon>OnboardingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VideoElement.xaml.cs">
-      <DependentUpon>VideoElement.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +314,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\ElementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -338,10 +343,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OnboardingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VideoElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

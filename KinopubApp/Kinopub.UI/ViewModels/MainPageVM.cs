@@ -11,6 +11,7 @@ using Kinopub.Api;
 using Kinopub.Api.Entities.VideoContent;
 using Kinopub.Api.Entities.VideoContent.TypesConstants;
 using Kinopub.UI.Models;
+using Kinopub.UI.Utilities;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -19,6 +20,25 @@ namespace Kinopub.UI.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<VideoItem> Items { get; set; }
+
+        //TODO Разобраться, как делать переход между страниц
+
+        //public RelayCommand OpenItemPageCommand
+        //{
+        //    get
+        //    {
+        //        if (openItemPageCommand == null)
+        //            openItemPageCommand = new RelayCommand(p => OpenItemPage(p));
+        //        return openItemPageCommand;
+        //    }
+        //}
+
+        //private Action<object> OpenItemPage(object itemId)
+        //{
+        //    return null;
+        //}
+
+        //private RelayCommand openItemPageCommand;
 
         public MainPageVM()
         {

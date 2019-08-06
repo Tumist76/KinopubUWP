@@ -18,9 +18,9 @@ namespace VideoGetTest
 
             var expectedTitle = "Утиные истории / DuckTales";
 
-            Debug.WriteLine("Plot: " + DuckTales.Result.Data.Plot);
+            Debug.WriteLine("Plot: " + DuckTales.Result.Plot);
 
-            Assert.AreEqual(expectedTitle, DuckTales.Result.Data.Title);
+            Assert.AreEqual(expectedTitle, DuckTales.Result.Title);
         }
     }
 }

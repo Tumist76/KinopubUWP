@@ -47,7 +47,7 @@ namespace Kinopub.Api
         {
             //Тип запроса - получение токена
             var request = BuildAuthRequest("device_token", deviceId, clientSecret);
-            request.AddParameter("Code", code);
+            request.AddParameter("сode", code);
 
             IRestResponse<AccessTokenRequest> responseResult = null;
             responseResult = await GetRestClient().ExecuteTaskAsync<AccessTokenRequest>(request);

@@ -23,10 +23,14 @@ namespace Kinopub.UI.Views
     /// </summary>
     public sealed partial class ElementPage : Page
     {
-        public ElementPage(long itemId)
+        public ElementPage()
         {
             this.InitializeComponent();
-            ((VideoItemVM)DataContext).ItemId = itemId;
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var parameter = (long)e.Parameter;
+            ((VideoItemVM)DataContext).ItemId = parameter;
         }
     }
 }

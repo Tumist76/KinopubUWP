@@ -33,8 +33,8 @@ namespace Kinopub.UI
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ListViewItem listItem = ((sender as ListView).SelectedItem as ListViewItem);
-            var itemId = ((VideoItem) listItem.DataContext).Id;
+            var clickedItem = (VideoItem)e.ClickedItem;
+            var itemId = clickedItem.Id;
             Frame rootFrame = Window.Current.Content as Frame;
             Frame.Navigate(typeof(ElementPage), itemId);
             //TODO Перенести переход на другую страницу с code-behind в MVVM. Или нет, потому что добавляет сложности?

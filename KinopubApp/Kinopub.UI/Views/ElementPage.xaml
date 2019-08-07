@@ -11,8 +11,10 @@
     <Page.DataContext>
         <vms:VideoItemVM/>
     </Page.DataContext>
-    <Grid DataContext="{Binding}">
-    <TextBlock Text="{Binding }"/>
-
-    </Grid>
+    <StackPanel>
+        <Image MaxWidth="200"
+            Source="{Binding ItemProperties.Posters.MediumUrl}"/>
+        <TextBlock Text="{Binding ItemProperties.Title}"/>
+        <Button Content="Воспроизвести"></Button>
+    </StackPanel>
 </Page>

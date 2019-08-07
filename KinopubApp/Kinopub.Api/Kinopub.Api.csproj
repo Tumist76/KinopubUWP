@@ -124,6 +124,7 @@
     <Compile Include="Entities\Auth\AccessTokenRequest.cs" />
     <Compile Include="Entities\Auth\DeviceCodeRequest.cs" />
     <Compile Include="Entities\Error.cs" />
+    <Compile Include="Entities\GetItem.cs" />
     <Compile Include="Entities\SearchEntity.cs" />
     <Compile Include="Entities\VideoItem\Pagination.cs" />
     <Compile Include="Entities\VideoItem\TypesConstants\ContentTypes.cs" />

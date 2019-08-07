@@ -8,7 +8,7 @@ namespace Kinopub.Api.Entities.VideoContent
         #region Общая информация
 
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("title")] // 'Название / Оригинальное название'
         public string Title { get; set; }

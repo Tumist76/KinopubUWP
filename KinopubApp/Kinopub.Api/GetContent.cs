@@ -7,6 +7,8 @@ using Kinopub.Api.Entities.VideoContent;
 using Kinopub.Api.Entities.VideoContent.TypesConstants;
 using RestSharp;
 using Kinopub.Api.Tools;
+using Newtonsoft.Json;
+using RestSharp.Portable.Deserializers;
 
 namespace Kinopub.Api
 {
@@ -111,8 +113,10 @@ namespace Kinopub.Api
             request.AddHeader("Authorization",
                 AccessToken);
 
-            var restResponse = await GetRestClient().ExecuteTaskAsync<VideoItem>(request);
-            return restResponse.Data;
+            //TODO @todo поменять на асинхронную работу с одновременной десереализацией
+            var restResponse = GetRestClient().Execute(request);
+            var response = JsonConvert.DeserializeObject<GetItem>(restResponse.Content);
+            return response.Item;
         }
 
         #endregion

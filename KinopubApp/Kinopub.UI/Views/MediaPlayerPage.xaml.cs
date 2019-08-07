@@ -21,23 +21,16 @@ namespace Kinopub.UI.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class ElementPage : Page
+    public sealed partial class MediaPlayerPage : Page
     {
-        public ElementPage()
+        public MediaPlayerPage()
         {
             this.InitializeComponent();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parameter = (long)e.Parameter;
-            ((VideoItemVM)DataContext).ItemId = parameter;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var hls4Url = ((VideoItemVM)DataContext).ItemProperties.Hls4Url;
-            Frame rootFrame = Window.Current.Content as Frame;
-            Frame.Navigate(typeof(MediaPlayerPage), hls4Url);
+            var parameter = (string)e.Parameter;
+            ((MediaPlayerVM)DataContext).StreamUrl = parameter;
         }
     }
 }

@@ -15,3 +15,6 @@
     	|tokenRequest.AccessToken|"3dgvio5bflojk6kyehgc3ntlqvrlztja"|string|
 		|tokenRequest.ExpiresIn	|86400|int|
 		|tokenRequest.RefreshToken|"w03mhw0dqev81g641n30kxxflwra3ql9"|string|
+
+##16:30
+- ЗАПУСТИЛОСЬ ВИДЕООООООО. Первый запущенный фильм - Рокетмен. И уже сразу подхватывает озвучку и субтитры. Каеф. Лагает, потому что качество, как я понимаю, выбирается самое высокое. Предстоит много ковыряния еще, но чирт, РАБОТАЕТ!!!

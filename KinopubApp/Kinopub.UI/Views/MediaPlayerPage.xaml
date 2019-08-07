@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Kinopub.UI.Views.ElementPage"
+    x:Class="Kinopub.UI.Views.MediaPlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Kinopub.UI.Views"
@@ -7,14 +7,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
     mc:Ignorable="d"
+
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <vms:VideoItemVM/>
+        <vms:MediaPlayerVM/>
     </Page.DataContext>
-    <StackPanel>
-        <Image MaxWidth="200"
-            Source="{Binding ItemProperties.Posters.MediumUrl}"/>
-        <TextBlock Text="{Binding ItemProperties.Title}"/>
-        <Button Content="Воспроизвести" Click="Button_Click"></Button>
-    </StackPanel>
+    <Grid>
+        <TextBlock
+            Text="Test"/>
+        <MediaPlayerElement
+            Source="{Binding VideoMediaSource}"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Bottom"
+            AreTransportControlsEnabled="True"
+        />
+    </Grid>
 </Page>

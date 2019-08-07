@@ -123,6 +123,7 @@
     <Compile Include="Converters\NullOpacityConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringSubstringConverter.cs" />
+    <Compile Include="ViewModels\MediaPlayerVM.cs" />
     <Compile Include="ViewModels\VideoItemVM.cs" />
     <Compile Include="ViewModels\MainPageVM.cs" />
     <Compile Include="Views\ElementPage.xaml.cs">
@@ -143,6 +144,9 @@
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
     <Compile Include="Views\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MediaPlayerPage.xaml.cs">
+      <DependentUpon>MediaPlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OnboardingPage.xaml.cs">
       <DependentUpon>OnboardingPage.xaml</DependentUpon>
@@ -335,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AuthorizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MediaPlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

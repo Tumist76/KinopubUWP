@@ -15,7 +15,12 @@
     <Grid>
         <TextBlock
             Text="Test"/>
+        <Button Content="Глянуть доступные качества"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Click="ButtonBase_OnClick"/>
         <MediaPlayerElement
+            x:Name="PlayerElement"
             Source="{Binding VideoMediaSource}"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Bottom"

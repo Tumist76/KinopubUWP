@@ -32,5 +32,10 @@ namespace Kinopub.UI.Views
             var parameter = (string)e.Parameter;
             ((MediaPlayerVM)DataContext).StreamUrl = parameter;
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -88,7 +88,7 @@ namespace Kinopub.UI.ViewModels
                     DeviceCodeRequest = ((AuthorizationModel)sender).DeviceCodeRequest;
                     //if ((int)DeviceCodeRequest.StatusCode == 0)
                     //{
-                    //    //TODO Реализовать ошибку загрузки кода
+                    //    // @todo Реализовать ошибку загрузки кода
                     //};
                     break;
                 case "CountdownCounter":

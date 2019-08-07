@@ -61,7 +61,7 @@ namespace Kinopub.UI
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Загрузить состояние из ранее приостановленного приложения
+                    // @todo: Загрузить состояние из ранее приостановленного приложения
                 }
 
                 // Размещение фрейма в текущем окне
@@ -144,7 +144,7 @@ namespace Kinopub.UI
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Сохранить состояние приложения и остановить все фоновые операции
+            // @todo: Сохранить состояние приложения и остановить все фоновые операции
             deferral.Complete();
         }
 

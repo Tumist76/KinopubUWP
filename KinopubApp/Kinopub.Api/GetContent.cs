@@ -67,7 +67,7 @@ namespace Kinopub.Api
             var request = BuildRequest("hot", contentType, itemsPerPage, page);
             var restResponse = GetRestClient().Execute<SearchEntity>(request);
 
-            //TODO Сделать нормальный таймаут и обработчик ошибок
+            // @todo Сделать нормальный таймаут и обработчик ошибок
             //@body При некорректном запросе здесь приложение просто вешается. Так быть не должно. 
             //Нужно корректная обработка ошибок с выводом тех, которые могут быть важны пользователю, на экран.
             return restResponse.Data;
@@ -113,7 +113,7 @@ namespace Kinopub.Api
             request.AddHeader("Authorization",
                 AccessToken);
 
-            //TODO @todo поменять на асинхронную работу с одновременной десереализацией
+            // @todo @todo поменять на асинхронную работу с одновременной десереализацией
             var restResponse = GetRestClient().Execute(request);
             var response = JsonConvert.DeserializeObject<GetItem>(restResponse.Content);
             return response.Item;
@@ -138,7 +138,7 @@ namespace Kinopub.Api
             request.AddHeader("Authorization",
                 AccessToken);
 
-            //TODO Сделать какой-то более красивый враппер для этого распределения
+            // @todo Сделать какой-то более красивый враппер для этого распределения
             string chosenType = null; //Пусть будет пока выбор по умолчанию такой
             switch (type)
             {

@@ -21,7 +21,7 @@ namespace Kinopub.UI.ViewModels
 
         public ObservableCollection<VideoItem> Items { get; set; }
 
-        //TODO Разобраться, как делать переход между страниц
+        // @todo Разобраться, как делать переход между страниц
 
         //public RelayCommand OpenItemPageCommand
         //{

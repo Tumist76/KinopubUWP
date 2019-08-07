@@ -37,7 +37,7 @@ namespace Kinopub.UI
             var itemId = clickedItem.Id;
             Frame rootFrame = Window.Current.Content as Frame;
             Frame.Navigate(typeof(ElementPage), itemId);
-            //TODO Перенести переход на другую страницу с code-behind в MVVM. Или нет, потому что добавляет сложности?
+            // @todo Перенести переход на другую страницу с code-behind в MVVM. Или нет, потому что добавляет сложности?
             //var viewModel = (MainPageVM)DataContext;
             //if (viewModel.MyCommand.CanExecute(null))
             //    viewModel.MyCommand.Execute(null);

@@ -12,7 +12,7 @@ namespace Kinopub.Api
 {
     public static class ErrorHandler
     {
-        //TODO Написать логику хендлера для разных ошибок. Устранимые ошибки должны автоматически перезапускать метод запроса
+        // @todo Написать логику хендлера для разных ошибок. Устранимые ошибки должны автоматически перезапускать метод запроса
         public static void CheckResult(IRestResponse response)
         {
             if (response.ErrorException != null)

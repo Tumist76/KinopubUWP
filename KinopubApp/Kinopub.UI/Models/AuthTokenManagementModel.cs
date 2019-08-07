@@ -57,7 +57,7 @@ namespace Kinopub.UI.Models
         {
             var refreshTokenTask = await Auth.RefreshTokenAsync(Constants.DeviceId, Constants.DeviceSecret, GetAuthData()[SettingsConstants.AuthRefreshToken].ToString());
 
-            //TODO Глянуть, будет ли корректно работать обработчик в классе Auth.
+            // @todo Глянуть, будет ли корректно работать обработчик в классе Auth.
             //Кажется, необходимо строить свой
             //if (refreshTokenTask.IsSuccess)
             //{

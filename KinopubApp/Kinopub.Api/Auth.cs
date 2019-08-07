@@ -56,7 +56,7 @@ namespace Kinopub.Api
             var request = BuildAuthRequest("refresh_token", deviceId, clientSecret);
             request.AddParameter("refresh_token", refreshToken);
 
-            //TODO Переделать обратно в асинхронный вариант с одновременной десереализацией
+            // @todo Переделать обратно в асинхронный вариант с одновременной десереализацией
             //Но всё это после отладки, конечно же
             IRestResponse responseResult = null;
             responseResult = GetRestClient().Execute(request);

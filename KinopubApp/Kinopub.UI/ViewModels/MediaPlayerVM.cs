@@ -17,7 +17,7 @@ namespace Kinopub.UI.ViewModels
             set
             {
                 streamUrl = value;
-                InitializeAdaptiveMediaSource(new Uri(streamUrl));
+                //InitializeAdaptiveMediaSource(new Uri(streamUrl));
             }
         }
 

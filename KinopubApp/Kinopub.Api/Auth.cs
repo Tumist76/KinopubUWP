@@ -23,7 +23,7 @@ namespace Kinopub.Api
             IRestResponse<DeviceCodeRequest> responseResult = null;
             responseResult = await GetRestClient().ExecuteTaskAsync<DeviceCodeRequest>(request);
 
-            CheckResult(responseResult);
+            ErrorHandler.CheckResult(responseResult);
 
             return responseResult.Data;
         }
@@ -32,15 +32,7 @@ namespace Kinopub.Api
         /// Выполняет проверку результатов запроса
         /// </summary>
         /// <param name="response"></param>
-        private static void CheckResult(IRestResponse response)
-        {
-            if (response.ErrorException != null)
-            {
-                const string message = "Error retrieving response.  Check inner details for more info.";
-                var twilioException = new ApplicationException(message, response.ErrorException);
-                throw twilioException;
-            }
-        }
+
 
         public static async Task<AccessTokenRequest> GetAccessTokenAsync
             (string deviceId, string clientSecret, string code)
@@ -52,7 +44,7 @@ namespace Kinopub.Api
             IRestResponse<AccessTokenRequest> responseResult = null;
             responseResult = await GetRestClient().ExecuteTaskAsync<AccessTokenRequest>(request);
 
-            CheckResult(responseResult);
+            ErrorHandler.CheckResult(responseResult);
 
             return responseResult.Data;
         }
@@ -64,12 +56,16 @@ namespace Kinopub.Api
             var request = BuildAuthRequest("refresh_token", deviceId, clientSecret);
             request.AddParameter("refresh_token", refreshToken);
 
-            IRestResponse<AccessTokenRequest> responseResult = null;
-            responseResult = await GetRestClient().ExecuteTaskAsync<AccessTokenRequest>(request);
+            //TODO Переделать обратно в асинхронный вариант с одновременной десереализацией
+            //Но всё это после отладки, конечно же
+            IRestResponse responseResult = null;
+            responseResult = GetRestClient().Execute(request);
 
-            CheckResult(responseResult);
+            var response = JsonConvert.DeserializeObject<AccessTokenRequest>(responseResult.Content);
 
-            return responseResult.Data;
+            //ErrorHandler.CheckResult(responseResult);
+
+            return response;
         }
 
         /// <summary>

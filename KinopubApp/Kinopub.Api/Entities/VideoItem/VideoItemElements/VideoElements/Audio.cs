@@ -27,10 +27,10 @@ namespace Kinopub.Api.Entities.VideoContent.VideoElements
         public string Language { get; set; }
 
         [JsonProperty("type")]
-        public List<AudioType> Type { get; set; }
+        public AudioType Type { get; set; }
 
         [JsonProperty("author")]
-        public List<AudioAuthor> Author { get; set; }
+        public AudioAuthor Author { get; set; }
 
     }
 }

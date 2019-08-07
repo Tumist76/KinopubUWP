@@ -129,6 +129,7 @@
     <Compile Include="Entities\VideoItem\Pagination.cs" />
     <Compile Include="Entities\VideoItem\TypesConstants\ContentTypes.cs" />
     <Compile Include="Entities\VideoItem\TypesConstants\ContentTypeEnum.cs" />
+    <Compile Include="Entities\VideoItem\ItemContent.cs" />
     <Compile Include="Entities\VideoItem\VideoItem.cs" />
     <Compile Include="Entities\VideoItem\VideoItemElements\Duration.cs" />
     <Compile Include="Entities\VideoItem\VideoItemElements\Trailer.cs" />

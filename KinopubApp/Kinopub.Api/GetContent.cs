@@ -104,7 +104,7 @@ namespace Kinopub.Api
         /// </summary>
         /// <param name="itemId"></param>
         /// <returns></returns>
-        public async Task<VideoItem> GetItem
+        public async Task<ItemContent> GetItem
             (long itemId)
         {
             var request = new RestRequest("/v1/items/" + itemId,

@@ -11,6 +11,6 @@ namespace Kinopub.Api.Entities
     class GetItem
     {
         [JsonProperty("item")]
-        public VideoItem Item { get; set; }
+        public ItemContent Item { get; set; }
     }
 }

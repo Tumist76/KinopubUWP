@@ -12,7 +12,7 @@ namespace Kinopub.UI.ViewModels
 {
     class VideoItemVM
     {
-        public VideoItem ItemProperties { get; set; }
+        public ItemContent ItemProperties { get; set; }
 
         public long ItemId
         {

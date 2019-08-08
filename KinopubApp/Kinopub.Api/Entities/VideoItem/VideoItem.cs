@@ -91,11 +91,12 @@ namespace Kinopub.Api.Entities.VideoContent
         [JsonProperty("imdb")]
         public string ImdbId { get; set; }
 
+        //Может быть null, потому что, как оказалось, Кинопаб может и не иметь рейтинга у фильма
         [JsonProperty("imdb_rating")]
-        public decimal ImdbRating { get; set; }
+        public decimal? ImdbRating { get; set; }
 
         [JsonProperty("imdb_votes")]
-        public long ImdbVotes { get; set; }
+        public long? ImdbVotes { get; set; }
 
         /// <summary>
         /// Идентификатор тайтла на Кинопоиске
@@ -103,9 +104,9 @@ namespace Kinopub.Api.Entities.VideoContent
         [JsonProperty("kinopoisk")]
         public string KinopoiskId { get; set; }
         [JsonProperty("kinopoisk_rating")]
-        public decimal KinopoiskRating { get; set; }
+        public decimal? KinopoiskRating { get; set; }
         [JsonProperty("kinopoisk_votes")]
-        public long KinopoiskVotes { get; set; }
+        public long? KinopoiskVotes { get; set; }
 
         [JsonProperty("rating")]
         public int Rating { get; set; }

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
+    xmlns:styles="using:Kinopub.UI.CustomStyles"
     mc:Ignorable="d"
 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -21,9 +22,21 @@
                 Click="ButtonBase_OnClick"/>
         <MediaPlayerElement
             x:Name="PlayerElement"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Bottom"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
             AreTransportControlsEnabled="True"
-        />
+        >
+            <MediaPlayerElement.TransportControls>
+                <styles:CustomMediaTransportControls x:Name="customMTC"
+                                                     IsFastForwardButtonVisible="True"
+                                                     IsFastForwardEnabled="True"
+                                                     IsFastRewindButtonVisible="True"
+                                                     IsFastRewindEnabled="True"
+                                                     IsPlaybackRateButtonVisible="True"
+                                                     IsPlaybackRateEnabled="True"
+                                                     IsCompact="False">
+                </styles:CustomMediaTransportControls>
+            </MediaPlayerElement.TransportControls>
+        </MediaPlayerElement>
     </Grid>
 </Page>

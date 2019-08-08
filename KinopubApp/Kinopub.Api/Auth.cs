@@ -56,16 +56,13 @@ namespace Kinopub.Api
             var request = BuildAuthRequest("refresh_token", deviceId, clientSecret);
             request.AddParameter("refresh_token", refreshToken);
 
-            // @todo Переделать обратно в асинхронный вариант с одновременной десереализацией
-            //Но всё это после отладки, конечно же
-            IRestResponse responseResult = null;
-            responseResult = GetRestClient().Execute(request);
+            IRestResponse<AccessTokenRequest> responseResult = null;
+            responseResult = await GetRestClient().ExecuteTaskAsync<AccessTokenRequest>(request);
 
-            var response = JsonConvert.DeserializeObject<AccessTokenRequest>(responseResult.Content);
 
             //ErrorHandler.CheckResult(responseResult);
 
-            return response;
+            return responseResult.Data;
         }
 
         /// <summary>

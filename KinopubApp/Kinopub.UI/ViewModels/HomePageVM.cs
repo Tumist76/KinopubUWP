@@ -15,7 +15,7 @@ using Kinopub.UI.Utilities;
 
 namespace Kinopub.UI.ViewModels
 {
-    class MainPageVM : INotifyPropertyChanged
+    class HomePageVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,11 +40,17 @@ namespace Kinopub.UI.ViewModels
 
         //private RelayCommand openItemPageCommand;
 
-        public MainPageVM()
+        public HomePageVM()
         {
-            var itemsList = new GetContent(AuthTokenManagementModel.GetAuthToken())
-                .GetHotItems(ContentTypeEnum.Movie, 10, 1).Result.Items;
-            Items = new ObservableCollection<VideoItem>(itemsList);
+            GetItems();
+        }
+
+        private async void GetItems()
+        {
+            var contentManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
+
+            var hotMoviesList = await contentManager.GetHotItems(ContentTypeEnum.Movie, 10, 1);
+            Items = new ObservableCollection<VideoItem>(hotMoviesList.Items);
         }
     }
 }

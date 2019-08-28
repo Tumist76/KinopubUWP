@@ -21,6 +21,7 @@ using Kinopub.UI.Models;
 using Windows.UI.ViewManagement;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
+using Windows.UI.Core;
 
 namespace Kinopub.UI
 {
@@ -46,7 +47,11 @@ namespace Kinopub.UI
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            this.ExtendAcrylicIntoTitleBar();
+            //@todo Придумать правильную логику скрытия/отображения тайтлбара
+            //@body Похоже, выбор стиля сохраняется в локальное хранилище, потому что перезапуск
+            //не влияет на стиль даже после комментирования метода
+
+            //this.ExtendAcrylicIntoTitleBar();
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -58,6 +63,7 @@ namespace Kinopub.UI
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += OnNavigated;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -66,6 +72,15 @@ namespace Kinopub.UI
 
                 // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
+
+                // Register a handler for BackRequested events and set the
+                // visibility of the Back button
+                SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                    rootFrame.CanGoBack ?
+                        AppViewBackButtonVisibility.Visible :
+                        AppViewBackButtonVisibility.Collapsed;
             }
 
 
@@ -132,6 +147,26 @@ namespace Kinopub.UI
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            // Each time a navigation event occurs, update the Back button's visibility
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ((Frame)sender).CanGoBack ?
+                    AppViewBackButtonVisibility.Visible :
+                    AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
         }
 
         /// <summary>

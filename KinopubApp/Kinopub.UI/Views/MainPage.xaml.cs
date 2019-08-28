@@ -36,6 +36,9 @@ namespace Kinopub.UI.Views
                     case "Nav_HomePage":
                         contentFrame.Navigate(typeof(HomePage));
                         break;
+                    case "Nav_WatchingPage":
+                        contentFrame.Navigate(typeof(WatchingPage));
+                        break;
                 }
             }
         }

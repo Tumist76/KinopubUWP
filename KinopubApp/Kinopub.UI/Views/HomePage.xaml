@@ -12,14 +12,14 @@
     <Page.DataContext>
         <vms:HomePageVM/>
     </Page.DataContext>
-    <Grid Margin="20 10 10 10">
+    <StackPanel Margin="20 10 10 10">
         <TextBlock
             Text="Популярные фильмы" 
             Style="{StaticResource SubtitleTextBlockStyle}"
             />
 
         <ListView 
-            MaxHeight="300"
+            Height="Auto"
             ItemsSource="{Binding Items}"
             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -27,22 +27,19 @@
             ScrollViewer.VerticalScrollMode="Disabled" 
             IsItemClickEnabled="True"
             ItemClick="ListView_ItemClick">
-        <ListView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Background="Transparent" Orientation="Horizontal" />
-            </ItemsPanelTemplate>
-        </ListView.ItemsPanel>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
             <ListView.ItemTemplate
                 >
                 <DataTemplate>
                     <StackPanel
                         Width="150" 
-                        MaxHeight="300"
                         VerticalAlignment="Top"
                         >
-                        <Grid >
-                            <Image Source="{Binding Posters.MediumUrl}" />
-                        </Grid>
+                        <Image Source="{Binding Posters.MediumUrl}" />
                         <TextBlock
                             Margin="0 5 0 0"
                             Text="{Binding RussianTitle}"
@@ -54,5 +51,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
     </ListView>
-    </Grid>
+    </StackPanel>
 </Page>

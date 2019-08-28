@@ -17,8 +17,8 @@
                 <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"/>
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home" Content="Menu Item1" Tag="Nav_HomePage" />
-                <NavigationViewItem Icon="View" Content="Menu Item2" Tag="Nav_WatchingPage" />
+                <NavigationViewItem Icon="Home" Content="Главная" Tag="Nav_HomePage" />
+                <NavigationViewItem Icon="View" Content="Смотрю" Tag="Nav_WatchingPage" />
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame"/>
         </NavigationView>

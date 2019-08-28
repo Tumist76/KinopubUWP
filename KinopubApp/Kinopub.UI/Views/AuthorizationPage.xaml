@@ -60,6 +60,7 @@
                 Text="{Binding DeviceCodeRequest.UserCode}"
                 FontSize="70"
                 TextAlignment="Center"
+                IsTextSelectionEnabled="True"
                 Width="300"
                 />
             <ProgressBar 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Kinopub.Api.Entities.VideoContent
@@ -12,6 +13,30 @@ namespace Kinopub.Api.Entities.VideoContent
 
         [JsonProperty("title")] // 'Название / Оригинальное название'
         public string Title { get; set; }
+
+        public string OriginalTitle
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(Title)) return null;
+                var titles = Title.Split('/');
+                if (titles.Length == 2)
+                {
+                    return titles[1].Trim();
+                }
+                return null;
+            }
+        }
+
+        public string RussianTitle
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(Title)) return null;
+                var titles = Title.Split('/');
+                return titles[0].Trim();
+            }
+        }
 
         /// <summary>
         /// фильтр по типу жанров, по умолчанию возвращаются все жанры. 

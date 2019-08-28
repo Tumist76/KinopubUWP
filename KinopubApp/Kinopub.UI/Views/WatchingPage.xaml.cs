@@ -20,24 +20,11 @@ namespace Kinopub.UI.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class WatchingPage : Page
     {
-        public MainPage()
+        public WatchingPage()
         {
             this.InitializeComponent();
-        }
-        private void MainNavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {
-            var item = args.InvokedItemContainer as NavigationViewItem;
-            if (item != null)
-            {
-                switch (item.Tag)
-                {
-                    case "Nav_HomePage":
-                        contentFrame.Navigate(typeof(HomePage));
-                        break;
-                }
-            }
         }
     }
 }

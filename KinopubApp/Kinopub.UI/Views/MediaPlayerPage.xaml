@@ -13,12 +13,11 @@
         <vms:MediaPlayerVM/>
     </Page.DataContext>
     <Grid>
-        <TextBlock
-            Text="Test"/>
-        <Button Content="Глянуть доступные качества"
+        <Button x:Name="GoBackButton"
+                Style="{StaticResource NavigationBackButtonNormalStyle}"
                 VerticalAlignment="Top"
-                HorizontalAlignment="Right"
-                Click="ButtonBase_OnClick"/>
+                Margin="10"
+                Click="GoBackButton_Click"/>
         <MediaPlayerElement
             x:Name="PlayerElement"
             Source="{Binding VideoMediaSource}"

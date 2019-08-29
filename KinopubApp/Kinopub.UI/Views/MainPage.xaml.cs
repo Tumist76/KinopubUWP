@@ -42,5 +42,33 @@ namespace Kinopub.UI.Views
                 }
             }
         }
+
+        private void MainNavView_BackRequested(NavigationView sender,
+            NavigationViewBackRequestedEventArgs args)
+        {
+            On_BackRequested();
+        }
+
+        private void BackInvoked(KeyboardAccelerator sender,
+            KeyboardAcceleratorInvokedEventArgs args)
+        {
+            On_BackRequested();
+            args.Handled = true;
+        }
+
+        private bool On_BackRequested()
+        {
+            if (!contentFrame.CanGoBack)
+                return false;
+
+            // Don't go back if the nav pane is overlayed.
+            if (MainNavView.IsPaneOpen &&
+                (MainNavView.DisplayMode == NavigationViewDisplayMode.Compact ||
+                 MainNavView.DisplayMode == NavigationViewDisplayMode.Minimal))
+                return false;
+
+            contentFrame.GoBack();
+            return true;
+        }
     }
 }

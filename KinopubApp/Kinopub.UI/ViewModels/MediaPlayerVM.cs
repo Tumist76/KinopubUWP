@@ -17,6 +17,7 @@ namespace Kinopub.UI.ViewModels
             set
             {
                 streamUrl = value;
+                VideoMediaSource = MediaSource.CreateFromUri(new Uri(streamUrl));
                 //InitializeAdaptiveMediaSource(new Uri(streamUrl));
             }
         }
@@ -29,40 +30,40 @@ namespace Kinopub.UI.ViewModels
         {
 
         }
-        // @todo Сделать нормальную реализацию адаптивного стриминга с автоматическим и ручным переключением
-        //Ниже идёт сниппет иницализации адаптивного медиаисточника 
-        //async private void InitializeAdaptiveMediaSource(System.Uri uri)
-        //{
-        //    AdaptiveMediaSourceCreationResult result = await AdaptiveMediaSource.CreateFromUriAsync(uri);
+       // @todo Сделать нормальную реализацию адаптивного стриминга с автоматическим и ручным переключением
+       //Ниже идёт сниппет иницализации адаптивного медиаисточника
+       async private void InitializeAdaptiveMediaSource(System.Uri uri)
+        {
+            AdaptiveMediaSourceCreationResult result = await AdaptiveMediaSource.CreateFromUriAsync(uri);
 
-        //    if (result.Status == AdaptiveMediaSourceCreationStatus.Success)
-        //    {
-        //        ams = result.MediaSource;
-        //        VideoMediaSource = MediaSource.CreateFromAdaptiveMediaSource(ams);
+            if (result.Status == AdaptiveMediaSourceCreationStatus.Success)
+            {
+                ams = result.MediaSource;
+                VideoMediaSource = MediaSource.CreateFromAdaptiveMediaSource(ams);
 
 
-        //        ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
+                ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
 
-        //        //    //Register for download requests
-        //        //    ams.DownloadRequested += DownloadRequested;
+                //    //Register for download requests
+                //    ams.DownloadRequested += DownloadRequested;
 
-        //        //    //Register for download failure and completion events
-        //        //    ams.DownloadCompleted += DownloadCompleted;
-        //        //    ams.DownloadFailed += DownloadFailed;
+                //    //Register for download failure and completion events
+                //    ams.DownloadCompleted += DownloadCompleted;
+                //    ams.DownloadFailed += DownloadFailed;
 
-        //        //    //Register for bitrate change events
-        //        //    ams.DownloadBitrateChanged += DownloadBitrateChanged;
-        //        //    ams.PlaybackBitrateChanged += PlaybackBitrateChanged;
+                //    //Register for bitrate change events
+                //    ams.DownloadBitrateChanged += DownloadBitrateChanged;
+                //    ams.PlaybackBitrateChanged += PlaybackBitrateChanged;
 
-        //        //    //Register for diagnostic event
-        //        //    ams.Diagnostics.DiagnosticAvailable += DiagnosticAvailable;
-        //        //}
-        //        //else
-        //        //{
-        //        //    // Handle failure to create the adaptive media source
-        //        //    MyLogMessageFunction($"Adaptive source creation failed: {uri} - {result.ExtendedError}");
-        //        //}
-        //    }
-        //}
+                //    //Register for diagnostic event
+                //    ams.Diagnostics.DiagnosticAvailable += DiagnosticAvailable;
+                //}
+                //else
+                //{
+                //    // Handle failure to create the adaptive media source
+                //    MyLogMessageFunction($"Adaptive source creation failed: {uri} - {result.ExtendedError}");
+                //}
+            }
+        }
     }
 }

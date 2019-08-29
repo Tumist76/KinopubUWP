@@ -12,6 +12,8 @@
     <Grid>
         <NavigationView x:Name="MainNavView"
                         ItemInvoked="MainNavView_ItemInvoked"
+                        BackRequested="MainNavView_BackRequested"
+                        IsBackEnabled="True"
                         >
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"/>

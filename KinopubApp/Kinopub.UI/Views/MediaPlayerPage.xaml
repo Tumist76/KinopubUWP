@@ -17,7 +17,8 @@
                 Style="{StaticResource NavigationBackButtonNormalStyle}"
                 VerticalAlignment="Top"
                 Margin="10"
-                Click="GoBackButton_Click"/>
+                Click="GoBackButton_Click"
+                Canvas.ZIndex="2"/>
         <MediaPlayerElement
             x:Name="PlayerElement"
             Source="{Binding VideoMediaSource}"

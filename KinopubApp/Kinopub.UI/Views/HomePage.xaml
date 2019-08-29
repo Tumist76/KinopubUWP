@@ -29,7 +29,8 @@
             ItemClick="ListView_ItemClick">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsStackPanel Orientation="Horizontal"/>
+                    <ItemsStackPanel Orientation="Horizontal"
+                                     />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate

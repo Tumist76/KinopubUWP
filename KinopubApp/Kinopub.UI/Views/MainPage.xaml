@@ -12,7 +12,7 @@
     <Grid>
         <NavigationView x:Name="MainNavView"
                         ItemInvoked="MainNavView_ItemInvoked"
-                        Windows10version1809:PaneDisplayMode="LeftCompact">
+                        >
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"/>
             </NavigationView.AutoSuggestBox>

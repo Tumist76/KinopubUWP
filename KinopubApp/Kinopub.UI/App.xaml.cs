@@ -73,14 +73,14 @@ namespace Kinopub.UI
                 // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
 
-                // Register a handler for BackRequested events and set the
-                // visibility of the Back button
-                SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+                //// Register a handler for BackRequested events and set the
+                //// visibility of the Back button
+                //SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    rootFrame.CanGoBack ?
-                        AppViewBackButtonVisibility.Visible :
-                        AppViewBackButtonVisibility.Collapsed;
+                //SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                //    rootFrame.CanGoBack ?
+                //        AppViewBackButtonVisibility.Visible :
+                //        AppViewBackButtonVisibility.Collapsed;
             }
 
 

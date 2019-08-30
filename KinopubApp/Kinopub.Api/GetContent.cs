@@ -65,7 +65,7 @@ namespace Kinopub.Api
             (ContentTypeEnum contentType, int itemsPerPage, int page)
         {
             var request = BuildRequest("hot", contentType, itemsPerPage, page);
-            var restResponse = GetRestClient().Execute<SearchEntity>(request);
+            var restResponse = await GetRestClient().ExecuteTaskAsync<SearchEntity>(request);
 
             // @todo Сделать нормальный таймаут и обработчик ошибок
             //@body При некорректном запросе здесь приложение просто вешается. Так быть не должно. 

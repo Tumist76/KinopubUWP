@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml.Controls.Primitives;
 using Kinopub.Api;
-using Kinopub.Api.Entities;
 using Kinopub.Api.Entities.VideoContent;
 using Kinopub.Api.Entities.VideoContent.TypesConstants;
 using Kinopub.UI.Models;
@@ -20,16 +19,7 @@ namespace Kinopub.UI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<VideoItem> Items
-        {
-            get
-            {
-                return new ObservableCollection<VideoItem>(Search.Result.Items);
-            }
-        }
-
-        private NotifyTaskCompletion<SearchEntity> Search;
-
+        public ObservableCollection<VideoItem> Items { get; set; }
 
         // @todo Разобраться, как делать переход между страниц
 
@@ -57,12 +47,10 @@ namespace Kinopub.UI.ViewModels
 
         private async void GetItems()
         {
-            var token = AuthTokenManagementModel.GetAuthToken();
-            var contentManager = new GetContent(token);
-            Search = new NotifyTaskCompletion<SearchEntity>(
-                contentManager.GetHotItems(ContentTypeEnum.Movie, 10, 1));
-            //var hotMoviesList = contentManager.GetHotItems(ContentTypeEnum.Movie, 10, 1);
-            //Items = new ObservableCollection<VideoItem>(hotMoviesList.Items);
+            var contentManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
+
+            var hotMoviesList = await contentManager.GetHotItems(ContentTypeEnum.Movie, 10, 1);
+            Items = new ObservableCollection<VideoItem>(hotMoviesList.Items);
         }
     }
 }

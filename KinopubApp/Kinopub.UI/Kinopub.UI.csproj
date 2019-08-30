@@ -123,6 +123,7 @@
     <Compile Include="Converters\NullOpacityConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringSubstringConverter.cs" />
+    <Compile Include="Utilities\CustomMediaTransportControls.cs" />
     <Compile Include="ViewModels\MediaPlayerVM.cs" />
     <Compile Include="ViewModels\VideoItemVM.cs" />
     <Compile Include="ViewModels\HomePageVM.cs" />
@@ -324,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Resources\CustomPlayerControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ElementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

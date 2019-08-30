@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
+    xmlns:utils="using:Kinopub.UI.Utilities"
     mc:Ignorable="d"
 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -25,6 +26,8 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Bottom"
             AreTransportControlsEnabled="True"
-        />
+        >
+
+        </MediaPlayerElement>
     </Grid>
 </Page>

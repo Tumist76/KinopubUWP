@@ -14,6 +14,7 @@ using Kinopub.UI.Models;
 using Windows.UI.Popups;
 using MvvmDialogs;
 using Windows.UI.Xaml.Controls;
+using Kinopub.UI.Views;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -95,7 +96,7 @@ namespace Kinopub.UI.ViewModels
                     CountdownCounter = ((AuthorizationModel)sender).CountdownCounter;
                     break;
                 case "Authorized":
-                    WindowNavigation.WindowNavigateTo(typeof(HomePage), null);
+                    WindowNavigation.WindowNavigateTo(typeof(MainPage), null);
                     break;
             }
         }

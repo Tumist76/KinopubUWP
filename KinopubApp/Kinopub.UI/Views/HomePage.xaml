@@ -26,7 +26,8 @@
             ScrollViewer.HorizontalScrollMode="Enabled"                  
             ScrollViewer.VerticalScrollMode="Disabled" 
             IsItemClickEnabled="True"
-            ItemClick="ListView_ItemClick">
+            ItemClick="ListView_ItemClick"
+            VerticalContentAlignment="Top">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel Orientation="Horizontal"
@@ -51,6 +52,12 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-    </ListView>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </StackPanel>
 </Page>

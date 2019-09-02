@@ -6,9 +6,27 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
+    xmlns:resources="using:Kinopub.UI"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     >
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/VideoListViewTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextTrimming" Value="None"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
+                <Setter Property="TextLineBounds" Value="Full"/>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Page.DataContext>
         <vms:HomePageVM/>
     </Page.DataContext>
@@ -19,6 +37,9 @@
             />
 
         <ListView 
+            ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
+            ItemsPanel="{StaticResource VideoItemsPanel}" 
+            ItemTemplate="{StaticResource VideoItemTemplate}" 
             Height="Auto"
             ItemsSource="{Binding Items}"
             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
@@ -28,36 +49,6 @@
             IsItemClickEnabled="True"
             ItemClick="ListView_ItemClick"
             VerticalContentAlignment="Top">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel Orientation="Horizontal"
-                                     />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate
-                >
-                <DataTemplate>
-                    <StackPanel
-                        Width="150" 
-                        VerticalAlignment="Top"
-                        >
-                        <Image Source="{Binding Posters.MediumUrl}" />
-                        <TextBlock
-                            Margin="0 5 0 0"
-                            Text="{Binding RussianTitle}"
-                            Style="{StaticResource BaseTextBlockStyle}"/>
-                    <TextBlock
-                            Text="{Binding OriginalTitle}"
-                            />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="VerticalContentAlignment" Value="Top" />
-                </Style>
-            </ListView.ItemContainerStyle>
         </ListView>
     </StackPanel>
 </Page>

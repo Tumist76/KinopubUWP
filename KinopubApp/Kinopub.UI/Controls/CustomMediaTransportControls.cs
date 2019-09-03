@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Kinopub.UI.Utilities
+namespace Kinopub.UI.Controls
 {
-    public sealed class CustomMediaTransportControls : MediaTransportControls
+    public sealed class VideoPlaybackControls : MediaTransportControls
     {
         public event EventHandler<EventArgs> Liked;
 
-        public CustomMediaTransportControls()
+        public VideoPlaybackControls()
         {
-            this.DefaultStyleKey = typeof(CustomMediaTransportControls);
+            this.DefaultStyleKey = typeof(VideoPlaybackControls);
         }
 
         protected override void OnApplyTemplate()

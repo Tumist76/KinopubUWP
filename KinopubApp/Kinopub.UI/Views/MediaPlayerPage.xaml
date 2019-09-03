@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
-    xmlns:utils="using:Kinopub.UI.Utilities"
+    xmlns:controls="using:Kinopub.UI.Controls"
     mc:Ignorable="d"
 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -23,11 +23,22 @@
         <MediaPlayerElement
             x:Name="PlayerElement"
             Source="{Binding VideoMediaSource}"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Bottom"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
             AreTransportControlsEnabled="True"
         >
-
+            <MediaPlayerElement.TransportControls>
+                <!--Instead of using the regular MediaTransportControls we are using our custom local:CustomMediaTransportControls.
+                The style is found in Themes/generic.xaml. The custom button is defined in CustomControls.cs. One thing to note is that
+                even when using a custom control, our API's for hiding and showing buttons still work as expected-->
+                <controls:VideoPlaybackControls
+                    IsCompact="False"
+                    IsZoomButtonVisible="True"
+                    IsZoomEnabled="True"
+                    IsPlaybackRateButtonVisible="True"
+                    IsPlaybackRateEnabled="True">
+                </controls:VideoPlaybackControls>
+            </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
     </Grid>
 </Page>

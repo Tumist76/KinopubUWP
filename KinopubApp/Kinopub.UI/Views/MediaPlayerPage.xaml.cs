@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Kinopub.UI.ViewModels;
 using Windows.System;
+using Kinopub.UI.Controls;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,6 +27,7 @@ namespace Kinopub.UI.Views
     {
         public MediaPlayerPage()
         {
+            //Назначение кнопок на функцию возвращения назад
             KeyboardAccelerator GoBack = new KeyboardAccelerator();
             GoBack.Key = VirtualKey.GoBack;
             GoBack.Invoked += BackInvoked;
@@ -48,6 +50,8 @@ namespace Kinopub.UI.Views
         }
 
 
+        #region Навигация назад
+
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
             On_BackRequested();
@@ -69,5 +73,8 @@ namespace Kinopub.UI.Views
             On_BackRequested();
             args.Handled = true;
         }
+
+        #endregion
+
     }
 }

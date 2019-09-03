@@ -10,26 +10,61 @@ namespace Kinopub.UI.Controls
 {
     public sealed class VideoPlaybackControls : MediaTransportControls
     {
-        public event EventHandler<EventArgs> Liked;
+        public event EventHandler<EventArgs> QualitySelectionButtonClick;
+
+
+        public List<uint> Qualities { get; set; }
+
+        private MenuFlyout qualitySelectionMenuFlyout;
 
         public VideoPlaybackControls()
         {
             this.DefaultStyleKey = typeof(VideoPlaybackControls);
         }
 
+        public MenuFlyout GetAddToPlaylistFlyout()
+        {
+            MenuFlyout flyout = new MenuFlyout();
+            foreach (var item in Qualities)
+            {
+                flyout.Items.Add(new MenuFlyoutItem()
+                {
+                    Text = item.ToString()
+                });
+            }
+            //flyout.Items.Add(new MenuFlyoutItem()
+            //{
+            //    Icon = new FontIcon() { Glyph = "\uEC4F" },
+            //    Text = "Now Playing"
+            //});
+            //flyout.Items.Add(new MenuFlyoutSeparator());
+            //flyout.Items.Add(new MenuFlyoutItem()
+            //{
+            //    Icon = new SymbolIcon(Symbol.Add),
+            //    Text = "New Playlist"
+            //});
+            return flyout;
+        }
+
         protected override void OnApplyTemplate()
         {
             // This is where you would get your custom button and create an event handler for its click method.
-            Button likeButton = GetTemplateChild("LikeButton") as Button;
-            likeButton.Click += LikeButton_Click;
+            Button qualitySelectionButton = GetTemplateChild("QualitySelectionButton") as Button;
+            qualitySelectionButton.Click += QualitySelectionButton_Click;
+
+            qualitySelectionMenuFlyout = GetTemplateChild("QualitySelectionMenuFlyout") as MenuFlyout;
+            foreach (var item in GetAddToPlaylistFlyout().Items)
+            {
+                qualitySelectionMenuFlyout.Items.Insert(qualitySelectionMenuFlyout.Items.Count, item);
+            }
 
             base.OnApplyTemplate();
         }
 
-        private void LikeButton_Click(object sender, RoutedEventArgs e)
+        private void QualitySelectionButton_Click(object sender, RoutedEventArgs e)
         {
             // Raise an event on the custom control when 'like' is clicked
-            Liked?.Invoke(this, EventArgs.Empty);
+            QualitySelectionButtonClick?.Invoke(this, EventArgs.Empty);
         }
     }
 }

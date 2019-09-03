@@ -21,7 +21,7 @@
                 Click="GoBackButton_Click"
                 Canvas.ZIndex="2"/>
         <MediaPlayerElement
-            x:Name="PlayerElement"
+            x:Name="MainPlayer"
             Source="{Binding VideoMediaSource}"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
@@ -33,10 +33,14 @@
                 even when using a custom control, our API's for hiding and showing buttons still work as expected-->
                 <controls:VideoPlaybackControls
                     IsCompact="False"
-                    IsZoomButtonVisible="True"
-                    IsZoomEnabled="True"
-                    IsPlaybackRateButtonVisible="True"
-                    IsPlaybackRateEnabled="True">
+                    IsZoomButtonVisible="False"
+                    IsZoomEnabled="False"
+                    IsSkipBackwardButtonVisible="True"
+                    IsSkipBackwardEnabled="True"
+                    IsSkipForwardButtonVisible="True"
+                    IsSkipForwardEnabled="True"
+                    Qualities="{Binding VideoMediaSource.AdaptiveMediaSource.AvailableBitrates}"
+                    >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>

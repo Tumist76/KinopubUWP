@@ -662,10 +662,24 @@
                                                     <SymbolIcon x:Name="VolumeMuteSymbol" Symbol="Volume" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
+                                            <!-- Кнопка выбора качества -->
+                                            <AppBarButton x:Name='QualitySelectionButton'
+                                                          Style='{StaticResource AppBarButtonStyle}'
+                                                          MediaTransportControlsHelper.DropoutOrder='15'
+                                                          Visibility='Collapsed'>
+                                                <AppBarButton.Flyout>
+                                                    <MenuFlyout x:Name="QualitySelectionMenuFlyout">
+                                                    </MenuFlyout>
+                                                </AppBarButton.Flyout>
+                                                <AppBarButton.Icon>
+                                                    <FontIcon Glyph="&#xE713;" />
+                                                </AppBarButton.Icon>
+                                            </AppBarButton>
+
                                             <AppBarButton x:Name='CCSelectionButton'
-                                              Style='{StaticResource AppBarButtonStyle}'
-                                              MediaTransportControlsHelper.DropoutOrder='15'
-                                              Visibility='Collapsed'>
+                                                          Style='{StaticResource AppBarButtonStyle}'
+                                                          MediaTransportControlsHelper.DropoutOrder='15'
+                                                          Visibility='Collapsed'>
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xED1E;" />
                                                 </AppBarButton.Icon>
@@ -744,12 +758,6 @@
                                                     <FontIcon Glyph="&#xEC57;" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name="LikeButton"
-                                                          Icon="Like"
-                                                          Style="{StaticResource AppBarButtonStyle}"
-                                                          MediaTransportControlsHelper.DropoutOrder="3"
-                                                          VerticalAlignment="Center"
-                                            />
                                             <AppBarSeparator x:Name='RightSeparator'
                                                 Height='0'
                                                 Width ='0'

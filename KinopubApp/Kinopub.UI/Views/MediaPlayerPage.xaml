@@ -39,7 +39,7 @@
                     IsSkipBackwardEnabled="True"
                     IsSkipForwardButtonVisible="True"
                     IsSkipForwardEnabled="True"
-                    Qualities="{Binding VideoMediaSource.AdaptiveMediaSource.AvailableBitrates}"
+                    AvaliableQualities="{Binding AvaliableBitrates}"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

@@ -26,9 +26,11 @@ namespace Kinopub.UI.ViewModels
 
         private AdaptiveMediaSource ams;
 
+        public List<uint> AvaliableBitrates { get; set; }
+
         public MediaPlayerVM()
         {
-
+            
         }
        // @todo Сделать нормальную реализацию адаптивного стриминга с автоматическим и ручным переключением
        //Ниже идёт сниппет иницализации адаптивного медиаисточника
@@ -40,6 +42,7 @@ namespace Kinopub.UI.ViewModels
             {
                 ams = result.MediaSource;
                 VideoMediaSource = MediaSource.CreateFromAdaptiveMediaSource(ams);
+                AvaliableBitrates = new List<uint>(ams.AvailableBitrates);
 
 
                 ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();

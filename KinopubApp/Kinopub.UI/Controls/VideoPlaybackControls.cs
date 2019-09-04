@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -8,12 +11,54 @@ using Windows.UI.Xaml.Controls;
 
 namespace Kinopub.UI.Controls
 {
-    public sealed class VideoPlaybackControls : MediaTransportControls
+    public sealed class VideoPlaybackControls : MediaTransportControls, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public event EventHandler<EventArgs> QualitySelectionButtonClick;
 
+        public static readonly DependencyProperty AvaliableQualititesProperty =
+            DependencyProperty.Register(
+                "AvaliableQualitites", 
+                typeof(List<uint>),
+                typeof(VideoPlaybackControls),
+                new PropertyMetadata(
+                    false,
+                    new PropertyChangedCallback(OnQualitiesChanged))
+                );
 
-        public List<uint> Qualities { get; set; }
+        public List<uint> AvaliableQualities
+        {
+            get
+            {
+                return (List<uint>)GetValue(AvaliableQualititesProperty);
+            }
+            set
+            {
+                SetValue(AvaliableQualititesProperty, value);
+            }
+        }
+
+        //public List<uint> Qualities
+        //{
+        //    get => qualities;
+        //    set
+        //    {
+        //        qualities = value;
+        //        foreach (var item in GetAddToPlaylistFlyout().Items)
+        //        {
+        //            qualitySelectionMenuFlyout.Items.Insert(qualitySelectionMenuFlyout.Items.Count, item);
+        //        }
+        //    }
+        //}
+
+
+        private static void OnQualitiesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Debug.WriteLine("Boop");
+        }
+
+        private List<uint> qualities;
 
         private MenuFlyout qualitySelectionMenuFlyout;
 
@@ -25,7 +70,7 @@ namespace Kinopub.UI.Controls
         public MenuFlyout GetAddToPlaylistFlyout()
         {
             MenuFlyout flyout = new MenuFlyout();
-            foreach (var item in Qualities)
+            foreach (var item in qualities)
             {
                 flyout.Items.Add(new MenuFlyoutItem()
                 {
@@ -53,10 +98,6 @@ namespace Kinopub.UI.Controls
             qualitySelectionButton.Click += QualitySelectionButton_Click;
 
             qualitySelectionMenuFlyout = GetTemplateChild("QualitySelectionMenuFlyout") as MenuFlyout;
-            foreach (var item in GetAddToPlaylistFlyout().Items)
-            {
-                qualitySelectionMenuFlyout.Items.Insert(qualitySelectionMenuFlyout.Items.Count, item);
-            }
 
             base.OnApplyTemplate();
         }

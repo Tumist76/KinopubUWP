@@ -413,6 +413,10 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\source\repos\M3u8Parser\M3u8Parser.csproj">
+      <Project>{E474B0E0-F1EE-477F-9754-FD168E8F6B32}</Project>
+      <Name>M3u8Parser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kinopub.Api\Kinopub.Api.csproj">
       <Project>{6795f304-3af2-45ed-9020-0864e838bb43}</Project>
       <Name>Kinopub.Api</Name>

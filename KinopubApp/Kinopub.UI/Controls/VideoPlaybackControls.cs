@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Kinopub.Api.Entities.VideoContent;
 
 namespace Kinopub.UI.Controls
 {
@@ -17,9 +18,9 @@ namespace Kinopub.UI.Controls
 
         public event EventHandler<EventArgs> QualitySelectionButtonClick;
 
-        public static readonly DependencyProperty AvaliableQualititesProperty =
+        public static readonly DependencyProperty AvaliableQualitiesProperty =
             DependencyProperty.Register(
-                "AvaliableQualitites", 
+                "AvaliableQualities", 
                 typeof(List<uint>),
                 typeof(VideoPlaybackControls),
                 new PropertyMetadata(
@@ -31,31 +32,18 @@ namespace Kinopub.UI.Controls
         {
             get
             {
-                return (List<uint>)GetValue(AvaliableQualititesProperty);
+                return (List<uint>)GetValue(AvaliableQualitiesProperty);
             }
             set
             {
-                SetValue(AvaliableQualititesProperty, value);
+                SetValue(AvaliableQualitiesProperty, value);
             }
         }
 
-        //public List<uint> Qualities
-        //{
-        //    get => qualities;
-        //    set
-        //    {
-        //        qualities = value;
-        //        foreach (var item in GetAddToPlaylistFlyout().Items)
-        //        {
-        //            qualitySelectionMenuFlyout.Items.Insert(qualitySelectionMenuFlyout.Items.Count, item);
-        //        }
-        //    }
-        //}
-
-
         private static void OnQualitiesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine("Boop");
+            VideoPlaybackControls playbackControls = d as VideoPlaybackControls;
+            playbackControls.GetAddToPlaylistFlyout(playbackControls.qualitySelectionMenuFlyout);
         }
 
         private List<uint> qualities;
@@ -67,28 +55,15 @@ namespace Kinopub.UI.Controls
             this.DefaultStyleKey = typeof(VideoPlaybackControls);
         }
 
-        public MenuFlyout GetAddToPlaylistFlyout()
+        private void GetAddToPlaylistFlyout(MenuFlyout flyout)
         {
-            MenuFlyout flyout = new MenuFlyout();
-            foreach (var item in qualities)
+            foreach (var item in AvaliableQualities)
             {
                 flyout.Items.Add(new MenuFlyoutItem()
                 {
                     Text = item.ToString()
                 });
             }
-            //flyout.Items.Add(new MenuFlyoutItem()
-            //{
-            //    Icon = new FontIcon() { Glyph = "\uEC4F" },
-            //    Text = "Now Playing"
-            //});
-            //flyout.Items.Add(new MenuFlyoutSeparator());
-            //flyout.Items.Add(new MenuFlyoutItem()
-            //{
-            //    Icon = new SymbolIcon(Symbol.Add),
-            //    Text = "New Playlist"
-            //});
-            return flyout;
         }
 
         protected override void OnApplyTemplate()
@@ -98,6 +73,7 @@ namespace Kinopub.UI.Controls
             qualitySelectionButton.Click += QualitySelectionButton_Click;
 
             qualitySelectionMenuFlyout = GetTemplateChild("QualitySelectionMenuFlyout") as MenuFlyout;
+            
 
             base.OnApplyTemplate();
         }

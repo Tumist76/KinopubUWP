@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,9 @@ using Windows.Media.Streaming.Adaptive;
 
 namespace Kinopub.UI.ViewModels
 {
-    class MediaPlayerVM
+    class MediaPlayerVM : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public MediaSource VideoMediaSource { get; set; }
         public string StreamUrl
         {
@@ -17,8 +19,7 @@ namespace Kinopub.UI.ViewModels
             set
             {
                 streamUrl = value;
-                VideoMediaSource = MediaSource.CreateFromUri(new Uri(streamUrl));
-                //InitializeAdaptiveMediaSource(new Uri(streamUrl));
+                InitializeAdaptiveMediaSource(new Uri(streamUrl));
             }
         }
 
@@ -26,11 +27,13 @@ namespace Kinopub.UI.ViewModels
 
         private AdaptiveMediaSource ams;
 
-        public List<uint> AvaliableBitrates { get; set; }
+        public List<uint> AvaliableBitrates {
+            get;
+            set;
+        }
 
         public MediaPlayerVM()
         {
-            
         }
        // @todo Сделать нормальную реализацию адаптивного стриминга с автоматическим и ручным переключением
        //Ниже идёт сниппет иницализации адаптивного медиаисточника

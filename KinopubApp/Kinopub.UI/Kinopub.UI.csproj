@@ -124,6 +124,7 @@
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringSubstringConverter.cs" />
     <Compile Include="Controls\VideoPlaybackControls.cs" />
+    <Compile Include="Enities\M3u8\Subtitle.cs" />
     <Compile Include="ViewModels\MediaPlayerVM.cs" />
     <Compile Include="ViewModels\VideoItemVM.cs" />
     <Compile Include="ViewModels\HomePageVM.cs" />

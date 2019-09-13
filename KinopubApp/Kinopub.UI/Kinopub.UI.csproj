@@ -124,7 +124,10 @@
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringSubstringConverter.cs" />
     <Compile Include="Controls\VideoPlaybackControls.cs" />
-    <Compile Include="Enities\M3u8\Subtitle.cs" />
+    <Compile Include="Entities\M3u8\M3u8Audio.cs" />
+    <Compile Include="Entities\M3u8\M3u8Stream.cs" />
+    <Compile Include="Entities\M3u8\M3u8Subtitle.cs" />
+    <Compile Include="Models\M3u8StreamModel.cs" />
     <Compile Include="ViewModels\MediaPlayerVM.cs" />
     <Compile Include="ViewModels\VideoItemVM.cs" />
     <Compile Include="ViewModels\HomePageVM.cs" />
@@ -414,14 +417,15 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\source\repos\M3u8Parser\M3u8Parser.csproj">
-      <Project>{E474B0E0-F1EE-477F-9754-FD168E8F6B32}</Project>
-      <Name>M3u8Parser</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Kinopub.Api\Kinopub.Api.csproj">
       <Project>{6795f304-3af2-45ed-9020-0864e838bb43}</Project>
       <Name>Kinopub.Api</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="M3u8Parser">
+      <HintPath>..\..\..\..\..\source\repos\M3u8Parser\M3u8Parser\bin\Release\netstandard20\M3u8Parser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

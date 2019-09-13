@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Streaming.Adaptive;
+using Kinopub.UI.Models;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -49,6 +50,8 @@ namespace Kinopub.UI.ViewModels
 
 
                 ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
+                var m3u8Model = new M3u8StreamModel(uri);
+
 
                 //    //Register for download requests
                 //    ams.DownloadRequested += DownloadRequested;

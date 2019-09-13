@@ -163,7 +163,7 @@ namespace Kinopub.Api
 
         private static RestClient GetRestClient()
         {
-            var client = new RestClient(Constants.Domain);
+            var client = new RestClient(Constants.ApiDomain);
             //Ставим таймаут на запрос - 15 секунд
             client.Timeout = 15000;
 

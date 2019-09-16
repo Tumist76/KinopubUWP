@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Kinopub.UI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public MediaSource VideoMediaSource { get; set; }
+
         public string StreamUrl
         {
             get => streamUrl;
@@ -29,17 +31,27 @@ namespace Kinopub.UI.ViewModels
 
         private AdaptiveMediaSource ams;
 
-        public List<M3u8Stream> M3u8Streams {
-            get;
-            set;
+        public List<M3u8Stream> M3u8Streams { get; set; }
+
+        public uint SelectedBandwidth
+        {
+            get => selectedBandwidth;
+            set
+            {
+                selectedBandwidth = value;
+                SelectedBandwidth_PropertyChanged();
+            }
         }
+
+        private uint selectedBandwidth;
 
         public MediaPlayerVM()
         {
         }
-       // @todo Сделать нормальную реализацию адаптивного стриминга с автоматическим и ручным переключением
-       //Ниже идёт сниппет иницализации адаптивного медиаисточника
-       async private void InitializeAdaptiveMediaSource(System.Uri uri)
+
+        // @todo Сделать нормальную реализацию адаптивного стриминга с автоматическим и ручным переключением
+        //Ниже идёт сниппет иницализации адаптивного медиаисточника
+        async private void InitializeAdaptiveMediaSource(System.Uri uri)
         {
             AdaptiveMediaSourceCreationResult result = await AdaptiveMediaSource.CreateFromUriAsync(uri);
 
@@ -52,6 +64,8 @@ namespace Kinopub.UI.ViewModels
                 var m3u8Model = new M3u8StreamModel(uri);
                 M3u8Streams = new List<M3u8Stream>(m3u8Model.VideoStreams);
 
+                SelectedBandwidth = ams.AvailableBitrates.Max<uint>();
+
 
                 //    //Register for download requests
                 //    ams.DownloadRequested += DownloadRequested;
@@ -62,7 +76,7 @@ namespace Kinopub.UI.ViewModels
 
                 //    //Register for bitrate change events
                 //    ams.DownloadBitrateChanged += DownloadBitrateChanged;
-                //    ams.PlaybackBitrateChanged += PlaybackBitrateChanged;
+                    ams.PlaybackBitrateChanged += PlaybackBitrateChanged;
 
                 //    //Register for diagnostic event
                 //    ams.Diagnostics.DiagnosticAvailable += DiagnosticAvailable;
@@ -74,5 +88,27 @@ namespace Kinopub.UI.ViewModels
                 //}
             }
         }
+
+        private void PlaybackBitrateChanged(AdaptiveMediaSource sender, AdaptiveMediaSourcePlaybackBitrateChangedEventArgs args)
+        {
+            Debug.WriteLine("Changed bitrate to " + sender.CurrentPlaybackBitrate);
+        }
+
+        void SelectedBandwidth_PropertyChanged()
+        {
+            if (SelectedBandwidth != uint.MinValue)
+            {
+                ams.InitialBitrate = SelectedBandwidth;
+                ams.DesiredMaxBitrate = SelectedBandwidth;
+                ams.DesiredMinBitrate = SelectedBandwidth;
+            }
+            else
+            {
+                ams.DesiredMaxBitrate = ams.AvailableBitrates.Max<uint>();
+                ams.DesiredMinBitrate = ams.AvailableBitrates.Min<uint>();
+                ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
+            }
+        }
+
     }
 }

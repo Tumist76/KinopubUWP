@@ -30,6 +30,16 @@ namespace Kinopub.UI.Controls
                     new PropertyChangedCallback(OnQualitiesChanged))
                 );
 
+        public static readonly DependencyProperty SelectedBandwidthProperty =
+            DependencyProperty.Register(
+                "SelectedBandwidth",
+                typeof(uint),
+                typeof(VideoPlaybackControls),
+                new PropertyMetadata(
+                    false,
+                    null)
+            );
+
         public List<M3u8Stream> AvaliableStreams
         {
             get
@@ -43,14 +53,28 @@ namespace Kinopub.UI.Controls
         }
 
         //Если "0", то битрейт выбирается автоматически плеером
-        public long SelectedBandwith {
-            get;
-            set; }
+        public uint SelectedBandwidth
+        {
+            get
+            {
+                return (uint)GetValue(SelectedBandwidthProperty);
+            }
+            set
+            {
+                SetValue(SelectedBandwidthProperty, value);
+            }
+        }
 
         private static void OnQualitiesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             VideoPlaybackControls playbackControls = d as VideoPlaybackControls;
             playbackControls.GetAddToPlaylistFlyout(playbackControls.qualitySelectionMenuFlyout);
+        }
+
+        private static void OnSelectedBandwithChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            VideoPlaybackControls playbackControls = d as VideoPlaybackControls;
+            playbackControls.qualitySelectionMenuFlyout.Items.Where(x => (uint)x.DataContext == playbackControls.SelectedBandwidth).FirstOrDefault().FontWeight = FontWeights.Bold;
         }
 
         private List<uint> qualities;
@@ -60,14 +84,13 @@ namespace Kinopub.UI.Controls
         public VideoPlaybackControls()
         {
             this.DefaultStyleKey = typeof(VideoPlaybackControls);
-            SelectedBandwith = 0;
         }
 
         private void GetAddToPlaylistFlyout(MenuFlyout flyout)
         {
             var autoMenuItem = new MenuFlyoutItem()
             {
-                DataContext = Convert.ToInt64(0),
+                DataContext = uint.MinValue,
                 Text = "Авто",
                 FontWeight = FontWeights.Bold
             };
@@ -106,7 +129,7 @@ namespace Kinopub.UI.Controls
         private void QualityFlyoutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuFlyoutItem;
-            SelectedBandwith = ((long) clickedMenuItem.DataContext);
+            SelectedBandwidth = ((uint) clickedMenuItem.DataContext);
 
             foreach (var item in qualitySelectionMenuFlyout.Items)
             {

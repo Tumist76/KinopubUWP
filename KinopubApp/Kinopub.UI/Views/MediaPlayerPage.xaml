@@ -40,6 +40,7 @@
                     IsSkipForwardButtonVisible="True"
                     IsSkipForwardEnabled="True"
                     AvaliableStreams="{Binding M3u8Streams}"
+                    SelectedBandwidth="{Binding SelectedBandwidth, Mode=TwoWay}"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

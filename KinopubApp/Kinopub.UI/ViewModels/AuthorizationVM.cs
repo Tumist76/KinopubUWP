@@ -18,7 +18,7 @@ using Kinopub.UI.Views;
 
 namespace Kinopub.UI.ViewModels
 {
-    public class AuthorizationViewModel : INotifyPropertyChanged
+    public class AuthorizationVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace Kinopub.UI.ViewModels
 
         #region Конструктор
 
-        public AuthorizationViewModel()
+        public AuthorizationVM()
         {
 
             authorizationModel = new AuthorizationModel();

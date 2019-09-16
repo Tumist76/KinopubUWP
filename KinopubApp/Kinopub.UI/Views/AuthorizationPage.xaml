@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     >
     <Page.DataContext>
-        <vms:AuthorizationViewModel />
+        <vms:AuthorizationVM />
     </Page.DataContext>
     <Page.Resources>
         <converters:StringFormatConverter x:Key="StringFormatConverter" />

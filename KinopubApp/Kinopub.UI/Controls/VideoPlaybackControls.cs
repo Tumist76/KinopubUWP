@@ -74,6 +74,7 @@ namespace Kinopub.UI.Controls
         private static void OnSelectedBandwithChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             VideoPlaybackControls playbackControls = d as VideoPlaybackControls;
+            //@todo проверить работу этой части кода, потому что, ЕМНИП, жирным становится всё равно только "Авто"
             playbackControls.qualitySelectionMenuFlyout.Items.Where(x => (uint)x.DataContext == playbackControls.SelectedBandwidth).FirstOrDefault().FontWeight = FontWeights.Bold;
         }
 
@@ -88,9 +89,10 @@ namespace Kinopub.UI.Controls
 
         private void GetAddToPlaylistFlyout(MenuFlyout flyout)
         {
+
             var autoMenuItem = new MenuFlyoutItem()
             {
-                DataContext = uint.MinValue,
+                DataContext = uint.MinValue, //При нуле обработчик ставит динамическое изменение битрейта
                 Text = "Авто",
                 FontWeight = FontWeights.Bold
             };
@@ -130,11 +132,12 @@ namespace Kinopub.UI.Controls
         {
             var clickedMenuItem = sender as MenuFlyoutItem;
             SelectedBandwidth = ((uint) clickedMenuItem.DataContext);
-
+            //Убираем выделение всех пунктов
             foreach (var item in qualitySelectionMenuFlyout.Items)
             {
                 item.FontWeight = FontWeights.Normal;
             }
+            //и добавляем жирности "активному"
             clickedMenuItem.FontWeight = FontWeights.Bold;
         }
     }

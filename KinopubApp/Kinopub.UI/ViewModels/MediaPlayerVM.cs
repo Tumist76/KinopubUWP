@@ -61,8 +61,7 @@ namespace Kinopub.UI.ViewModels
                 VideoMediaSource = MediaSource.CreateFromAdaptiveMediaSource(ams);
 
                 ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
-                var m3u8Model = new M3u8StreamModel(uri);
-                M3u8Streams = new List<M3u8Stream>(m3u8Model.VideoStreams);
+                M3u8Streams = await M3u8StreamModel.GetStreams(uri);
 
                 SelectedBandwidth = ams.AvailableBitrates.Max<uint>();
 

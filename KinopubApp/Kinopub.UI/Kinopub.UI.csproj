@@ -146,7 +146,7 @@
     <Compile Include="Utilities\SettingsConstants.cs" />
     <Compile Include="Utilities\SettingsManager.cs" />
     <Compile Include="Utilities\WindowNavigation.cs" />
-    <Compile Include="ViewModels\AuthorizationViewModel.cs" />
+    <Compile Include="ViewModels\AuthorizationVM.cs" />
     <Compile Include="Views\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
     </Compile>

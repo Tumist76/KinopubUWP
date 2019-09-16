@@ -12,34 +12,43 @@ using M3u8Parser.Entity;
 namespace Kinopub.UI.Models
 {
     /// <summary>
-    /// Модель,
+    /// Модель, скачивающая плейлист m3u8 и сериализующая в список стримов
     /// </summary>
     class M3u8StreamModel
     {
-        public ObservableCollection<M3u8Stream> VideoStreams { get; set; }
-
-        public M3u8StreamModel(Uri playlistUri)
+        public async static Task<List<M3u8Stream>> GetStreams(Uri playlistUri)
         {
-            ParsePlaylist(GetPlaylistContent(playlistUri).Result);
+            string playlistContent = await GetPlaylistContent(playlistUri);
+            return ParsePlaylist(playlistContent);
         }
-
-        private async Task<string> GetPlaylistContent(Uri playlistUri)
+        
+        /// <summary>
+        /// Скачивает плейлист в виде строки
+        /// </summary>
+        /// <param name="playlistUri">Ссылка на плейлист</param>
+        /// <returns></returns>
+        private static async Task<string> GetPlaylistContent(Uri playlistUri)
         {
             var client = new WebClient();
             //@todo сделать асинхронное скачивание (почему-то не хочет работать)
-            var content = client.DownloadString(playlistUri);
+            var content = await client.DownloadStringTaskAsync(playlistUri);
             return content;
         }
 
-        private async void ParsePlaylist(string playlistContent)
+        /// <summary>
+        /// Парсит и возвращает список стримов
+        /// </summary>
+        /// <param name="playlistContent"></param>
+        /// <returns></returns>
+        private static List<M3u8Stream> ParsePlaylist(string playlistContent)
         {
             var parser = new M3u8Parser.Parser();
             parser.Load(playlistContent);
-            var parsedMedia = await parser.ParseMedia();
-            VideoStreams = new ObservableCollection<M3u8Stream>();
+            var parsedMedia = parser.ParseMedia().Result;
+            var videoStreams = new List<M3u8Stream>();
             foreach (var item in parsedMedia.Where(x => x.Class == "EXT-X-STREAM-INF"))
             {
-                VideoStreams.Add(new M3u8Stream()
+                videoStreams.Add(new M3u8Stream()
                 {
                     ProgramId = item.ProgramId,
                     Resolution = item.Resolution.Height,
@@ -64,6 +73,7 @@ namespace Kinopub.UI.Models
                     Uri = new Uri(KinopubApi.Settings.Constants.CdnDomain + item.Url)
                 });
             }
+            return videoStreams;
         }
     }
 }

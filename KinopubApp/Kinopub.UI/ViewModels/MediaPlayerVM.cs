@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Streaming.Adaptive;
+using Kinopub.UI.Entities.M3u8;
 using Kinopub.UI.Models;
 
 namespace Kinopub.UI.ViewModels
@@ -28,7 +29,7 @@ namespace Kinopub.UI.ViewModels
 
         private AdaptiveMediaSource ams;
 
-        public List<uint> AvaliableBitrates {
+        public List<M3u8Stream> M3u8Streams {
             get;
             set;
         }
@@ -46,11 +47,10 @@ namespace Kinopub.UI.ViewModels
             {
                 ams = result.MediaSource;
                 VideoMediaSource = MediaSource.CreateFromAdaptiveMediaSource(ams);
-                AvaliableBitrates = new List<uint>(ams.AvailableBitrates);
-
 
                 ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
                 var m3u8Model = new M3u8StreamModel(uri);
+                M3u8Streams = new List<M3u8Stream>(m3u8Model.VideoStreams);
 
 
                 //    //Register for download requests

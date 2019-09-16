@@ -26,6 +26,7 @@ namespace Kinopub.UI.Models
         private async Task<string> GetPlaylistContent(Uri playlistUri)
         {
             var client = new WebClient();
+            //@todo сделать асинхронное скачивание (почему-то не хочет работать)
             var content = client.DownloadString(playlistUri);
             return content;
         }

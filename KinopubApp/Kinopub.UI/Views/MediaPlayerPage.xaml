@@ -39,7 +39,7 @@
                     IsSkipBackwardEnabled="True"
                     IsSkipForwardButtonVisible="True"
                     IsSkipForwardEnabled="True"
-                    AvaliableQualities="{Binding AvaliableBitrates}"
+                    AvaliableStreams="{Binding M3u8Streams}"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

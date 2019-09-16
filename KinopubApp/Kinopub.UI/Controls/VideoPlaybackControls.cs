@@ -6,9 +6,11 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Kinopub.Api.Entities.VideoContent;
+using Kinopub.UI.Entities.M3u8;
 
 namespace Kinopub.UI.Controls
 {
@@ -20,25 +22,30 @@ namespace Kinopub.UI.Controls
 
         public static readonly DependencyProperty AvaliableQualitiesProperty =
             DependencyProperty.Register(
-                "AvaliableQualities", 
-                typeof(List<uint>),
+                "AvaliableStreams", 
+                typeof(List<M3u8Stream>),
                 typeof(VideoPlaybackControls),
                 new PropertyMetadata(
                     false,
                     new PropertyChangedCallback(OnQualitiesChanged))
                 );
 
-        public List<uint> AvaliableQualities
+        public List<M3u8Stream> AvaliableStreams
         {
             get
             {
-                return (List<uint>)GetValue(AvaliableQualitiesProperty);
+                return (List<M3u8Stream>)GetValue(AvaliableQualitiesProperty);
             }
             set
             {
                 SetValue(AvaliableQualitiesProperty, value);
             }
         }
+
+        //Если "0", то битрейт выбирается автоматически плеером
+        public long SelectedBandwith {
+            get;
+            set; }
 
         private static void OnQualitiesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -53,16 +60,29 @@ namespace Kinopub.UI.Controls
         public VideoPlaybackControls()
         {
             this.DefaultStyleKey = typeof(VideoPlaybackControls);
+            SelectedBandwith = 0;
         }
 
         private void GetAddToPlaylistFlyout(MenuFlyout flyout)
         {
-            foreach (var item in AvaliableQualities)
+            var autoMenuItem = new MenuFlyoutItem()
             {
-                flyout.Items.Add(new MenuFlyoutItem()
+                DataContext = Convert.ToInt64(0),
+                Text = "Авто",
+                FontWeight = FontWeights.Bold
+            };
+            autoMenuItem.Click += QualityFlyoutMenuItem_Click;
+            qualitySelectionMenuFlyout.Items.Add(autoMenuItem);
+
+            foreach (var item in AvaliableStreams)
+            {
+                var menuItem = new MenuFlyoutItem()
                 {
-                    Text = item.ToString()
-                });
+                    DataContext = item.Bandwidth,
+                    Text = item.Resolution.ToString() + "p"
+                };
+                menuItem.Click += QualityFlyoutMenuItem_Click;
+                qualitySelectionMenuFlyout.Items.Add(menuItem);
             }
         }
 
@@ -73,7 +93,6 @@ namespace Kinopub.UI.Controls
             qualitySelectionButton.Click += QualitySelectionButton_Click;
 
             qualitySelectionMenuFlyout = GetTemplateChild("QualitySelectionMenuFlyout") as MenuFlyout;
-            
 
             base.OnApplyTemplate();
         }
@@ -82,6 +101,18 @@ namespace Kinopub.UI.Controls
         {
             // Raise an event on the custom control when 'like' is clicked
             QualitySelectionButtonClick?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void QualityFlyoutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var clickedMenuItem = sender as MenuFlyoutItem;
+            SelectedBandwith = ((long) clickedMenuItem.DataContext);
+
+            foreach (var item in qualitySelectionMenuFlyout.Items)
+            {
+                item.FontWeight = FontWeights.Normal;
+            }
+            clickedMenuItem.FontWeight = FontWeights.Bold;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Kinopub.UI.Entities.M3u8
     {
         public string ProgramId { get; set; }
         public uint Bandwidth { get; set; }
-        public int Resolution { get; set; }
+        public string Resolution { get; set; }
         public List<M3u8Audio> AudioTrack { get; set; }
         public List<M3u8Subtitle> SubtitleTrack { get; set; }
         public Uri Uri { get; set; }

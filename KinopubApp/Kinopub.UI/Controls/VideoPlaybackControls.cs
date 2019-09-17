@@ -104,7 +104,7 @@ namespace Kinopub.UI.Controls
                 var menuItem = new MenuFlyoutItem()
                 {
                     DataContext = item.Bandwidth,
-                    Text = item.Resolution.ToString() + "p"
+                    Text = item.Resolution
                 };
                 menuItem.Click += QualityFlyoutMenuItem_Click;
                 qualitySelectionMenuFlyout.Items.Add(menuItem);

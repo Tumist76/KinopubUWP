@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Streaming.Adaptive;
+using Kinopub.Api.Entities.VideoContent;
 using Kinopub.UI.Entities.M3u8;
 using Kinopub.UI.Models;
 
@@ -17,17 +19,17 @@ namespace Kinopub.UI.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public MediaSource VideoMediaSource { get; set; }
 
-        public string StreamUrl
+        public Video Video 
         {
-            get => streamUrl;
+            get => video;
             set
             {
-                streamUrl = value;
-                InitializeAdaptiveMediaSource(new Uri(streamUrl));
+                video = value;
+                InitializeAdaptiveMediaSource(new Uri(video.Files.FirstOrDefault().Url.Hls4Url));
             }
         }
 
-        private string streamUrl;
+        private Video video;
 
         private AdaptiveMediaSource ams;
 
@@ -61,7 +63,7 @@ namespace Kinopub.UI.ViewModels
                 VideoMediaSource = MediaSource.CreateFromAdaptiveMediaSource(ams);
 
                 ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
-                M3u8Streams = await M3u8StreamModel.GetStreams(uri);
+                M3u8Streams = await M3u8StreamModel.GetStreams(uri, Video);
 
                 SelectedBandwidth = ams.AvailableBitrates.Max<uint>();
 

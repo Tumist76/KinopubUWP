@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Kinopub.UI.ViewModels;
 using Windows.System;
 using Kinopub.UI.Controls;
+using Kinopub.Api.Entities.VideoContent;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -44,8 +45,8 @@ namespace Kinopub.UI.Views
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parameter = (string)e.Parameter;
-            ((MediaPlayerVM)DataContext).StreamUrl = parameter;
+            var parameter = (Video)e.Parameter;
+            ((MediaPlayerVM)DataContext).Video = parameter;
             GoBackButton.IsEnabled = this.Frame.CanGoBack;
         }
 

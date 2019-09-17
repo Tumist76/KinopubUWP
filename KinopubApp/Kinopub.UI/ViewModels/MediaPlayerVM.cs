@@ -109,5 +109,10 @@ namespace Kinopub.UI.ViewModels
             }
         }
 
+        public void Dispose()
+        {
+            VideoMediaSource.Dispose();
+            ams.Dispose();
+        }
     }
 }

@@ -62,6 +62,9 @@ namespace Kinopub.UI.Views
         {
             if (this.Frame.CanGoBack)
             {
+                //Избавляемся от инициализированных объектов
+                ((MediaPlayerVM)DataContext).Dispose();
+                //MainPlayer.MediaPlayer.Dispose(); //Вызывает вылет при попытке вернуться по стеку навигации
                 this.Frame.GoBack();
                 return true;
             }

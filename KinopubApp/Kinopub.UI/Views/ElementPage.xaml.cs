@@ -37,7 +37,7 @@ namespace Kinopub.UI.Views
         {
             var hls4Url = ((VideoItemVM)DataContext).ItemProperties.Hls4Url;
             Frame rootFrame = Window.Current.Content as Frame;
-            Frame.Navigate(typeof(MediaPlayerPage), hls4Url);
+            rootFrame.Navigate(typeof(MediaPlayerPage), hls4Url);
         }
     }
 }

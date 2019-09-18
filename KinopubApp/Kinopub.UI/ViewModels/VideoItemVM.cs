@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 using Windows.Web.Syndication;
 using Kinopub.Api;
 using Kinopub.UI.Models;
+using System.ComponentModel;
 
 namespace Kinopub.UI.ViewModels
 {
-    class VideoItemVM
+    class VideoItemVM : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ItemContent ItemProperties
         {
             get => itemProperties;

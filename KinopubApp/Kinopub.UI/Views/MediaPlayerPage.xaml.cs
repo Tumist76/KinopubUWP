@@ -29,11 +29,15 @@ namespace Kinopub.UI.Views
         public MediaPlayerPage()
         {
             //Назначение кнопок на функцию возвращения назад
-            KeyboardAccelerator GoBack = new KeyboardAccelerator();
-            GoBack.Key = VirtualKey.GoBack;
+            KeyboardAccelerator GoBack = new KeyboardAccelerator
+            {
+                Key = VirtualKey.GoBack
+            };
             GoBack.Invoked += BackInvoked;
-            KeyboardAccelerator AltLeft = new KeyboardAccelerator();
-            AltLeft.Key = VirtualKey.Left;
+            KeyboardAccelerator AltLeft = new KeyboardAccelerator
+            {
+                Key = VirtualKey.Left
+            };
             AltLeft.Invoked += BackInvoked;
             this.KeyboardAccelerators.Add(GoBack);
             this.KeyboardAccelerators.Add(AltLeft);

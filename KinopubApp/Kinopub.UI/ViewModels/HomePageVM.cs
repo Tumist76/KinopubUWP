@@ -19,7 +19,9 @@ namespace Kinopub.UI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<VideoItem> Items { get; set; }
+        public ObservableCollection<VideoItem> PopularMovies { get; set; }
+
+        public ObservableCollection<VideoItem> PopularTvShows { get; set; }
 
         public HomePageVM()
         {
@@ -31,7 +33,9 @@ namespace Kinopub.UI.ViewModels
             var contentManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
 
             var hotMoviesList = await contentManager.GetHotItems(ContentTypeEnum.Movie, 10, 1);
-            Items = new ObservableCollection<VideoItem>(hotMoviesList.Items);
+            var hotTvShowsList = await contentManager.GetHotItems(ContentTypeEnum.TvShow, 10, 1);
+            PopularMovies = new ObservableCollection<VideoItem>(hotMoviesList.Items);
+            PopularTvShows = new ObservableCollection<VideoItem>(hotTvShowsList.Items); 
         }
     }
 }

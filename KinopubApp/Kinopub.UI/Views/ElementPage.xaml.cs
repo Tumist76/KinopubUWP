@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Kinopub.UI.ViewModels;
+using Kinopub.Api.Entities.VideoContent;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,12 +34,23 @@ namespace Kinopub.UI.Views
             ((VideoItemVM)DataContext).ItemId = parameter;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             //@todo в модели добавить свойство ссылки на поток, получающейся динамически для фильмов и сериалов
             var video = ((VideoItemVM)DataContext).ItemProperties.Videos.FirstOrDefault();
+            PlayVideo(video);
+        }
+
+        private void PlayVideo(Video videoToPlay)
+        {
             Frame rootFrame = Window.Current.Content as Frame;
-            rootFrame.Navigate(typeof(MediaPlayerPage), video);
+            rootFrame.Navigate(typeof(MediaPlayerPage), videoToPlay);
+        }
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedItem = (Video)e.ClickedItem;
+            PlayVideo(clickedItem);
         }
     }
 }

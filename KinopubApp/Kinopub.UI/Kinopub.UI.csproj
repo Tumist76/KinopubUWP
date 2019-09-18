@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\NullVisibilityConverter.cs" />
     <Compile Include="Converters\ReverseNullOpacityConverter.cs" />
     <Compile Include="Converters\NullOpacityConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
@@ -330,6 +331,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Resources\CustomPlayerControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\EpisodeListViewTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

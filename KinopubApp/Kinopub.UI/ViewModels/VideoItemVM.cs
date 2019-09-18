@@ -1,6 +1,7 @@
 ﻿using Kinopub.Api.Entities.VideoContent;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,55 @@ namespace Kinopub.UI.ViewModels
 {
     class VideoItemVM
     {
-        public ItemContent ItemProperties { get; set; }
+        public ItemContent ItemProperties
+        {
+            get => itemProperties;
+            set
+            {
+                itemProperties = value;
+                ManageContent();
+            }
+        }
+
+        private void ManageContent()
+        {
+            if (itemProperties.Seasons != null)
+            {
+                var startedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == 0);
+                if (startedSeason != null)
+                {
+                    SeasonToPlay = startedSeason;
+                    return;
+                }
+                var notStartedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == -1);
+                if (notStartedSeason != null)
+                {
+                    SeasonToPlay = notStartedSeason;
+                    return;
+                }
+                SeasonToPlay = itemProperties.Seasons.LastOrDefault(x => x.Watching.Status == 1);
+            }
+        }
+
+        private void GetVideoToPlay(List<Video> videos)
+        {
+            if (itemProperties.Seasons != null)
+            {
+                var startedEpisode = VideoList.FirstOrDefault(x => x.Watching.Status == 0);
+                if (startedEpisode != null)
+                {
+                    VideoToPlay = startedEpisode;
+                    return;
+                }
+                var notStartedEpisode = VideoList.FirstOrDefault(x => x.Watching.Status == -1);
+                if (notStartedEpisode != null)
+                {
+                    VideoToPlay = notStartedEpisode;
+                    return;
+                }
+                VideoToPlay = VideoList.LastOrDefault(x => x.Watching.Status == 1);
+            }
+        }
 
         public long ItemId
         {
@@ -25,6 +74,26 @@ namespace Kinopub.UI.ViewModels
         }
 
         private long itemId;
+
+        private ItemContent itemProperties;
+
+        public ObservableCollection<Video> VideoList { get; set; }
+
+        public Season SeasonToPlay
+        {
+            get { return seasonToPlay; }
+            set
+            {
+                //@todo привязка к выбранному сезону в ComboBox
+                seasonToPlay = value;
+                VideoList = new ObservableCollection<Video>(seasonToPlay.Episodes);
+                GetVideoToPlay(seasonToPlay.Episodes);
+            }
+        }
+
+        private Season seasonToPlay;
+
+        public Video VideoToPlay { get; set; }
 
         public VideoItemVM()
         {

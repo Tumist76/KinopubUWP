@@ -6,15 +6,58 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
+    xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" FontFamily="Segoe UI">
     <Page.DataContext>
         <vms:VideoItemVM/>
     </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/EpisodeListViewTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
     <StackPanel>
         <Image MaxWidth="200"
             Source="{Binding ItemProperties.Posters.MediumUrl}"/>
         <TextBlock Text="{Binding ItemProperties.Title}"/>
-        <Button Content="Воспроизвести" Click="Button_Click"></Button>
+        <Button Content="Воспроизвести" Click="PlayButton_Click"></Button>
+        <ComboBox 
+            x:Name="SeasonsComboBox"
+            Header="Сезоны"
+            ItemsSource="{Binding ItemProperties.Seasons}"
+            Visibility="{Binding ItemProperties.Seasons, Converter={StaticResource NullToVisibilityConverter}}"
+            SelectedItem="{Binding SeasonToPlay}"
+            >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>
+                            <Run Text="Сезон "/>
+                            <Run/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Number}" />
+                    </StackPanel>
+                </DataTemplate>
+                
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ListView 
+            ItemContainerStyle="{StaticResource EpisodeItemContainerStyle}" 
+            ItemsPanel="{StaticResource EpisodeItemsPanel}" 
+            ItemTemplate="{StaticResource EpisodeItemTemplate}" 
+            Height="Auto"
+            ItemsSource="{Binding VideoList}"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.HorizontalScrollMode="Enabled"                  
+            ScrollViewer.VerticalScrollMode="Disabled" 
+            IsItemClickEnabled="True"
+            ItemClick="ListView_ItemClick"
+            VerticalContentAlignment="Top" FontFamily="Segoe UI">
+        </ListView>
     </StackPanel>
 </Page>

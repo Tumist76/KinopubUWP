@@ -9,25 +9,6 @@ namespace Kinopub.Api.Entities.VideoContent
         [JsonProperty("videos")]
         public List<Video> Videos { get; set; }
 
-        // @todo Я не знаю, что ты за фигню наворотил, но сделай нормально
-        public string Hls4Url
-        {
-            get
-            {
-                if (Videos.Capacity > 0)
-                {
-                    if (Videos.First().Files.First().Url.Hls4Url != null)
-                        return Videos.First().Files.First().Url.Hls4Url;
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
+        public List<Season> Seasons { get; set; } 
     }
 }

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Kinopub.Api.Entities.VideoContent;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -77,6 +78,12 @@ namespace Kinopub.UI.Views
 
             contentFrame.GoBack();
             return true;
+        }
+
+        private void NavViewSearchBox_OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            var selectedMedia = (VideoItem) args.SelectedItem;
+            contentFrame.Navigate(typeof(ElementPage), selectedMedia.Id);
         }
     }
 }

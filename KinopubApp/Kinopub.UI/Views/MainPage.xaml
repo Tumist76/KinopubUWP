@@ -22,7 +22,9 @@
                 <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"
                                 ItemsSource="{Binding QuickResults}"
                                 Text="{Binding Query, Mode=TwoWay}"
-                                DisplayMemberPath="RussianTitle"/>
+                                DisplayMemberPath="RussianTitle"
+                                TextMemberPath="RussianTitle"
+                                SuggestionChosen="NavViewSearchBox_OnSuggestionChosen"/>
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Главная" Tag="Nav_HomePage" />

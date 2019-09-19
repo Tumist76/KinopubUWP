@@ -130,6 +130,7 @@
     <Compile Include="Entities\M3u8\M3u8Subtitle.cs" />
     <Compile Include="Models\M3u8StreamModel.cs" />
     <Compile Include="ViewModels\MediaPlayerVM.cs" />
+    <Compile Include="ViewModels\SearchSuggestBoxVM.cs" />
     <Compile Include="ViewModels\VideoItemVM.cs" />
     <Compile Include="ViewModels\HomePageVM.cs" />
     <Compile Include="Views\ElementPage.xaml.cs">

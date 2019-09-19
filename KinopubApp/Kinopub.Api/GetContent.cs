@@ -33,7 +33,7 @@ namespace Kinopub.Api
         public async Task<SearchEntity> SearchItems
             (string title, int itemsPerPage, int page)
         {
-            var request = BuildRequest("search", ContentTypeEnum.Empty, itemsPerPage, page);
+            var request = BuildRequest("", ContentTypeEnum.Empty, itemsPerPage, page);
             request.AddParameter("title", title);
 
             var restResponse = await GetRestClient().ExecuteTaskAsync<SearchEntity>(request);
@@ -132,7 +132,11 @@ namespace Kinopub.Api
         /// <returns></returns>
         private RestRequest BuildRequest(string action, ContentTypeEnum type, int itemsPerPage, int page)
         {
-            var request = new RestRequest("/v1/items/" + action,
+            //Если тип подраздела items не пустой, то добавляем подраздел запроса
+            if (!String.IsNullOrEmpty(action))
+                action = "/" + action;
+
+            var request = new RestRequest("/v1/items" + action,
                 Method.GET);
 
             request.AddHeader("Authorization",

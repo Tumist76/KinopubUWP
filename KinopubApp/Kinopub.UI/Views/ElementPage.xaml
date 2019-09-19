@@ -36,10 +36,9 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>
-                            <Run Text="Сезон "/>
-                            <Run/>
+                            <Run Text="Сезон"/>
+                            <Run Text="{Binding Number}"/>
                         </TextBlock>
-                        <TextBlock Text="{Binding Number}" />
                     </StackPanel>
                 </DataTemplate>
                 

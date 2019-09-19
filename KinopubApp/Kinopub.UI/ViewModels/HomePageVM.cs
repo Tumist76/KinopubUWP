@@ -30,10 +30,10 @@ namespace Kinopub.UI.ViewModels
 
         private async void GetItems()
         {
-            var contentManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
+            var requestManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
 
-            var hotMoviesList = await contentManager.GetHotItems(ContentTypeEnum.Movie, 10, 1);
-            var hotTvShowsList = await contentManager.GetHotItems(ContentTypeEnum.Serial, 10, 1);
+            var hotMoviesList = await requestManager.GetHotItems(ContentTypeEnum.Movie, 10, 1);
+            var hotTvShowsList = await requestManager.GetHotItems(ContentTypeEnum.Serial, 10, 1);
             PopularMovies = new ObservableCollection<VideoItem>(hotMoviesList.Items);
             PopularTvShows = new ObservableCollection<VideoItem>(hotTvShowsList.Items); 
         }

@@ -6,9 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    xmlns:vms="using:Kinopub.UI.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.DataContext>
+        <vms:SearchSuggestBoxVM/>
+    </Page.DataContext>
     <Grid>
         <NavigationView x:Name="MainNavView"
                         ItemInvoked="MainNavView_ItemInvoked"
@@ -16,7 +19,10 @@
                         IsBackEnabled="True"
                         >
             <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"/>
+                <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"
+                                ItemsSource="{Binding QuickResults}"
+                                Text="{Binding Query, Mode=TwoWay}"
+                                DisplayMemberPath="Title"/>
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Главная" Tag="Nav_HomePage" />

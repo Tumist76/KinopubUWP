@@ -25,7 +25,15 @@ namespace Kinopub.UI.Views
         public MainPage()
         {
             this.InitializeComponent();
+            MoveToMainPage();
         }
+
+        private void MoveToMainPage()
+        {
+            MainNavView.SelectedItem = MainNavView.MenuItems.ElementAt(0);
+            contentFrame.Navigate(typeof(HomePage));
+        }
+
         private void MainNavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             var item = args.InvokedItemContainer as NavigationViewItem;

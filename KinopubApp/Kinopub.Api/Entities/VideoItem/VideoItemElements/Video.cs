@@ -9,6 +9,10 @@ namespace Kinopub.Api.Entities.VideoContent
     {
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonProperty("number")]
+        public string Number { get; set; }
+
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
         

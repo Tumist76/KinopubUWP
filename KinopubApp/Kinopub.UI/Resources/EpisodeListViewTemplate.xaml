@@ -4,10 +4,40 @@
     xmlns:local="using:Kinopub.UI.Resources">
 
     <DataTemplate x:Key="EpisodeItemTemplate">
-        <StackPanel VerticalAlignment="Top" Width="250">
-            <Image Source="{Binding Thumbnail}"/>
-            <TextBlock Text="{Binding Title}"/>
-        </StackPanel>
+        <Grid VerticalAlignment="Top" Width="250">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Image 
+                Grid.Row="0"
+                Source="{Binding Thumbnail}"/>
+            <Rectangle Height="50"
+                       VerticalAlignment="Bottom">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0.0" />
+                        <GradientStop Color="#C0000000" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock
+                Margin="7,0,0,7"
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                FontWeight="Bold"
+                FontSize="26">
+                <Run Text="{Binding Number}"/>
+            </TextBlock>
+            <TextBlock 
+                Grid.Row="1"
+                Margin="0 5 5 5"
+                Style="{StaticResource BaseTextBlockStyle}" 
+                Text="{Binding Title}"/>
+
+        </Grid>
     </DataTemplate>
     <ItemsPanelTemplate x:Key="EpisodeItemsPanel">
         <ItemsStackPanel Orientation="Horizontal"/>

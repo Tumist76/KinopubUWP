@@ -30,7 +30,7 @@
             Header="Сезоны"
             ItemsSource="{Binding ItemProperties.Seasons}"
             Visibility="{Binding ItemProperties.Seasons, Converter={StaticResource NullToVisibilityConverter}}"
-            SelectedItem="{Binding SeasonToPlay}"
+            SelectedItem="{Binding SeasonToPlay, Mode=TwoWay}"
             >
             <ComboBox.ItemTemplate>
                 <DataTemplate>

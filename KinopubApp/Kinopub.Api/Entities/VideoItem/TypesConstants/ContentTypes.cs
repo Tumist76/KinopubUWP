@@ -14,6 +14,8 @@ namespace Kinopub.Api.Entities.VideoContent.TypesConstants
             {
                 case ContentTypeEnum.Movie:
                     return Movie;
+                case ContentTypeEnum.Serial:
+                    return Serial;
                 case ContentTypeEnum.TvShow:
                     return TvShow;
                 case ContentTypeEnum.Movie3d:
@@ -34,7 +36,11 @@ namespace Kinopub.Api.Entities.VideoContent.TypesConstants
         /// <summary>
         /// Сериал
         /// </summary>
-        public const string TvShow = "serial";
+        public const string Serial = "serial";
+        /// <summary>
+        /// Сериал
+        /// </summary>
+        public const string TvShow = "tvshow";
         /// <summary>
         /// 3D-фильм
         /// </summary>

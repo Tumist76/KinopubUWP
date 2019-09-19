@@ -4,10 +4,11 @@
     {
         Empty = 0,
         Movie = 1,
-        TvShow = 2,
-        Movie3d = 3,
-        Concert = 4,
-        MovieDocumental = 5, 
-        TvShowDocumental = 6
+        Serial = 2,
+        TvShow = 3,
+        Movie3d = 4,
+        Concert = 5,
+        MovieDocumental = 6, 
+        TvShowDocumental = 7
     }
 }

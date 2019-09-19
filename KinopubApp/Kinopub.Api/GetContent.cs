@@ -139,16 +139,7 @@ namespace Kinopub.Api
                 AccessToken);
 
             // @todo Сделать какой-то более красивый враппер для этого распределения
-            string chosenType = null; //Пусть будет пока выбор по умолчанию такой
-            switch (type)
-            {
-                case ContentTypeEnum.Movie:
-                    chosenType = "movie";
-                    break;
-                case ContentTypeEnum.TvShow:
-                    chosenType = "tvshow";
-                    break;
-            }
+            string chosenType = ContentTypesConverter.GetContentType(type); //Пусть будет пока выбор по умолчанию такой
             if (!String.IsNullOrEmpty(chosenType)) request.AddParameter("type", chosenType);
 
             request.AddParameter("perpage", itemsPerPage);

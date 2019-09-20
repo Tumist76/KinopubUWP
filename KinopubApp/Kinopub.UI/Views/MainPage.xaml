@@ -24,7 +24,7 @@
                                 Text="{Binding Query, Mode=TwoWay}"
                                 DisplayMemberPath="RussianTitle"
                                 TextMemberPath="RussianTitle"
-                                SuggestionChosen="NavViewSearchBox_OnSuggestionChosen"/>
+                                SuggestionChosen="NavViewSearchBox_OnSuggestionChosen" QuerySubmitted="NavViewSearchBox_QuerySubmitted"/>
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Главная" Tag="Nav_HomePage" />

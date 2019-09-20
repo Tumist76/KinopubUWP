@@ -85,5 +85,10 @@ namespace Kinopub.UI.Views
             var selectedMedia = (VideoItem) args.SelectedItem;
             contentFrame.Navigate(typeof(ElementPage), selectedMedia.Id);
         }
+
+        private void NavViewSearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            contentFrame.Navigate(typeof(SearchPage), NavViewSearchBox.Text);
+        }
     }
 }

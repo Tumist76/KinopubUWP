@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="Kinopub.UI.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kinopub.UI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vms="using:Kinopub.UI.ViewModels"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <vms:SearchVM/>
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/VideoListViewTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <GridView 
+            ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
+            ItemsPanel="{StaticResource VideoItemsPanel}" 
+            ItemTemplate="{StaticResource VideoItemTemplate}" 
+            Height="Auto"
+            ItemsSource="{Binding Results}"
+            IsItemClickEnabled="True"
+            VerticalContentAlignment="Top" FontFamily="Segoe UI">
+        </GridView>
+    </Grid>
+</Page>

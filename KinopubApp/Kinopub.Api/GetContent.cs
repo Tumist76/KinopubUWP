@@ -1,5 +1,6 @@
 ﻿using KinopubApi.Settings;
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Kinopub.Api.Entities;
@@ -70,8 +71,18 @@ namespace Kinopub.Api
             // @todo Сделать нормальный таймаут и обработчик ошибок
             //@body При некорректном запросе здесь приложение просто вешается. Так быть не должно. 
             //Нужно корректная обработка ошибок с выводом тех, которые могут быть важны пользователю, на экран.
+            CheckResponse(restResponse);
             return restResponse.Data;
         }
+
+        private void CheckResponse(IRestResponse restResponse)
+        {
+            if (restResponse.StatusCode != HttpStatusCode.OK)
+            {
+                //@todo заняться тут исключениями
+            }
+        }
+
         /// <summary>
         /// Получает новые видео выбранного типа
         /// </summary>

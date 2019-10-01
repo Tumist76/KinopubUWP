@@ -17,6 +17,12 @@ namespace Kinopub.UI.Models
     /// </summary>
     class M3u8StreamModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playlistUri">Ссылка на сам плейлист</param>
+        /// <param name="video">Список видео, полученный из результата запроса к АПИшке Кинопаба</param>
+        /// <returns></returns>
         public async static Task<List<M3u8Stream>> GetStreams(Uri playlistUri, Video video)
         {
             string playlistContent = await GetPlaylistContent(playlistUri);
@@ -49,30 +55,39 @@ namespace Kinopub.UI.Models
             var videoStreams = new List<M3u8Stream>();
             foreach (var item in parsedMedia.Where(x => x.Class == "EXT-X-STREAM-INF"))
             {
-                videoStreams.Add(new M3u8Stream()
+                try
                 {
-                    ProgramId = item.ProgramId,
-                    Resolution = video.Files.First(x => x.Height == item.Resolution.Height).Quality,
-                    Bandwidth = item.Bandwidth,
-                    AudioTrack = new List<M3u8Audio>(parsedMedia
-                        .Where(x => x.GroupId == item.Audio)
-                        .Select(x => new M3u8Audio()
-                        {
-                            GroupId = x.GroupId,
-                            IsDefaultTrack = x.Default,
-                            Name = x.Name,
-                            Uri = new Uri(KinopubApi.Settings.Constants.CdnDomain + x.Url)
-                        })),
-                    SubtitleTrack = new List<M3u8Subtitle>(parsedMedia
-                        .Where(x => x.GroupId == item.Subtitles)
-                        .Select(x => new M3u8Subtitle()
-                        {
-                            GroupId = x.GroupId,
-                            Name = x.Name,
-                            Uri = new Uri(KinopubApi.Settings.Constants.CdnDomain + x.Url)
-                        })),
-                    Uri = new Uri(KinopubApi.Settings.Constants.CdnDomain + item.Url)
-                });
+                    videoStreams.Add(new M3u8Stream()
+                    {
+                        ProgramId = item.ProgramId,
+                        Resolution = video.Files.First(x => x.Height == item.Resolution.Height).Quality,
+                        Bandwidth = item.Bandwidth,
+                        AudioTrack = new List<M3u8Audio>(parsedMedia
+                            .Where(x => x.GroupId == item.Audio)
+                            .Select(x => new M3u8Audio()
+                            {
+                                GroupId = x.GroupId,
+                                IsDefaultTrack = x.Default,
+                                Name = x.Name,
+                                Uri = new Uri(KinopubApi.Settings.Constants.CdnDomain + x.Url)
+                            })),
+                        SubtitleTrack = new List<M3u8Subtitle>(parsedMedia
+                            .Where(x => x.GroupId == item.Subtitles)
+                            .Select(x => new M3u8Subtitle()
+                            {
+                                GroupId = x.GroupId,
+                                Name = x.Name,
+                                Uri = new Uri(KinopubApi.Settings.Constants.CdnDomain + x.Url)
+                            })),
+                        Uri = new Uri(KinopubApi.Settings.Constants.CdnDomain + item.Url)
+                    });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                
             }
             return videoStreams;
         }

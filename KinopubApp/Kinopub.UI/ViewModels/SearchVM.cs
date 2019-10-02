@@ -4,6 +4,7 @@ using Kinopub.UI.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -26,7 +27,7 @@ namespace Kinopub.UI.ViewModels
         private string query;
 
 
-        private async System.Threading.Tasks.Task GetResultsAsync()
+        private async Task GetResultsAsync()
         {
             //Поиск на Кинопабе не работает меньше, чем с тремя символами
             if (query.Length < 3)

@@ -22,10 +22,9 @@ namespace Kinopub.Api
         /// </summary>
         /// <param name="itemId"></param>
         /// <returns></returns>
-        public async Task<UserInfo> GetItem
-            (long itemId)
+        public async Task<User> GetUserInfo ()
         {
-            var request = new RestRequest("/v1/items/" + itemId,
+            var request = new RestRequest("/v1/user",
                 Method.GET);
 
             request.AddHeader("Authorization",
@@ -34,7 +33,7 @@ namespace Kinopub.Api
             // @todo @todo поменять на асинхронную работу с одновременной десереализацией
             var restResponse = GetRestClient().Execute(request);
             var response = JsonConvert.DeserializeObject<UserInfo>(restResponse.Content);
-            return response;
+            return response.User;
         }
 
         private static CancellationTokenSource GetCancelletionTokenSource()

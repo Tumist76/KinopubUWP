@@ -128,6 +128,7 @@
     <Compile Include="Entities\SearchEntity.cs" />
     <Compile Include="Entities\UserItem\Profile.cs" />
     <Compile Include="Entities\UserItem\Subsciption.cs" />
+    <Compile Include="Entities\UserItem\User.cs" />
     <Compile Include="Entities\UserItem\UserInfo.cs" />
     <Compile Include="Entities\VideoItem\Pagination.cs" />
     <Compile Include="Entities\VideoItem\Season.cs" />

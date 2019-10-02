@@ -10,15 +10,16 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Required">
-    <Page.DataContext>
-        <vms:SearchSuggestBoxVM/>
-    </Page.DataContext>
     <Grid>
         <NavigationView x:Name="MainNavView"
                         ItemInvoked="MainNavView_ItemInvoked"
                         BackRequested="MainNavView_BackRequested"
                         IsBackEnabled="True"
+                        IsSettingsVisible="False"
                         >
+            <NavigationView.DataContext>
+                <vms:SearchSuggestBoxVM/>
+            </NavigationView.DataContext>
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find"
                                 ItemsSource="{Binding QuickResults}"
@@ -32,6 +33,28 @@
                 <NavigationViewItem Icon="View" Content="Смотрю" Tag="Nav_WatchingPage" />
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame"/>
+            <NavigationView.PaneFooter>
+                <NavigationViewItem
+                    Padding="-10,0,0,0">
+                    <NavigationViewItem.DataContext>
+                        <vms:UserInfoVM/>
+                    </NavigationViewItem.DataContext>
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <Ellipse 
+                            Width="30" 
+                            Height="30">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding User.Profile.AvatarUrl}" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock 
+                            Text="{Binding User.Username}"
+                            VerticalAlignment="Center"
+                            Margin="12 0 0 0"/>
+                    </StackPanel>
+                </NavigationViewItem>
+            </NavigationView.PaneFooter>
         </NavigationView>
     </Grid>
 </Page>

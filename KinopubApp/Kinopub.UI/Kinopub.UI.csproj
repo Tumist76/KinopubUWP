@@ -132,6 +132,7 @@
     <Compile Include="ViewModels\MediaPlayerVM.cs" />
     <Compile Include="ViewModels\SearchSuggestBoxVM.cs" />
     <Compile Include="ViewModels\SearchVM.cs" />
+    <Compile Include="ViewModels\UserInfoVM.cs" />
     <Compile Include="ViewModels\VideoItemVM.cs" />
     <Compile Include="ViewModels\HomePageVM.cs" />
     <Compile Include="Views\ElementPage.xaml.cs">

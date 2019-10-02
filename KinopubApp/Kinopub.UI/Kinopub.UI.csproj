@@ -160,6 +160,9 @@
     <Compile Include="Views\MediaPlayerPage.xaml.cs">
       <DependentUpon>MediaPlayerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NoSubscriptionDialog.xaml.cs">
+      <DependentUpon>NoSubscriptionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OnboardingPage.xaml.cs">
       <DependentUpon>OnboardingPage.xaml</DependentUpon>
     </Compile>
@@ -344,6 +347,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\FlyoutMenuItemWithIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\VideoListViewTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -381,6 +388,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NoConnectionError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NoSubscriptionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -426,6 +437,9 @@
     </PackageReference>
     <PackageReference Include="RestSharp">
       <Version>106.6.10</Version>
+    </PackageReference>
+    <PackageReference Include="Template10">
+      <Version>1.1.12</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

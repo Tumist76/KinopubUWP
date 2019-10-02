@@ -7,9 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     xmlns:vms="using:Kinopub.UI.ViewModels"
+    xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Required">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/FlyoutMenuItemWithIcon.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
         <NavigationView x:Name="MainNavView"
                         ItemInvoked="MainNavView_ItemInvoked"
@@ -35,10 +44,42 @@
             <Frame x:Name="contentFrame"/>
             <NavigationView.PaneFooter>
                 <NavigationViewItem
-                    Padding="-10,0,0,0">
+                    Padding="-10,0,0,0" Tapped="ProfileMenuItem_Tapped">
                     <NavigationViewItem.DataContext>
                         <vms:UserInfoVM/>
                     </NavigationViewItem.DataContext>
+
+                    <NavigationViewItem.ContextFlyout>
+                        <Flyout x:Name="ProfileFlyout"
+                                >
+                            <StackPanel
+                                Width="200">
+                                <TextBlock Text="{Binding User.Profile.Name}"
+                                           Visibility="{Binding User.Profile.Name, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                <TextBlock>
+                                    <Run Text="{Binding User.Subscription.DaysLeft}"/>
+                                    <Run Text="дней"/>
+                                </TextBlock>
+                                <MenuFlyoutItem 
+                                    Style="{StaticResource FlyoutMenuItemWithIcon}" 
+                                    Margin="-12 0 -12 0"
+                                    Tag="Shop" 
+                                    Text="Продлить подписку"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem 
+                                    Style="{StaticResource FlyoutMenuItemWithIcon}" 
+                                    Margin="-12 0 -12 0"
+                                    Tag="Setting" 
+                                    Text="Настройки"/>
+                                <MenuFlyoutItem 
+                                    Style="{StaticResource FlyoutMenuItemWithIcon}" 
+                                    Margin="-12 0 -12 -12"
+                                    Tag="BlockContact" 
+                                    Text="Сменить пользователя"/>
+                            </StackPanel>
+                        </Flyout>
+                    </NavigationViewItem.ContextFlyout>
+
                     <StackPanel
                         Orientation="Horizontal">
                         <Ellipse 

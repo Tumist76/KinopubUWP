@@ -90,5 +90,13 @@ namespace Kinopub.UI.Views
         {
             contentFrame.Navigate(typeof(SearchPage), NavViewSearchBox.Text);
         }
+
+        private void ProfileMenuItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (ProfileFlyout.IsOpen)
+                ProfileFlyout.Hide();
+            else
+                ProfileFlyout.ShowAt((NavigationViewItem)sender);
+        }
     }
 }

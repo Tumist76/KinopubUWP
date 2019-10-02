@@ -43,6 +43,8 @@ namespace Kinopub.UI.Views
 
         private void PlayVideo(Video videoToPlay)
         {
+            //@todo Стоит переделать как-то иначе, чтобы вызов производился из ВМки и метод проверки был один
+
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(MediaPlayerPage), videoToPlay);
         }

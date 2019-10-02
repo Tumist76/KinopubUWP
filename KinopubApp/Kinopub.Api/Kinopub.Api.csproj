@@ -126,8 +126,9 @@
     <Compile Include="Entities\Error.cs" />
     <Compile Include="Entities\GetItem.cs" />
     <Compile Include="Entities\SearchEntity.cs" />
+    <Compile Include="Entities\UserItem\Profile.cs" />
     <Compile Include="Entities\UserItem\Subsciption.cs" />
-    <Compile Include="Entities\UserItem\User.cs" />
+    <Compile Include="Entities\UserItem\UserInfo.cs" />
     <Compile Include="Entities\VideoItem\Pagination.cs" />
     <Compile Include="Entities\VideoItem\Season.cs" />
     <Compile Include="Entities\VideoItem\TypesConstants\ContentTypes.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Entities\VideoItem\VideoItemElements\VideoElements\Watching.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="GetContent.cs" />
+    <Compile Include="GetUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Constants.cs" />
     <Compile Include="Tools\JsonSerilializer.cs" />

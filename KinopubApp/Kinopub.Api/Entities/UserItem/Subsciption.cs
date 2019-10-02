@@ -4,10 +4,22 @@ namespace Kinopub.Api.Entities.UserItem
 {
     public class Subsciption
     {
+        /// <summary>
+        /// Активна ли подписка
+        /// </summary>
         [JsonProperty("active")]
-        public bool Username { get; set; }
+        public bool IsActive { get; set; }
 
-        [JsonProperty("reg_date")] // 'Название / Оригинальное название'
-        public long RegistrationDate { get; set; }
+        /// <summary>
+        /// Время окончания подписки
+        /// </summary>
+        [JsonProperty("end_time")] 
+        public long EndTime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("days")]
+        public decimal DaysLeft { get; set; }
     }
 }

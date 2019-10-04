@@ -139,6 +139,7 @@
                 Text="Эпизоды"/>
                 <ComboBox 
                     x:Name="SeasonsComboBox"
+                    ItemsSource="{Binding ItemProperties.Seasons}"
                     Margin="0 10 0 0"
                     SelectedItem="{Binding SeasonToPlay, Mode=TwoWay}"
                 >

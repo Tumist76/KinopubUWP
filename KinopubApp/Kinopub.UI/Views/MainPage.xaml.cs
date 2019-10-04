@@ -80,14 +80,21 @@ namespace Kinopub.UI.Views
             return true;
         }
 
+        private bool isQueryFromSuggestion;
         private void NavViewSearchBox_OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
+            isQueryFromSuggestion = true;
             var selectedMedia = (VideoItem) args.SelectedItem;
             contentFrame.Navigate(typeof(ElementPage), selectedMedia.Id);
         }
 
         private void NavViewSearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            if (isQueryFromSuggestion)
+            {
+                isQueryFromSuggestion = false;
+                return;
+            }
             contentFrame.Navigate(typeof(SearchPage), NavViewSearchBox.Text);
         }
 

@@ -9,7 +9,6 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
             <Image 
                 Grid.Row="0"
                 Source="{Binding Thumbnail}"/>
@@ -33,7 +32,7 @@
             </TextBlock>
             <TextBlock 
                 Grid.Row="1"
-                Margin="0 5 5 5"
+                Margin="5 5 5 5"
                 Style="{StaticResource BaseTextBlockStyle}" 
                 Text="{Binding Title}"/>
 
@@ -45,6 +44,8 @@
     <Style x:Key="EpisodeItemContainerStyle" TargetType="ListViewItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Padding" Value="0 0 10 0"/>
+        <Setter Property="Margin" Value="0 0 0 0"/>
     </Style>
 
 </ResourceDictionary>

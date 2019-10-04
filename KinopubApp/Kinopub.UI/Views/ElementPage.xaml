@@ -22,6 +22,7 @@
                 <ResourceDictionary Source="../Resources/TextStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <converters:StringFormatConverter x:Key="StringFormatConverter"/>
         </ResourceDictionary>
     </Page.Resources>
     <ScrollViewer>
@@ -73,7 +74,36 @@
                     TextWrapping="Wrap"
                     Style="{StaticResource MovieSubtitleStyle}"
                     Text="{Binding ItemProperties.OriginalTitle}"/>
+
+                <StackPanel
+                    Margin="0 20 0 0"
+                    Orientation="Horizontal">
+                    <Border CornerRadius="5"
+                        BorderBrush="White" 
+                        BorderThickness="1.5"
+                        Width="55"
+                        Height="24">
+                            <TextBlock 
+                                Text="{Binding ItemProperties.Quality, 
+                                Converter={StaticResource StringFormatConverter}, 
+                                ConverterParameter='\{0\}p'}"
+                                HorizontalAlignment="Center"/>
+                        </Border>
+                    <TextBlock 
+                        Margin="5 0 0 0"
+                        Text="{Binding DurationInMinutes, 
+                                Converter={StaticResource StringFormatConverter}, 
+                                ConverterParameter='• \{0\} г'}"
+                        VerticalAlignment="Center"/>
+                        <TextBlock 
+                        Margin="5 0 0 0"
+                        Text="{Binding ItemProperties.Year, 
+                                Converter={StaticResource StringFormatConverter}, 
+                                ConverterParameter='• \{0\} г'}"
+                        VerticalAlignment="Center"/>
+                    </StackPanel>
             </StackPanel>
+
             <StackPanel
                 Margin="0 10 0 0"
                 RelativePanel.Below="Poster"

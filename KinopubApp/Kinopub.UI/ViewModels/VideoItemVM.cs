@@ -26,6 +26,8 @@ namespace Kinopub.UI.ViewModels
             }
         }
 
+        #region Методы для определения серии и сезона на воспроизведение
+        
         private void ManageContent()
         {
             if (itemProperties.Seasons != null)
@@ -68,6 +70,11 @@ namespace Kinopub.UI.ViewModels
             VideoToPlay = VideoList.FirstOrDefault();
         }
 
+        #endregion
+
+        /// <summary>
+        /// Идентификатор фильма/сериала
+        /// </summary>
         public long ItemId
         {
             get => itemId;
@@ -80,8 +87,14 @@ namespace Kinopub.UI.ViewModels
 
         private long itemId;
 
+        /// <summary>
+        /// Объект со свойствами фильма/сериала
+        /// </summary>
         private ItemContent itemProperties;
 
+        /// <summary>
+        /// Список видео, доступных для воспроизведения
+        /// </summary>
         public ObservableCollection<Video> VideoList { get; set; }
 
         public Season SeasonToPlay
@@ -99,6 +112,16 @@ namespace Kinopub.UI.ViewModels
         private Season seasonToPlay;
 
         public Video VideoToPlay { get; set; }
+
+        public int DurationInMinutes
+        {
+            get
+            {
+                if (ItemProperties.Videos != null)
+                    return itemProperties.Videos.First().Duration / 60;
+                else return 0;
+            }
+        }
 
         public VideoItemVM()
         {

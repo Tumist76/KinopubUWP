@@ -67,7 +67,8 @@
                     Style="{StaticResource RoundedButton}"
                     Background="#0073d1"
                     Width="170"
-                    Height="40">
+                    Height="40"
+                    Click="PlayButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <SymbolIcon Symbol="Play"/>
                         <TextBlock Margin="10 0 0 0" Text="Смотреть"/>
@@ -76,6 +77,7 @@
             </StackPanel>
         </RelativePanel>
 
+        <!-- Блок описания -->
         <StackPanel
             Grid.Row="1"
             Margin="30 40 0 0">
@@ -83,6 +85,7 @@
                 Style="{StaticResource SectionTitle}"
                 Text="Описание"/>
             <TextBlock 
+                Margin="0 10 0 0"
                 HorizontalAlignment="Left"
                 MaxWidth="600"
                 TextWrapping="WrapWholeWords"
@@ -91,15 +94,17 @@
 
         <StackPanel
             Grid.Row="2"
-            Margin="30 40 0 30"
-        >
-            <ComboBox 
-                x:Name="SeasonsComboBox"
-                Header="Сезоны"
-                ItemsSource="{Binding ItemProperties.Seasons}"
-                Visibility="{Binding ItemProperties.Seasons, Converter={StaticResource NullToVisibilityConverter}}"
-                SelectedItem="{Binding SeasonToPlay, Mode=TwoWay}"
-            >
+            Margin="30 40 0 30">
+            <TextBlock 
+                Style="{StaticResource SectionTitle}"
+                Text="Эпизоды"/>
+                <ComboBox 
+                    x:Name="SeasonsComboBox"
+                    Margin="0 10 0 0"
+                    ItemsSource="{Binding ItemProperties.Seasons}"
+                    Visibility="{Binding ItemProperties.Seasons, Converter={StaticResource NullToVisibilityConverter}}"
+                    SelectedItem="{Binding SeasonToPlay, Mode=TwoWay}"
+                >
                 <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

@@ -37,7 +37,7 @@ namespace Kinopub.UI.Views
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             //@todo в модели добавить свойство ссылки на поток, получающейся динамически для фильмов и сериалов
-            var video = ((VideoItemVM)DataContext).ItemProperties.Videos.FirstOrDefault();
+            var video = ((VideoItemVM)DataContext).VideoToPlay;
             PlayVideo(video);
         }
 

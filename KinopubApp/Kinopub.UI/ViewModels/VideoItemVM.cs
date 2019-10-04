@@ -64,6 +64,8 @@ namespace Kinopub.UI.ViewModels
                 }
                 VideoToPlay = VideoList.LastOrDefault(x => x.Watching.Status == 1);
             }
+
+            VideoToPlay = VideoList.FirstOrDefault();
         }
 
         public long ItemId

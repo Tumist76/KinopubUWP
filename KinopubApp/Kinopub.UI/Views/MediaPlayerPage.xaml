@@ -14,12 +14,6 @@
         <vms:MediaPlayerVM/>
     </Page.DataContext>
     <Grid>
-        <Button x:Name="GoBackButton"
-                Style="{StaticResource NavigationBackButtonNormalStyle}"
-                VerticalAlignment="Top"
-                Margin="10"
-                Click="GoBackButton_Click"
-                Canvas.ZIndex="2"/>
         <MediaPlayerElement
             x:Name="MainPlayer"
             Source="{Binding VideoMediaSource}"
@@ -41,6 +35,9 @@
                     IsSkipForwardEnabled="True"
                     AvaliableStreams="{Binding M3u8Streams}"
                     SelectedBandwidth="{Binding SelectedBandwidth, Mode=TwoWay}"
+                    GoBackButtonClicked="GoBackButton_Click"
+                    Title="{Binding VideoItem.ItemProperties.RussianTitle}"
+                    OriginalTitle="{Binding VideoItem.ItemProperties.OriginalTitle}"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

@@ -18,7 +18,10 @@ namespace Kinopub.UI.Controls
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public event EventHandler<EventArgs> QualitySelectionButtonClick;
+        public event EventHandler<EventArgs> QualitySelectionButtonClicked;
+        public event RoutedEventHandler GoBackButtonClicked;
+
+        #region DependencyProperties
 
         public static readonly DependencyProperty AvaliableQualitiesProperty =
             DependencyProperty.Register(
@@ -40,30 +43,44 @@ namespace Kinopub.UI.Controls
                     null)
             );
 
+        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(VideoPlaybackControls), new PropertyMetadata(null));
+
+        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OriginalTitleProperty =
+            DependencyProperty.Register("OriginalTitle", typeof(string), typeof(VideoPlaybackControls), new PropertyMetadata(null));
+
+        #endregion
+
+        #region Public Properties
+
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
+        public string OriginalTitle
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
         public List<M3u8Stream> AvaliableStreams
         {
-            get
-            {
-                return (List<M3u8Stream>)GetValue(AvaliableQualitiesProperty);
-            }
-            set
-            {
-                SetValue(AvaliableQualitiesProperty, value);
-            }
+            get { return (List<M3u8Stream>)GetValue(AvaliableQualitiesProperty); }
+            set { SetValue(AvaliableQualitiesProperty, value); }
         }
 
         //Если "0", то битрейт выбирается автоматически плеером
         public uint SelectedBandwidth
         {
-            get
-            {
-                return (uint)GetValue(SelectedBandwidthProperty);
-            }
-            set
-            {
-                SetValue(SelectedBandwidthProperty, value);
-            }
+            get { return (uint)GetValue(SelectedBandwidthProperty);  }
+            set { SetValue(SelectedBandwidthProperty, value); }
         }
+
+        #endregion
 
         private static void OnQualitiesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -116,8 +133,10 @@ namespace Kinopub.UI.Controls
             // This is where you would get your custom button and create an event handler for its click method.
             Button qualitySelectionButton = GetTemplateChild("QualitySelectionButton") as Button;
             qualitySelectionButton.Click += QualitySelectionButton_Click;
-
             qualitySelectionMenuFlyout = GetTemplateChild("QualitySelectionMenuFlyout") as MenuFlyout;
+            
+            Button goBackButton = GetTemplateChild("GoBackButton") as Button;
+            goBackButton.Click += GoBackButton_Click;
 
             base.OnApplyTemplate();
         }
@@ -125,7 +144,12 @@ namespace Kinopub.UI.Controls
         private void QualitySelectionButton_Click(object sender, RoutedEventArgs e)
         {
             // Raise an event on the custom control when 'like' is clicked
-            QualitySelectionButtonClick?.Invoke(this, EventArgs.Empty);
+            QualitySelectionButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void GoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            GoBackButtonClicked?.Invoke(this, new RoutedEventArgs());
         }
 
         private void QualityFlyoutMenuItem_Click(object sender, RoutedEventArgs e)

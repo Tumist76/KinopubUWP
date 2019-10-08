@@ -49,9 +49,8 @@ namespace Kinopub.UI.Views
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parameter = (Video)e.Parameter;
-            ((MediaPlayerVM)DataContext).Video = parameter;
-            GoBackButton.IsEnabled = this.Frame.CanGoBack;
+            var parameter = (VideoItemVM)e.Parameter;
+            ((MediaPlayerVM)DataContext).VideoItem = parameter;
         }
 
 

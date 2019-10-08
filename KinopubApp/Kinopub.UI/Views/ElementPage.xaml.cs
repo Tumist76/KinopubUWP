@@ -38,15 +38,16 @@ namespace Kinopub.UI.Views
         {
             //@todo в модели добавить свойство ссылки на поток, получающейся динамически для фильмов и сериалов
             var video = ((VideoItemVM)DataContext).VideoToPlay;
+            
             PlayVideo(video);
         }
 
         private void PlayVideo(Video videoToPlay)
         {
             //@todo Стоит переделать как-то иначе, чтобы вызов производился из ВМки и метод проверки был один
-
+            var item = ((VideoItemVM)DataContext).ItemProperties;
             Frame rootFrame = Window.Current.Content as Frame;
-            rootFrame.Navigate(typeof(MediaPlayerPage), videoToPlay);
+            rootFrame.Navigate(typeof(MediaPlayerPage), ((VideoItemVM)DataContext));
         }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)

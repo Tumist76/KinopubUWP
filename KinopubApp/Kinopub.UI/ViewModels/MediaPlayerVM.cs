@@ -19,15 +19,19 @@ namespace Kinopub.UI.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public MediaSource VideoMediaSource { get; set; }
 
-        public Video Video 
+        //@todo Мне не нравится, что приходится передавать сразу всю модель в другую модель.
+        //Громоздко. Переделать так, чтобы и информация о видео передавалась, и не было такой вложенности
+        public VideoItemVM VideoItem
         {
-            get => video;
+            get => videoItem;
             set
             {
-                video = value;
+                video = videoItem.VideoToPlay;
                 InitializeAdaptiveMediaSource(new Uri(video.Files.FirstOrDefault().Url.Hls4Url));
             }
         }
+
+        private VideoItemVM videoItem;
 
         private Video video;
 
@@ -63,7 +67,7 @@ namespace Kinopub.UI.ViewModels
                 VideoMediaSource = MediaSource.CreateFromAdaptiveMediaSource(ams);
 
                 ams.InitialBitrate = ams.AvailableBitrates.Max<uint>();
-                M3u8Streams = await M3u8StreamModel.GetStreams(uri, Video);
+                M3u8Streams = await M3u8StreamModel.GetStreams(uri, video);
 
                 SelectedBandwidth = ams.AvailableBitrates.Max<uint>();
 

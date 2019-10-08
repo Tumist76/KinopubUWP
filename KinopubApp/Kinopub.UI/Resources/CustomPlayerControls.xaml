@@ -212,6 +212,8 @@
                                                         </VisualState>
                                                     </VisualStateGroup>
                                                 </VisualStateManager.VisualStateGroups>
+
+
                                                 <ContentPresenter x:Name="HeaderContentPresenter"
                             x:DeferLoadStrategy="Lazy"
                             Visibility="Collapsed"
@@ -534,9 +536,18 @@
 
                             </VisualStateGroup>
 
+
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
-                            <Grid x:Name="ControlPanelGrid"
+                            <Grid>
+                                <Button x:Name="GoBackButton"
+                                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                                        VerticalAlignment="Top"
+                                        Margin="10"
+                                        Canvas.ZIndex="2"/>
+                                <TextBlock VerticalAlignment="Top" Foreground="Red" FontSize="36" Text="{TemplateBinding Title}" />
+                                <TextBlock VerticalAlignment="Top" Foreground="White" FontSize="36" Text="{TemplateBinding OriginalTitle}" />
+                                <Grid x:Name="ControlPanelGrid"
                                 Background="{ThemeResource MediaTransportControlsPanelBackground}"
                                 VerticalAlignment="Bottom"
                                 RenderTransformOrigin="0.5,0.5">
@@ -803,6 +814,8 @@
                                     </CommandBar>
                                 </Border>
                             </Grid>
+                            </Grid>
+
                         </Border>
 
                     </Grid>

@@ -26,6 +26,7 @@ namespace Kinopub.UI.ViewModels
             get => videoItem;
             set
             {
+                videoItem = value;
                 video = videoItem.VideoToPlay;
                 InitializeAdaptiveMediaSource(new Uri(video.Files.FirstOrDefault().Url.Hls4Url));
             }

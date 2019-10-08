@@ -46,6 +46,8 @@ namespace Kinopub.UI.ViewModels
                 }
                 SeasonToPlay = itemProperties.Seasons.LastOrDefault(x => x.Watching.Status == 1);
             }
+            else
+                VideoToPlay = ItemProperties.Videos.FirstOrDefault();
         }
 
         private void GetVideoToPlay(List<Video> videos)
@@ -66,7 +68,6 @@ namespace Kinopub.UI.ViewModels
                 }
                 VideoToPlay = VideoList.LastOrDefault(x => x.Watching.Status == 1);
             }
-
             VideoToPlay = VideoList.FirstOrDefault();
         }
 

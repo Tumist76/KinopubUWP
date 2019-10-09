@@ -7,20 +7,50 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
     xmlns:controls="using:Kinopub.UI.Controls"
+    xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
-
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:ReverseNullOpacityConverter x:Key="ReverseNullOpacityConverter" />
+            <converters:NullOpacityConverter x:Key="NullOpacityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
     <Page.DataContext>
         <vms:MediaPlayerVM/>
     </Page.DataContext>
     <Grid>
-        <MediaPlayerElement
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Opacity="{Binding VideoMediaSource, Converter={StaticResource ReverseNullOpacityConverter}}">
+            <Rectangle
+                RadiusX="3" 
+                RadiusY="3"
+                x:Name="Poster"
+                Width="170"
+                Height="270">
+                <Rectangle.Fill>
+                    <ImageBrush 
+                        Stretch="UniformToFill"
+                        ImageSource="{Binding VideoItem.ItemProperties.Posters.MediumUrl}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <ProgressBar 
+                IsIndeterminate="True" 
+                Foreground="#86ADFB" 
+                Height="150" Margin="0 0 0 0" Width="188"
+            />
+            </StackPanel>
+            <MediaPlayerElement
             x:Name="MainPlayer"
             Source="{Binding VideoMediaSource}"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
             AreTransportControlsEnabled="True"
-        >
+            Opacity="{Binding VideoMediaSource, Converter={StaticResource NullOpacityConverter}}"
+            >
+
             <MediaPlayerElement.TransportControls>
                 <!--Instead of using the regular MediaTransportControls we are using our custom local:CustomMediaTransportControls.
                 The style is found in Themes/generic.xaml. The custom button is defined in CustomControls.cs. One thing to note is that

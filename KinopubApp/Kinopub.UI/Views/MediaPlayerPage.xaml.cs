@@ -16,6 +16,7 @@ using Kinopub.UI.ViewModels;
 using Windows.System;
 using Kinopub.UI.Controls;
 using Kinopub.Api.Entities.VideoContent;
+using Windows.UI.Core;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,21 +29,23 @@ namespace Kinopub.UI.Views
     {
         public MediaPlayerPage()
         {
-            //Назначение кнопок на функцию возвращения назад
-            KeyboardAccelerator GoBack = new KeyboardAccelerator
-            {
-                Key = VirtualKey.GoBack
-            };
-            GoBack.Invoked += BackInvoked;
-            KeyboardAccelerator AltLeft = new KeyboardAccelerator
-            {
-                Key = VirtualKey.Left
-            };
-            AltLeft.Invoked += BackInvoked;
-            this.KeyboardAccelerators.Add(GoBack);
-            this.KeyboardAccelerators.Add(AltLeft);
-            // ALT routes here
-            AltLeft.Modifiers = VirtualKeyModifiers.Menu;
+            //var currentView = SystemNavigationManager.GetForCurrentView();
+            //currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Disabled;
+            ////Назначение кнопок на функцию возвращения назад
+            //KeyboardAccelerator GoBack = new KeyboardAccelerator
+            //{
+            //    Key = VirtualKey.GoBack
+            //};
+            //GoBack.Invoked += BackInvoked;
+            //KeyboardAccelerator AltLeft = new KeyboardAccelerator
+            //{
+            //    Key = VirtualKey.Left
+            //};
+            //AltLeft.Invoked += BackInvoked;
+            //this.KeyboardAccelerators.Add(GoBack);
+            //this.KeyboardAccelerators.Add(AltLeft);
+            //// ALT routes here
+            //AltLeft.Modifiers = VirtualKeyModifiers.Menu;
 
             this.InitializeComponent();
 

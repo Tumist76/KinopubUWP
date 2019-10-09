@@ -32,6 +32,7 @@ namespace Kinopub.UI.ViewModels
             }
         }
 
+
         private VideoItemVM videoItem;
 
         private Video video;

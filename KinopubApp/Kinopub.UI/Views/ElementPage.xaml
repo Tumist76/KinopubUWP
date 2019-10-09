@@ -10,7 +10,9 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="#1e1e1e" FontFamily="Segoe UI">
+    RequestedTheme="Dark"
+    Background="{ThemeResource SystemChromeLowColor}" 
+    FontFamily="Segoe UI">
     <Page.DataContext>
         <vms:VideoItemVM/>
     </Page.DataContext>
@@ -79,7 +81,7 @@
                     Margin="0 20 0 0"
                     Orientation="Horizontal">
                     <Border CornerRadius="5"
-                        BorderBrush="White" 
+                        BorderBrush="{ThemeResource SystemBaseMediumHighColor}" 
                         BorderThickness="1.5"
                         Width="55"
                         Height="24">

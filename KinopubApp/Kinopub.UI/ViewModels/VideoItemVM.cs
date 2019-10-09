@@ -120,7 +120,26 @@ namespace Kinopub.UI.ViewModels
             {
                 if (ItemProperties.Videos != null)
                     return itemProperties.Videos.First().Duration / 60;
+                if (itemProperties.Seasons.Count > 0)
+                {
+                    var episodes = itemProperties.Seasons.First().Episodes;
+                    return episodes.Sum(x => x.Duration) / episodes.Count / 60;
+                }
                 else return 0;
+            }
+        }
+
+        public string SubtitlesAvaliable
+        {
+            get
+            {
+                if (ItemProperties.Videos != null)
+                    return itemProperties.Videos.First().Subtitles.Count > 0 ? "CC" : null;
+                if (itemProperties.Seasons.Count > 0)
+                {
+                    return VideoToPlay.Subtitles.Count > 0 ? "CC" : null;
+                }
+                return null;
             }
         }
 

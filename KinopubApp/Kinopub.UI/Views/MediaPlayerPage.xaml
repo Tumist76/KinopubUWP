@@ -9,7 +9,7 @@
     xmlns:controls="using:Kinopub.UI.Controls"
     xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemChromeLowColor}">
     <Page.Resources>
         <ResourceDictionary>
             <converters:ReverseNullOpacityConverter x:Key="ReverseNullOpacityConverter" />
@@ -24,24 +24,23 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Opacity="{Binding VideoMediaSource, Converter={StaticResource ReverseNullOpacityConverter}}">
-            <Rectangle
-                RadiusX="3" 
-                RadiusY="3"
-                x:Name="Poster"
-                Width="170"
-                Height="270">
-                <Rectangle.Fill>
-                    <ImageBrush 
-                        Stretch="UniformToFill"
-                        ImageSource="{Binding VideoItem.ItemProperties.Posters.MediumUrl}"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <ProgressBar 
-                IsIndeterminate="True" 
-                Foreground="#86ADFB" 
-                Height="150" Margin="0 0 0 0" Width="188"
+
+            <ProgressRing
+                IsActive="True"
+                Foreground="{ThemeResource SystemAccentColorLight2}" 
+                Height="58" 
+                Width="58"
+                Margin="0 10 0 20" 
+
             />
-            </StackPanel>
+            <TextBlock 
+                x:Name="RandomPhrase"
+                HorizontalTextAlignment="Center"
+                HorizontalAlignment="Center"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Margin="0 10 0 10"
+                />
+        </StackPanel>
             <MediaPlayerElement
             x:Name="MainPlayer"
             Source="{Binding VideoMediaSource}"
@@ -68,6 +67,8 @@
                     GoBackButtonClicked="GoBackButton_Click"
                     Title="{Binding VideoItem.ItemProperties.RussianTitle}"
                     OriginalTitle="{Binding VideoItem.ItemProperties.OriginalTitle}"
+                    SeasonNumber="{Binding VideoItem.SeasonToPlay.Number}"
+                    EpisodeNumber="{Binding VideoItem.VideoToPlay.Number}"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

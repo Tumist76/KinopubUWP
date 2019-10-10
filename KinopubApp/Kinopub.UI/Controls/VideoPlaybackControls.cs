@@ -51,6 +51,12 @@ namespace Kinopub.UI.Controls
         public static readonly DependencyProperty OriginalTitleProperty =
             DependencyProperty.Register("OriginalTitle", typeof(string), typeof(VideoPlaybackControls), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty SeasonNumberProperty =
+            DependencyProperty.Register("SeasonNumber", typeof(string), typeof(VideoPlaybackControls), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty EpisodeNumberProperty =
+            DependencyProperty.Register("EpisodeNumber", typeof(string), typeof(VideoPlaybackControls), new PropertyMetadata(null));
+
         #endregion
 
         #region Public Properties
@@ -65,6 +71,18 @@ namespace Kinopub.UI.Controls
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
+        }
+
+        public string SeasonNumber
+        {
+            get { return (string)GetValue(SeasonNumberProperty); }
+            set { SetValue(SeasonNumberProperty, value); }
+        }
+
+        public string EpisodeNumber
+        {
+            get { return (string)GetValue(EpisodeNumberProperty); }
+            set { SetValue(EpisodeNumberProperty, value); }
         }
 
         public List<M3u8Stream> AvaliableStreams

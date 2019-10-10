@@ -17,6 +17,7 @@ using Windows.System;
 using Kinopub.UI.Controls;
 using Kinopub.Api.Entities.VideoContent;
 using Windows.UI.Core;
+using Kinopub.UI.Resources;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -54,6 +55,11 @@ namespace Kinopub.UI.Views
         {
             var parameter = (VideoItemVM)e.Parameter;
             ((MediaPlayerVM)DataContext).VideoItem = parameter;
+
+            ConstantStrings strings = new ConstantStrings();
+            var random = new Random();
+            int index = random.Next(strings.LoadingPhrasesList.Count);
+            RandomPhrase.Text = (strings.LoadingPhrasesList[index]);
         }
 
 

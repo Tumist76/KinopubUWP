@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kinopub.UI.Resources
 {
-    public class Strings
+    public class ConstantStrings
     {
         public List<string> LoadingPhrasesList = new List<string>()
         {
@@ -14,7 +14,9 @@ namespace Kinopub.UI.Resources
             "Настраиваем проектор",
             "Взрываем попкорн",
             "Выключаем свет",
-            "Гримируем актёров"
+            "Проводим интервью с режиссером",
+            "Убираем монтажные склейки",
+            "Переписываем сценарий"
         };
     }
 }

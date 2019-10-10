@@ -129,7 +129,7 @@
     <Compile Include="Entities\M3u8\M3u8Stream.cs" />
     <Compile Include="Entities\M3u8\M3u8Subtitle.cs" />
     <Compile Include="Models\M3u8StreamModel.cs" />
-    <Compile Include="Resources\LoadingStrings.cs" />
+    <Compile Include="Resources\ConstantStrings.cs" />
     <Compile Include="ViewModels\MediaPlayerVM.cs" />
     <Compile Include="ViewModels\SearchSuggestBoxVM.cs" />
     <Compile Include="ViewModels\SearchVM.cs" />

@@ -4,10 +4,19 @@
     xmlns:local="using:Kinopub.UI.Resources">
 
     <DataTemplate x:Key="VideoItemTemplate">
-        <StackPanel VerticalAlignment="Top" Width="150">
+        <StackPanel VerticalAlignment="Top" Width="150"
+                    Margin="0 0 0 10">
             <Image Source="{Binding Posters.MediumUrl}"/>
-            <TextBlock Margin="0 5 0 0" Style="{StaticResource BaseTextBlockStyle}" Text="{Binding RussianTitle}"/>
-            <TextBlock Text="{Binding OriginalTitle}"/>
+            <TextBlock Margin="0 5 0 0" 
+                       Style="{StaticResource BaseTextBlockStyle}" 
+                       Text="{Binding RussianTitle}"
+                       />
+            <TextBlock Margin="0 3 0 0" 
+                       TextWrapping="WrapWholeWords"
+                       Text="{Binding OriginalTitle}"
+                       MaxLines="2"
+                       Opacity="0.8"
+                       />
         </StackPanel>
     </DataTemplate>
     <ItemsPanelTemplate x:Key="VideoItemsPanel">

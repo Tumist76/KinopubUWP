@@ -51,6 +51,18 @@ namespace Kinopub.UI.ViewModels
             }
         }
 
+        public TimeSpan LastPlayedPosition
+        {
+            get
+            {
+                if (video.Watching.Status == 0)
+                    return TimeSpan.FromSeconds(video.Watching.Time);
+                return new TimeSpan(0);
+            }
+        }
+
+
+
         private uint selectedBandwidth;
 
         public MediaPlayerVM()

@@ -57,6 +57,9 @@ namespace Kinopub.UI.Controls
         public static readonly DependencyProperty EpisodeNumberProperty =
             DependencyProperty.Register("EpisodeNumber", typeof(string), typeof(VideoPlaybackControls), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty LastPlayedPositionProperty =
+            DependencyProperty.Register("LastPlayedPosition", typeof(TimeSpan), typeof(VideoPlaybackControls), new PropertyMetadata(null));
+
         #endregion
 
         #region Public Properties
@@ -84,6 +87,13 @@ namespace Kinopub.UI.Controls
             get { return (string)GetValue(EpisodeNumberProperty); }
             set { SetValue(EpisodeNumberProperty, value); }
         }
+
+        public TimeSpan LastPlayedPosition
+        {
+            get { return (TimeSpan)GetValue(LastPlayedPositionProperty); }
+            set { SetValue(LastPlayedPositionProperty, value); }
+        }
+        
 
         public List<M3u8Stream> AvaliableStreams
         {

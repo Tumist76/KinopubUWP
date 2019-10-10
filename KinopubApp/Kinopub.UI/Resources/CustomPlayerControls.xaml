@@ -578,6 +578,33 @@
                                             Text="{TemplateBinding EpisodeNumber}"/>
                                     </StackPanel>
                                 </StackPanel>
+                                
+                                <!-- Панель продолжения воспроизведения -->
+                                <Border
+                                    BorderBrush="{ThemeResource SystemBaseMediumColor}"
+                                    BorderThickness="1"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Left"
+                                    Width="195"
+                                    Margin="10 0 0 100">
+                                    <StackPanel
+                                        Background="{ThemeResource SystemControlAltLowAcrylicElementBrush}"
+                                        Padding="10">
+                                        <TextBlock Text="Воспроизводится с: "/>
+                                        <TextBlock Text="{TemplateBinding LastPlayedPosition}"
+                                                   Style="{StaticResource BaseTextBlockStyle}"/>
+                                        <Button
+                                            Margin="0 10 0 0">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB9E;"/>
+                                                    <TextBlock Margin="10 0 0 0" Text="Смотреть с начала"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+
                                 <Grid x:Name="ControlPanelGrid"
                                 Background="{ThemeResource MediaTransportControlsPanelBackground}"
                                 VerticalAlignment="Bottom"

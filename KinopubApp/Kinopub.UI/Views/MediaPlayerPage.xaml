@@ -41,7 +41,7 @@
                 Margin="0 10 0 10"
                 />
         </StackPanel>
-            <MediaPlayerElement
+        <MediaPlayerElement
             x:Name="MainPlayer"
             Source="{Binding VideoMediaSource}"
             HorizontalAlignment="Stretch"
@@ -49,7 +49,6 @@
             AreTransportControlsEnabled="True"
             Opacity="{Binding VideoMediaSource, Converter={StaticResource NullOpacityConverter}}"
             >
-
             <MediaPlayerElement.TransportControls>
                 <!--Instead of using the regular MediaTransportControls we are using our custom local:CustomMediaTransportControls.
                 The style is found in Themes/generic.xaml. The custom button is defined in CustomControls.cs. One thing to note is that
@@ -69,6 +68,7 @@
                     OriginalTitle="{Binding VideoItem.ItemProperties.OriginalTitle}"
                     SeasonNumber="{Binding VideoItem.SeasonToPlay.Number}"
                     EpisodeNumber="{Binding VideoItem.VideoToPlay.Number}"
+                    LastPlayedPosition="{Binding LastPlayedPosition}"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

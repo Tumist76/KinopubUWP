@@ -26,6 +26,15 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
+            <Border
+                Opacity="{Binding Watching.Status}">
+                <Rectangle Height="140"
+                           VerticalAlignment="Bottom"
+                           Fill="{ThemeResource SystemChromeBlackHighColor}"
+                           Opacity="0.5"
+                           >
+                </Rectangle>
+            </Border>
             <TextBlock
                 Margin="7,0,0,7"
                 Grid.Row="0"

@@ -20,6 +20,7 @@ namespace Kinopub.UI.Controls
 
         public event EventHandler<EventArgs> QualitySelectionButtonClicked;
         public event RoutedEventHandler GoBackButtonClicked;
+        public event RoutedEventHandler GoToStartPositionButtonClicked;
 
         #region DependencyProperties
 
@@ -166,6 +167,10 @@ namespace Kinopub.UI.Controls
             Button goBackButton = GetTemplateChild("GoBackButton") as Button;
             goBackButton.Click += GoBackButton_Click;
 
+            Button goToStartPositionButton = GetTemplateChild("GoToStartPositionButton") as Button;
+            goToStartPositionButton.Click += GoToStartPositionButton_Click;
+            
+
             base.OnApplyTemplate();
         }
 
@@ -178,6 +183,11 @@ namespace Kinopub.UI.Controls
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
             GoBackButtonClicked?.Invoke(this, new RoutedEventArgs());
+        }
+
+        private void GoToStartPositionButton_Click(object sender, RoutedEventArgs e)
+        {
+            GoToStartPositionButtonClicked?.Invoke(this, new RoutedEventArgs());
         }
 
         private void QualityFlyoutMenuItem_Click(object sender, RoutedEventArgs e)

@@ -6,11 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Appointments.DataProvider;
 using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
 using Kinopub.Api.Entities.VideoContent;
 using Kinopub.UI.Entities.M3u8;
 using Kinopub.UI.Models;
+using Template10.Mvvm;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -18,6 +21,11 @@ namespace Kinopub.UI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public MediaSource VideoMediaSource { get; set; }
+
+        //public DelegateCommand GoToStartPositionCommand { get; set; }
+
+
+        public MediaPlayer LocalMediaPlayer { get; set; }
 
         //@todo Мне не нравится, что приходится передавать сразу всю модель в другую модель.
         //Громоздко. Переделать так, чтобы и информация о видео передавалась, и не было такой вложенности
@@ -51,6 +59,8 @@ namespace Kinopub.UI.ViewModels
             }
         }
 
+        //public TimeSpan CurrentPlaybackPosition { get; set; }
+
         public TimeSpan LastPlayedPosition
         {
             get
@@ -61,12 +71,16 @@ namespace Kinopub.UI.ViewModels
             }
         }
 
-
+        //public void InitCommands()
+        //{
+        //    GoToStartPositionCommand = new DelegateCommand(GoToStartPosition);
+        //}
 
         private uint selectedBandwidth;
 
         public MediaPlayerVM()
         {
+            //InitCommands();
         }
 
         // @todo Сделать нормальную реализацию адаптивного стриминга с автоматическим и ручным переключением
@@ -84,7 +98,6 @@ namespace Kinopub.UI.ViewModels
                 M3u8Streams = await M3u8StreamModel.GetStreams(uri, video);
 
                 SelectedBandwidth = ams.AvailableBitrates.Max<uint>();
-
 
                 //    //Register for download requests
                 //    ams.DownloadRequested += DownloadRequested;
@@ -107,6 +120,11 @@ namespace Kinopub.UI.ViewModels
                 //}
             }
         }
+
+        //private void GoToStartPosition()
+        //{
+        //    CurrentPlaybackPosition = new TimeSpan(0);
+        //}
 
         private void PlaybackBitrateChanged(AdaptiveMediaSource sender, AdaptiveMediaSourcePlaybackBitrateChangedEventArgs args)
         {

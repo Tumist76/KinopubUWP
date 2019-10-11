@@ -8,12 +8,15 @@
     xmlns:vms="using:Kinopub.UI.ViewModels"
     xmlns:controls="using:Kinopub.UI.Controls"
     xmlns:converters="using:Kinopub.UI.Converters"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     Background="{ThemeResource SystemChromeLowColor}">
     <Page.Resources>
         <ResourceDictionary>
             <converters:ReverseNullOpacityConverter x:Key="ReverseNullOpacityConverter" />
             <converters:NullOpacityConverter x:Key="NullOpacityConverter" />
+         
         </ResourceDictionary>
     </Page.Resources>
     <Page.DataContext>
@@ -49,6 +52,7 @@
             AreTransportControlsEnabled="True"
             Opacity="{Binding VideoMediaSource, Converter={StaticResource NullOpacityConverter}}"
             >
+            
             <MediaPlayerElement.TransportControls>
                 <!--Instead of using the regular MediaTransportControls we are using our custom local:CustomMediaTransportControls.
                 The style is found in Themes/generic.xaml. The custom button is defined in CustomControls.cs. One thing to note is that
@@ -69,6 +73,7 @@
                     SeasonNumber="{Binding VideoItem.SeasonToPlay.Number}"
                     EpisodeNumber="{Binding VideoItem.VideoToPlay.Number}"
                     LastPlayedPosition="{Binding LastPlayedPosition}"
+                    GoToStartPositionButtonClicked="VideoPlaybackControls_OnGoToStartPositionButtonClicked"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

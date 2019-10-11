@@ -60,6 +60,8 @@ namespace Kinopub.UI.Views
             var random = new Random();
             int index = random.Next(strings.LoadingPhrasesList.Count);
             RandomPhrase.Text = (strings.LoadingPhrasesList[index]);
+
+            MainPlayer.MediaPlayer.PlaybackSession.Position = ((MediaPlayerVM) DataContext).LastPlayedPosition;
         }
 
 
@@ -92,5 +94,9 @@ namespace Kinopub.UI.Views
 
         #endregion
 
+        private void VideoPlaybackControls_OnGoToStartPositionButtonClicked(object sender, RoutedEventArgs e)
+        {
+            MainPlayer.MediaPlayer.PlaybackSession.Position = TimeSpan.MinValue;
+        }
     }
 }

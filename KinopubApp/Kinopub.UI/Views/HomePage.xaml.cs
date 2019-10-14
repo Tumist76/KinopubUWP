@@ -42,5 +42,27 @@ namespace Kinopub.UI
             //if (viewModel.MyCommand.CanExecute(null))
             //    viewModel.MyCommand.Execute(null);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the border of the listview (first child of a listview)
+            Border border = VisualTreeHelper.GetChild(MovieListView, 0) as Border;
+
+            // Get scrollviewer
+            ScrollViewer scrollViewer = border.Child as ScrollViewer;
+
+            scrollViewer.ChangeView(scrollViewer.HorizontalOffset + MovieListView.ActualWidth, 0, 1);
+        }
+
+        private void ScrollLeft_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the border of the listview (first child of a listview)
+            Border border = VisualTreeHelper.GetChild(MovieListView, 0) as Border;
+
+            // Get scrollviewer
+            ScrollViewer scrollViewer = border.Child as ScrollViewer;
+
+            scrollViewer.ChangeView(scrollViewer.HorizontalOffset - MovieListView.ActualWidth, 0, 1);
+        }
     }
 }

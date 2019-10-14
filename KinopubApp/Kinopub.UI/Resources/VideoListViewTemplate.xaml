@@ -6,7 +6,16 @@
     <DataTemplate x:Key="VideoItemTemplate">
         <StackPanel VerticalAlignment="Top" Width="150"
                     Margin="0 0 0 10">
-            <Image Source="{Binding Posters.MediumUrl}"/>
+            <Grid>
+            <Rectangle
+                Width="151.8"
+                Height="227.3"
+                Fill="Aqua"/>
+            <Image Source="{Binding Posters.MediumUrl}"
+                   Width="151.8"
+                   Height="227.3"
+                   />
+            </Grid>
             <TextBlock Margin="0 5 0 0" 
                        Style="{StaticResource BaseTextBlockStyle}" 
                        Text="{Binding RussianTitle}"

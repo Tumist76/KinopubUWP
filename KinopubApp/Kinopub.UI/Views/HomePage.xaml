@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/VideoListViewTemplate.xaml" />
+                <ResourceDictionary Source="../Resources/ButtonStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
@@ -36,11 +37,21 @@
             Style="{StaticResource SubtitleTextBlockStyle}"
             />
 
-        <ListView 
+        <RelativePanel>
+            <Button 
+                x:Name="ScrollLeft"
+                Style="{StaticResource CircleButtonStyle}"
+                    Content="L"
+                    VerticalAlignment="Center" Click="ScrollLeft_Click"
+                   />
+            <ListView 
+            x:Name="MovieListView"
+            RelativePanel.RightOf="ScrollLeft"
             ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
             ItemsPanel="{StaticResource VideoItemsPanel}" 
             ItemTemplate="{StaticResource VideoItemTemplate}" 
             Height="Auto"
+            Width="400"
             ItemsSource="{Binding PopularMovies}"
             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -49,7 +60,14 @@
             IsItemClickEnabled="True"
             ItemClick="ListView_ItemClick"
             VerticalContentAlignment="Top" FontFamily="Segoe UI">
-        </ListView>
+            </ListView>
+            <Button Style="{StaticResource CircleButtonStyle}"
+                    RelativePanel.RightOf="MovieListView"
+                    x:Name="ScrollRight"
+                    Content="R"
+                    VerticalAlignment="Center"
+                    Click="Button_Click"/>
+        </RelativePanel>
 
         <TextBlock
             Text="Популярные сериалы" 

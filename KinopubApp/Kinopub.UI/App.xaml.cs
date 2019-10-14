@@ -111,7 +111,7 @@ namespace Kinopub.UI
         /// Проверяет статус авторизации и токенов
         /// </summary>
         /// <returns>Возможость перемещения на главную страницу</returns>
-        private bool MoveToMainPage()
+        private async bool MoveToMainPage()
         {
             var authData = AuthTokenManagementModel.GetAuthData();
             if (authData != null)
@@ -126,7 +126,7 @@ namespace Kinopub.UI
                     {
                         if (AuthTokenManagementModel.IsRefreshTokenValid(authData))
                         {
-                            AuthTokenManagementModel.RefreshAccessToken();
+                            await AuthTokenManagementModel.RefreshAccessToken();
                             return true;
                         }
                         else

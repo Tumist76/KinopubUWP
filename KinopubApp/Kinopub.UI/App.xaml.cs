@@ -22,6 +22,7 @@ using Windows.UI.ViewManagement;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;
+using System.Threading.Tasks;
 
 namespace Kinopub.UI
 {
@@ -91,18 +92,9 @@ namespace Kinopub.UI
                     // Если стек навигации не восстанавливается для перехода к первой странице,
                     // настройка новой страницы путем передачи необходимой информации в качестве параметра
                     // параметр
-                    if (MoveToMainPage())
-                    {
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                    }
-                    else
-                    {
-                        rootFrame.Navigate(typeof(AuthorizationPage), e.Arguments);
-                    }
+                    MoveToMainPageAsync();
+
                 }
-                // Устанавливаем ПРЕДПОЧТИТЕЛЬНЫЙ минимальный размер окна
-                // TODO Не работает, кстати
-                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(640, 480));
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
@@ -111,8 +103,9 @@ namespace Kinopub.UI
         /// Проверяет статус авторизации и токенов
         /// </summary>
         /// <returns>Возможость перемещения на главную страницу</returns>
-        private async bool MoveToMainPage()
+        private async Task MoveToMainPageAsync()
         {
+            Frame rootFrame = Window.Current.Content as Frame;
             var authData = AuthTokenManagementModel.GetAuthData();
             if (authData != null)
             {
@@ -120,23 +113,23 @@ namespace Kinopub.UI
                 {
                     if (AuthTokenManagementModel.IsAccessTokenValid(authData))
                     {
-                        return true;
+                        rootFrame.Navigate(typeof(MainPage));
                     }
                     else
                     {
                         if (AuthTokenManagementModel.IsRefreshTokenValid(authData))
                         {
                             await AuthTokenManagementModel.RefreshAccessToken();
-                            return true;
+                            rootFrame.Navigate(typeof(MainPage));
                         }
                         else
                         {
-                            return false;
+                            rootFrame.Navigate(typeof(AuthorizationPage));
                         }
                     }
                 }
             }
-            return false;
+            
         }
         private
         /// <summary>

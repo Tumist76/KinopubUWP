@@ -62,7 +62,7 @@ namespace Kinopub.UI.Models
             //Кажется, необходимо строить свой
             //if (refreshTokenTask.IsSuccess)
             //{
-                SaveAuthData(
+            SaveAuthData(
                     refreshTokenTask.AccessToken,
                     refreshTokenTask.RefreshToken,
                     refreshTokenTask.ExpiresIn);

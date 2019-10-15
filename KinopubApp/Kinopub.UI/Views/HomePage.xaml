@@ -38,20 +38,14 @@
             />
 
         <RelativePanel>
-            <Button 
-                x:Name="ScrollLeft"
-                Style="{StaticResource CircleButtonStyle}"
-                    Content="L"
-                    VerticalAlignment="Center" Click="ScrollLeft_Click"
-                   />
             <ListView 
+                Grid.Column="1"
             x:Name="MovieListView"
-            RelativePanel.RightOf="ScrollLeft"
             ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
             ItemsPanel="{StaticResource VideoItemsPanel}" 
             ItemTemplate="{StaticResource VideoItemTemplate}" 
             Height="Auto"
-            Width="400"
+            Width="Auto"
             ItemsSource="{Binding PopularMovies}"
             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -61,12 +55,28 @@
             ItemClick="ListView_ItemClick"
             VerticalContentAlignment="Top" FontFamily="Segoe UI">
             </ListView>
-            <Button Style="{StaticResource CircleButtonStyle}"
-                    RelativePanel.RightOf="MovieListView"
+            <Button 
+                Width="50"
+                Height="50"
+                RelativePanel.AlignRightWith="MovieListView"
+                RelativePanel.AlignVerticalCenterWith="MovieListView"
+                Grid.Column="2"
+                Style="{StaticResource CircleButtonStyle}"
                     x:Name="ScrollRight"
                     Content="R"
                     VerticalAlignment="Center"
                     Click="Button_Click"/>
+            <Button 
+                Width="50"
+                Height="50"
+                Background="Wheat"
+                x:Name="ScrollLeft"
+                RelativePanel.AlignLeftWith="MovieListView"
+                RelativePanel.AlignVerticalCenterWith="MovieListView"
+                Style="{StaticResource CircleButtonStyle}"
+                Content="L"
+                VerticalAlignment="Center" Click="ScrollLeft_Click"
+            />
         </RelativePanel>
 
         <TextBlock

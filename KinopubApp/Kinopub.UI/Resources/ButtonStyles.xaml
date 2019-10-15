@@ -299,8 +299,12 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
+                        <Ellipse x:Name="BorderCircle" Stroke="{TemplateBinding BorderBrush}" 
+                                 StrokeThickness="2"
+                                 Fill="{TemplateBinding Background}"
+                        >
+                        </Ellipse>
                         <ContentPresenter x:Name="ContentPresenter" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        <Ellipse x:Name="BorderCircle" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

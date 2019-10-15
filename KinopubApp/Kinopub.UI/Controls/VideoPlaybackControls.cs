@@ -11,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Kinopub.Api.Entities.VideoContent;
 using Kinopub.UI.Entities.M3u8;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace Kinopub.UI.Controls
 {
@@ -92,7 +93,10 @@ namespace Kinopub.UI.Controls
         public TimeSpan LastPlayedPosition
         {
             get { return (TimeSpan)GetValue(LastPlayedPositionProperty); }
-            set { SetValue(LastPlayedPositionProperty, value); }
+            set
+            {
+                SetValue(LastPlayedPositionProperty, value);
+            }
         }
         
 
@@ -169,7 +173,15 @@ namespace Kinopub.UI.Controls
 
             Button goToStartPositionButton = GetTemplateChild("GoToStartPositionButton") as Button;
             goToStartPositionButton.Click += GoToStartPositionButton_Click;
-            
+
+            InAppNotification goToStartPositionNotification = GetTemplateChild("GoToStartPositionNotification") as InAppNotification;
+            object inAppNotificationWithButtonsTemplate;
+            bool isTemplatePresent = Resources.TryGetValue("InAppNotificationWithButtonsTemplate", out inAppNotificationWithButtonsTemplate);
+
+            if (isTemplatePresent && inAppNotificationWithButtonsTemplate is DataTemplate && LastPlayedPosition != null)
+            {
+                goToStartPositionNotification.Show(inAppNotificationWithButtonsTemplate as DataTemplate, 8000);
+            }
 
             base.OnApplyTemplate();
         }

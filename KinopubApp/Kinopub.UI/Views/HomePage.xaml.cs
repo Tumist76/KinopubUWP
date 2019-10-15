@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Kinopub.UI.ViewModels;
 using Kinopub.Api.Entities.VideoContent;
 using Kinopub.UI.Views;
+using System.Diagnostics;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
@@ -50,8 +51,13 @@ namespace Kinopub.UI
 
             // Get scrollviewer
             ScrollViewer scrollViewer = border.Child as ScrollViewer;
-
-            scrollViewer.ChangeView(scrollViewer.HorizontalOffset + MovieListView.ActualWidth, 0, 1);
+            Debug.WriteLine(scrollViewer.HorizontalOffset);
+            Debug.WriteLine(scrollViewer.ViewportWidth);
+            var container = ((ListViewItem)(MovieListView.ContainerFromItem(MovieListView.Items.FirstOrDefault())));
+            int fullyVisibleItemsWidth = 
+                Convert.ToInt32(Math.Floor(scrollViewer.ViewportWidth)) / Convert.ToInt32(Math.Floor(container.ActualWidth))
+            * Convert.ToInt32(Math.Floor(container.ActualWidth));
+            scrollViewer.ChangeView(scrollViewer.HorizontalOffset + fullyVisibleItemsWidth, 0, 1);
         }
 
         private void ScrollLeft_Click(object sender, RoutedEventArgs e)
@@ -62,7 +68,11 @@ namespace Kinopub.UI
             // Get scrollviewer
             ScrollViewer scrollViewer = border.Child as ScrollViewer;
 
-            scrollViewer.ChangeView(scrollViewer.HorizontalOffset - MovieListView.ActualWidth, 0, 1);
+            var container = ((ListViewItem)(MovieListView.ContainerFromItem(MovieListView.Items.FirstOrDefault())));
+            int fullyVisibleItemsWidth =
+                Convert.ToInt32(Math.Floor(scrollViewer.ViewportWidth)) / Convert.ToInt32(Math.Floor(container.ActualWidth))
+                * Convert.ToInt32(Math.Floor(container.ActualWidth));
+            scrollViewer.ChangeView(scrollViewer.HorizontalOffset - fullyVisibleItemsWidth, 0, 1);
         }
     }
 }

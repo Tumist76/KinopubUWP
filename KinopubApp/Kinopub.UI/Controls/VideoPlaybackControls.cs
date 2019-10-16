@@ -11,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Kinopub.Api.Entities.VideoContent;
 using Kinopub.UI.Entities.M3u8;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace Kinopub.UI.Controls
@@ -102,7 +103,13 @@ namespace Kinopub.UI.Controls
 
         public List<M3u8Stream> AvaliableStreams
         {
-            get { return (List<M3u8Stream>)GetValue(AvaliableQualitiesProperty); }
+            get
+            {
+                if (GetValue(AvaliableQualitiesProperty).GetType() != typeof(bool))
+                    return (List<M3u8Stream>) GetValue(AvaliableQualitiesProperty);
+                else
+                    return new List<M3u8Stream>();
+            }
             set { SetValue(AvaliableQualitiesProperty, value); }
         }
 
@@ -174,14 +181,9 @@ namespace Kinopub.UI.Controls
             Button goToStartPositionButton = GetTemplateChild("GoToStartPositionButton") as Button;
             goToStartPositionButton.Click += GoToStartPositionButton_Click;
 
-            InAppNotification goToStartPositionNotification = GetTemplateChild("GoToStartPositionNotification") as InAppNotification;
-            object inAppNotificationWithButtonsTemplate;
-            bool isTemplatePresent = Resources.TryGetValue("InAppNotificationWithButtonsTemplate", out inAppNotificationWithButtonsTemplate);
+            Button closePanel = GetTemplateChild("CloseGoToStartPositionPanel") as Button;
+            closePanel.Click += CloseGoToStartPositionPanel_Click;
 
-            if (isTemplatePresent && inAppNotificationWithButtonsTemplate is DataTemplate && LastPlayedPosition != null)
-            {
-                goToStartPositionNotification.Show(inAppNotificationWithButtonsTemplate as DataTemplate, 8000);
-            }
 
             base.OnApplyTemplate();
         }
@@ -200,6 +202,12 @@ namespace Kinopub.UI.Controls
         private void GoToStartPositionButton_Click(object sender, RoutedEventArgs e)
         {
             GoToStartPositionButtonClicked?.Invoke(this, new RoutedEventArgs());
+        }
+
+        private async void CloseGoToStartPositionPanel_Click(object sender, RoutedEventArgs e)
+        {
+            Border panel = GetTemplateChild("GoToStartPositionPanel") as Border;
+            await panel.Fade().StartAsync();
         }
 
         private void QualityFlyoutMenuItem_Click(object sender, RoutedEventArgs e)

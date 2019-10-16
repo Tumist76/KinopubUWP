@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Kinopub.UI.Controls"
     xmlns:converters="using:Kinopub.UI.Converters"
-    xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
     <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
     <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
@@ -11,39 +13,94 @@
     The default template can be found here: C:\Program Files (x86)\Windows Kits\10\DesignTime\CommonConfiguration\Neutral\UAP\10.0.10069.0\Generic
     Simply take the portion of code that corresponds to the MediaTransportControl and bring it in to your app just like we have done in this sample-->
 
-    <DataTemplate x:Key="InAppNotificationWithButtonsTemplate">
-        <UserControl>
-            <Grid>
-                <Grid x:Name="RootGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="TextBlock" Grid.RowSpan="2" 
-                               Text="Воспроизводится с:" VerticalAlignment="Center" />
-                    <TextBlock Grid.RowSpan="2" 
-                               Text="{Binding LastPlayedPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource TimeSpanToStringConverter}}" 
-                               VerticalAlignment="Center" />
-                    </StackPanel>
-
-                    <StackPanel x:Name="ButtonsStackPanel" Grid.RowSpan="2" Grid.Column="1" 
-                                Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="YesButton" Content="Yes" Width="150" Height="30" />
-                        <Button x:Name="NoButton" Content="No" Width="150" Height="30" Margin="10 0 0 0"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </UserControl>
-    </DataTemplate>
-
-
+    <Style x:Key="TransparentButton" TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
+        <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+        <Setter Property="Padding" Value="8,4,8,4"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BackgroundRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPointerOver}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BackgroundRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BackgroundRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="BackgroundRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="BackgroundRectangle" 
+                                   Fill="{TemplateBinding Background}"
+                                   Stroke="{TemplateBinding BorderBrush}" 
+                                   StrokeThickness="2"
+                                   Opacity="0"
+                                   RadiusX="3"
+                                   RadiusY="3"/>
+                        <Rectangle x:Name="BottomBar" 
+                                   Height="5"
+                                   Fill="{TemplateBinding Background}"
+                                   Stroke="{TemplateBinding BorderBrush}" 
+                                   VerticalAlignment="Bottom"
+                                   StrokeThickness="2"
+                                   Opacity="0"
+                                   RadiusX="3"
+                                   RadiusY="3"/>
+                        <ContentPresenter x:Name="ContentPresenter" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="controls:VideoPlaybackControls">
         <Setter Property="IsTabStop" Value="False" />
@@ -615,36 +672,51 @@
                                     </StackPanel>
                                 </StackPanel>
                                 
-                                <!-- Панель продолжения воспроизведения -->
+                                <!-- Панель возвращения к началу воспроизведения -->
                                 <Border
+                                    x:Name="GoToStartPositionPanel"
                                     BorderBrush="{ThemeResource SystemBaseMediumColor}"
                                     BorderThickness="1"
                                     VerticalAlignment="Bottom"
                                     HorizontalAlignment="Left"
-                                    Width="195"
+                                    Width="Auto"
                                     Margin="10 0 0 100">
-                                    <StackPanel
+                                    <Grid
                                         Background="{ThemeResource SystemControlAltLowAcrylicElementBrush}"
                                         Padding="10">
-                                        <TextBlock Text="Воспроизводится с: "/>
-                                        <TextBlock Text="{Binding LastPlayedPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource TimeSpanToStringConverter}}"
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="Воспроизводится с: "/>
+                                            <TextBlock Text="{Binding LastPlayedPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource TimeSpanToStringConverter}}"
                                                    Style="{StaticResource BaseTextBlockStyle}"/>
+                                            <Button
+                                                x:Name="GoToStartPositionButton"
+                                                Margin="0 10 0 0">
+                                                <Button.Content>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB9E;"/>
+                                                        <TextBlock Margin="10 0 0 0" Text="Смотреть с начала"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                        </StackPanel>
                                         <Button
-                                            x:Name="GoToStartPositionButton"
-                                            Margin="0 10 0 0">
-                                            <Button.Content>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB9E;"/>
-                                                    <TextBlock Margin="10 0 0 0" Text="Смотреть с начала"/>
-                                                </StackPanel>
-                                            </Button.Content>
+                                            Height="40"
+                                            Width="40"
+                                            Margin="10 -5 -5 0"
+                                            x:Name="CloseGoToStartPositionPanel"
+                                            Grid.Column="1"
+                                            VerticalAlignment="Top"
+                                            HorizontalAlignment="Right"
+                                            Style="{StaticResource TransparentButton}">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;"/>
                                         </Button>
-                                    </StackPanel>
+                                    </Grid>
                                 </Border>
 
-                                <controls1:InAppNotification
-                                    x:Name="GoToStartPositionNotification">
-                                </controls1:InAppNotification>
 
                                 <Grid x:Name="ControlPanelGrid"
                                 Background="{ThemeResource MediaTransportControlsPanelBackground}"

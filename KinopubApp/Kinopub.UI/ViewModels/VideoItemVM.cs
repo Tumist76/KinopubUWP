@@ -33,24 +33,31 @@ namespace Kinopub.UI.ViewModels
             if (itemProperties.Seasons != null)
             {
                 var startedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == 0);
+                var notStartedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == -1);
+
                 if (startedSeason != null)
                 {
                     SeasonToPlay = startedSeason;
-                    return;
                 }
-                var notStartedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == -1);
-                if (notStartedSeason != null)
+                else if (notStartedSeason != null)
                 {
                     SeasonToPlay = notStartedSeason;
-                    return;
                 }
-                SeasonToPlay = itemProperties.Seasons.LastOrDefault(x => x.Watching.Status == 1);
+                else
+                {
+                    SeasonToPlay = itemProperties.Seasons.LastOrDefault(x => x.Watching.Status == 1);
+                    VideoList = new ObservableCollection<Video>(SeasonToPlay.Episodes);
+                }
+                
             }
             else
-                VideoToPlay = ItemProperties.Videos.FirstOrDefault();
+            {
+                VideoList = new ObservableCollection<Video>(ItemProperties.Videos);
+            }
+            GetVideoToPlay();
         }
 
-        private void GetVideoToPlay(List<Video> videos)
+        private void GetVideoToPlay()
         {
             if (itemProperties.Seasons != null)
             {

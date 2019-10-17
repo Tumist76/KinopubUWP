@@ -49,7 +49,7 @@
             Source="{Binding VideoMediaSource}"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
-            AreTransportControlsEnabled="True"
+            AreTransportControlsEnabled="True" 
             Opacity="{Binding VideoMediaSource, Converter={StaticResource NullOpacityConverter}}"
             >
             
@@ -70,6 +70,7 @@
                     GoBackButtonClicked="GoBackButton_Click"
                     Title="{Binding VideoItem.ItemProperties.RussianTitle}"
                     OriginalTitle="{Binding VideoItem.ItemProperties.OriginalTitle}"
+                    VideoCollection="{Binding VideoItem.VideoList}"
                     SeasonNumber="{Binding VideoItem.SeasonToPlay.Number}"
                     EpisodeNumber="{Binding VideoItem.VideoToPlay.Number}"
                     LastPlayedPosition="{Binding LastPlayedPosition}"

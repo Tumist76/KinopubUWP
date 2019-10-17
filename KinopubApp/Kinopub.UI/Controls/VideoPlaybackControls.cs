@@ -13,6 +13,7 @@ using Kinopub.Api.Entities.VideoContent;
 using Kinopub.UI.Entities.M3u8;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using System.Collections.ObjectModel;
 
 namespace Kinopub.UI.Controls
 {
@@ -63,6 +64,9 @@ namespace Kinopub.UI.Controls
         public static readonly DependencyProperty LastPlayedPositionProperty =
             DependencyProperty.Register("LastPlayedPosition", typeof(TimeSpan), typeof(VideoPlaybackControls), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty VideoCollectionProperty =
+            DependencyProperty.Register("VideoCollection", typeof(ObservableCollection<Video>), typeof(VideoPlaybackControls), new PropertyMetadata(null));
+
         #endregion
 
         #region Public Properties
@@ -99,7 +103,15 @@ namespace Kinopub.UI.Controls
                 SetValue(LastPlayedPositionProperty, value);
             }
         }
-        
+
+        public ObservableCollection<Video> VideoCollection
+        {
+            get { return (ObservableCollection<Video>) GetValue(VideoCollectionProperty); }
+            set
+            {
+                SetValue(VideoCollectionProperty, value);
+            }
+        }
 
         public List<M3u8Stream> AvaliableStreams
         {

@@ -112,8 +112,6 @@ namespace Kinopub.UI.ViewModels
             {
                 //@todo привязка к выбранному сезону в ComboBox
                 seasonToPlay = value;
-                VideoList = new ObservableCollection<Video>(seasonToPlay.Episodes);
-                GetVideoToPlay(seasonToPlay.Episodes);
             }
         }
 

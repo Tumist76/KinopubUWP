@@ -146,7 +146,6 @@ namespace Kinopub.UI.Controls
 
         private void GetAddToPlaylistFlyout(MenuFlyout flyout)
         {
-
             var autoMenuItem = new MenuFlyoutItem()
             {
                 DataContext = uint.MinValue, //При нуле обработчик ставит динамическое изменение битрейта
@@ -184,7 +183,9 @@ namespace Kinopub.UI.Controls
             Button closePanel = GetTemplateChild("CloseGoToStartPositionPanel") as Button;
             closePanel.Click += CloseGoToStartPositionPanel_Click;
 
-
+            AppBarButton playPauseButton = GetTemplateChild("PlayPauseButton") as AppBarButton;
+            playPauseButton.Click += PlayPauseButton_Click;
+            
             base.OnApplyTemplate();
         }
 
@@ -208,6 +209,11 @@ namespace Kinopub.UI.Controls
         {
             Border panel = GetTemplateChild("GoToStartPositionPanel") as Border;
             await panel.Fade().StartAsync();
+        }
+
+        private async void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Show();
         }
 
         private void QualityFlyoutMenuItem_Click(object sender, RoutedEventArgs e)

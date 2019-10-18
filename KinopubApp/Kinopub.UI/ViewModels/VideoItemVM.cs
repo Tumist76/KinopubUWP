@@ -9,6 +9,7 @@ using Windows.Web.Syndication;
 using Kinopub.Api;
 using Kinopub.UI.Models;
 using System.ComponentModel;
+using Kinopub.Api.Entities.VideoContent.TypesConstants;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -32,8 +33,8 @@ namespace Kinopub.UI.ViewModels
         {
             if (itemProperties.Seasons != null)
             {
-                var startedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == 0);
-                var notStartedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == -1);
+                var startedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == WatchingStatus.Watching);
+                var notStartedSeason = itemProperties.Seasons.FirstOrDefault(x => x.Watching.Status == WatchingStatus.NotWatched);
 
                 if (startedSeason != null)
                 {
@@ -45,7 +46,7 @@ namespace Kinopub.UI.ViewModels
                 }
                 else
                 {
-                    SeasonToPlay = itemProperties.Seasons.LastOrDefault(x => x.Watching.Status == 1);
+                    SeasonToPlay = itemProperties.Seasons.LastOrDefault(x => x.Watching.Status == WatchingStatus.Watched);
                     VideoList = new ObservableCollection<Video>(SeasonToPlay.Episodes);
                 }
                 
@@ -61,19 +62,19 @@ namespace Kinopub.UI.ViewModels
         {
             if (itemProperties.Seasons != null)
             {
-                var startedEpisode = VideoList.FirstOrDefault(x => x.Watching.Status == 0);
+                var startedEpisode = VideoList.FirstOrDefault(x => x.Watching.Status == WatchingStatus.Watching);
                 if (startedEpisode != null)
                 {
                     VideoToPlay = startedEpisode;
                     return;
                 }
-                var notStartedEpisode = VideoList.FirstOrDefault(x => x.Watching.Status == -1);
+                var notStartedEpisode = VideoList.FirstOrDefault(x => x.Watching.Status == WatchingStatus.NotWatched);
                 if (notStartedEpisode != null)
                 {
                     VideoToPlay = notStartedEpisode;
                     return;
                 }
-                VideoToPlay = VideoList.LastOrDefault(x => x.Watching.Status == 1);
+                VideoToPlay = VideoList.LastOrDefault(x => x.Watching.Status == WatchingStatus.Watched);
             }
             VideoToPlay = VideoList.FirstOrDefault();
         }

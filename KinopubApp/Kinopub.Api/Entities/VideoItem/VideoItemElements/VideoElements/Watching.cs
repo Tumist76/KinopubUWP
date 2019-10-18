@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Kinopub.Api.Entities.VideoContent.TypesConstants;
+using Newtonsoft.Json;
 
 namespace Kinopub.Api.Entities.VideoContent.VideoElements
 {
@@ -8,7 +9,7 @@ namespace Kinopub.Api.Entities.VideoContent.VideoElements
         /// Статус просмотра эпизода: -1 не смотрели вообще, 0 - начали смотреть, 1 - просмотрели
         /// </summary>
         [JsonProperty("status")]
-        public int Status { get; set; }
+        public WatchingStatus Status { get; set; }
         /// <summary>
         /// Время просмотра в секундах
         /// </summary>

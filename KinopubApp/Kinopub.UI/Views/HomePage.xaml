@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
     xmlns:resources="using:Kinopub.UI"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource SystemChromeLowColor}" 
@@ -17,6 +18,7 @@
                 <ResourceDictionary Source="../Resources/VideoListViewTemplate.xaml" />
                 <ResourceDictionary Source="../Resources/WatchingListViewTemplate.xaml" />
                 <ResourceDictionary Source="../Resources/ButtonStyles.xaml" />
+                <ResourceDictionary Source="../Resources/WatchingProgressBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
@@ -35,76 +37,119 @@
     <Page.DataContext>
         <vms:HomePageVM/>
     </Page.DataContext>
-    <StackPanel Margin="20 10 10 10">
+    <StackPanel>
 
-        <ListView 
-            Grid.Column="1"
-            x:Name="WatchingListView"
-            ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
-            ItemsPanel="{StaticResource VideoItemsPanel}" 
-            Height="Auto"
-            Width="Auto"
-            DataContext="{StaticResource WatchingVmDataContext}"
-            ItemsSource="{Binding WatchingEntities}"
-            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-            ScrollViewer.HorizontalScrollMode="Enabled"                  
-            ScrollViewer.VerticalScrollMode="Disabled" 
-            IsItemClickEnabled="True"
-            VerticalContentAlignment="Top" FontFamily="Segoe UI">
-<ListView.ItemTemplate>
-    <DataTemplate>
-        <StackPanel VerticalAlignment="Top"
-                    Margin="0 0 0 10"
-                    Height="300">
-            <Grid>
-                <Rectangle
-                    Fill="Aqua"
-                    Height="227"
+        <Grid>
+            <Rectangle 
+                Grid.Row="0" 
+                Opacity="0.5"
+                Fill="Gray"
+                   >
+            </Rectangle>
+            <Border 
+            BorderBrush="Black" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Border.Background>
+                    <media:BackdropBlurBrush Amount="100" />
+                </Border.Background>
+            </Border>
+
+
+            <ListView 
+                Margin="0 10 10 10"
+                Grid.Column="1"
+                x:Name="WatchingListView"
+                ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
+                ItemsPanel="{StaticResource VideoItemsPanel}" 
+                Height="Auto"
+                Width="Auto"
+                DataContext="{StaticResource WatchingVmDataContext}"
+                ItemsSource="{Binding WatchingEntities}"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollMode="Enabled"                  
+                ScrollViewer.VerticalScrollMode="Disabled" 
+                IsItemClickEnabled="True"
+                VerticalContentAlignment="Top" 
+                FontFamily="Segoe UI">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel 
+                            VerticalAlignment="Top"
+                            Margin="0 0 0 10"
+                            >
+                            <Grid>
+                                <Rectangle
+                    Fill="Transparent"
+                    Width="170"
                     />
-                <Image 
-                    x:Name="Thumbnail"
-                    Source="{Binding Thumbnail}"
-                    Height="227"
-                />
-                <ProgressBar
-                    Height="10"
-                    IsIndeterminate="False"
-                    Value="{Binding CompletionPercent}"
-                    MaxWidth="{Binding ElementName=Thumbnail, Path=ActualWidth}"
-                    VerticalAlignment="Bottom"
-                    />
-            </Grid>
-            <TextBlock Margin="0 5 0 0" 
-                       Style="{StaticResource BaseTextBlockStyle}" 
-                       Text="{Binding RussianItemTitle}"
-                       MaxWidth="{Binding ElementName=Thumbnail, Path=ActualWidth}"
-            />
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Text="{Binding Season, 
-                                Converter={StaticResource StringFormatConverter}, 
-                                ConverterParameter='Сезон \{0\}  |'}"
-                                Margin="0 0 6 0"/>
-                            <TextBlock
-                                Text="{Binding Episode, 
-                                Converter={StaticResource StringFormatConverter}, 
-                                ConverterParameter='Серия \{0\}'}"/>
+                                <Image 
+                                    x:Name="Thumbnail"
+                                    Source="{Binding Thumbnail}"
+                                    Width="170"
+                                    />
+                                <ProgressBar Style="{StaticResource WatchingProgressBar}"
+                                    x:Name="WatchingProgressBar"
+                                    Height="10"
+                                    Width="150"
+                                    Margin="10 10 10 10"
+                                    IsIndeterminate="False"
+                                    Value="{Binding CompletionPercent}"
+                                    VerticalAlignment="Bottom"
+                                    Foreground="Red"
+                                             Background="Black"
+                                    />
+                                <Border CornerRadius="5"
+                                        Background="#99000000"
+                                        BorderBrush="{ThemeResource SystemBaseMediumHighColor}" 
+                                        BorderThickness="1.5"
+                                        Width="40"
+                                        Height="27"
+                                        Margin="0 10 10 0"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Right">
+                                    <TextBlock 
+                                Text="{Binding EpisodesLeft, 
+                                    Converter={StaticResource StringFormatConverter}, 
+                                    ConverterParameter='+\{0\}'}"
+                                        Style="{StaticResource BaseTextBlockStyle}"
+                                        FontSize="16"
+                                HorizontalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+
+                            <TextBlock 
+                                Margin="0 5 0 0" 
+                                Style="{StaticResource BaseTextBlockStyle}" 
+                                Text="{Binding RussianItemTitle}"
+                                MaxLines="2"
+                                MaxWidth="170"
+                                />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Text="{Binding Season, 
+                                    Converter={StaticResource StringFormatConverter}, 
+                                    ConverterParameter='Сезон \{0\}  |'}"
+                                    Margin="0 0 6 0"/>
+                                <TextBlock
+                                    Text="{Binding Episode, 
+                                    Converter={StaticResource StringFormatConverter}, 
+                                    ConverterParameter='Серия \{0\}'}"/>
+                            </StackPanel>
+                            <!--<StackPanel Orientation="Vertical">
+                                <TextBlock
+                                    Text="{Binding Duration, 
+                                    Converter={StaticResource StringFormatConverter}, 
+                                    ConverterParameter='Длительность \{0\}'}"/>
+                                <TextBlock
+                                    Text="{Binding LastPosition, 
+                                    Converter={StaticResource StringFormatConverter}, 
+                                    ConverterParameter='Позиция \{0\}'}"/>
+                            </StackPanel>-->
                         </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock
-                                Text="{Binding Duration, 
-                                Converter={StaticResource StringFormatConverter}, 
-                                ConverterParameter='Длительность \{0\}'}"/>
-                            <TextBlock
-                                Text="{Binding LastPosition, 
-                                Converter={StaticResource StringFormatConverter}, 
-                                ConverterParameter='Позиция \{0\}'}"/>
-                        </StackPanel>
-                    </StackPanel>
-    </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
         <TextBlock
             Text="Популярные фильмы" 
             Style="{StaticResource SubtitleTextBlockStyle}"

@@ -44,19 +44,19 @@ namespace Kinopub.UI.ViewModels
                 var entity = MakeEntity(watchingItem);
 
                 ItemContent titleItem = await contentManager.GetItem(entity.TitleId);
-                //entity.Thumbnail = titleItem.Posters.BigUrl;
+                entity.Thumbnail = "https://cdn.service-kp.com/poster/item/big/" + entity.TitleId + ".jpg";
 
                 //Изначально я хотел сделать широкие превьюшки для начатых эпизодов
                 //Но визуально это выглядело слишком неравномерно
 
-                if (entity.Status == WatchingStatus.Watching)
-                {
-                    entity.Thumbnail = titleItem.Videos.FirstOrDefault(x => x.Id == entity.VideoId).Thumbnail;
-                }
-                else
-                {
-                    entity.Thumbnail = titleItem.Posters.MediumUrl;
-                }
+                //if (entity.Status == WatchingStatus.Watching)
+                //{
+                //    entity.Thumbnail = titleItem.Videos.FirstOrDefault(x => x.Id == entity.VideoId).Thumbnail;
+                //}
+                //else
+                //{
+                //    entity.Thumbnail = titleItem.Posters.MediumUrl;
+                //}
 
 
                 entity.EpisodesLeft = watchingItem.Videos.Count(x => x.Status != WatchingStatus.Watched) - 1;
@@ -69,17 +69,17 @@ namespace Kinopub.UI.ViewModels
                 var entity = MakeEntity(watchingItem);
 
                 var titleItem = await contentManager.GetItem(entity.TitleId);
-                //entity.Thumbnail = titleItem.Posters.BigUrl;
-                if (entity.Status == WatchingStatus.Watching)
-                {
-                    entity.Thumbnail = titleItem.Seasons.
-                        FirstOrDefault(x => x.Number == entity.Season).Episodes.
-                        FirstOrDefault(x => x.Id == entity.VideoId).Thumbnail;
-                }
-                else
-                {
-                    entity.Thumbnail = titleItem.Posters.MediumUrl;
-                }
+                entity.Thumbnail = "https://cdn.service-kp.com/poster/item/big/" + entity.TitleId + ".jpg";
+                //if (entity.Status == WatchingStatus.Watching)
+                //{
+                //    entity.Thumbnail = titleItem.Seasons.
+                //        FirstOrDefault(x => x.Number == entity.Season).Episodes.
+                //        FirstOrDefault(x => x.Id == entity.VideoId).Thumbnail;
+                //}
+                //else
+                //{
+                //    entity.Thumbnail = titleItem.Posters.MediumUrl;
+                //}
 
                 foreach (var season in titleItem.Seasons)
                 {

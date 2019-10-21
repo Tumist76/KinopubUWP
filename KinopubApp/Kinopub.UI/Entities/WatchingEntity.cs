@@ -64,13 +64,18 @@ namespace Kinopub.UI.Entities
         /// </summary>
         public int TitleId => item.Id;
 
+        /// <summary>
+        /// ИД видео (для сопоставления с сущностью видео, полученного через GetContent)
+        /// </summary>
+        public uint VideoId { get; set; }
+
         public int EpisodesLeft { get; set; }
 
         public WatchingStatus Status { get; set; }
 
-        public int Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
-        public int LastPosition { get; set; }
+        public TimeSpan LastPosition { get; set; }
 
         public int Season { get; set; }
 
@@ -79,7 +84,7 @@ namespace Kinopub.UI.Entities
         /// <summary>
         /// Ссылка на превью фильма/эпизода, если просмотр начат; ссылка на постер, если еще не начинали смотреть
         /// </summary>
-        public Uri Thumbnail { get; set; }
+        public string Thumbnail { get; set; }
 
         #region Приватные свойства
 

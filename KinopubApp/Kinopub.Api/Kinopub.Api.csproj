@@ -158,6 +158,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Constants.cs" />
     <Compile Include="Tools\JsonSerilializer.cs" />
+    <Compile Include="WatchLogging\RootWatchingSerial.cs" />
+    <Compile Include="WatchLogging\RootWatchingMovie.cs" />
+    <Compile Include="WatchLogging\RootWatchingItem.cs" />
     <Compile Include="WatchLogging\WatchingMovie.cs" />
     <Compile Include="WatchLogging\WatchingItem.cs" />
     <Compile Include="WatchLogging\WatchlistToggleResult.cs" />

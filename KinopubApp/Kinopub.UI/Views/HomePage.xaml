@@ -25,6 +25,7 @@
                 <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
                 <Setter Property="TextLineBounds" Value="Full"/>
             </Style>
+            <vms:WatchingVM x:Key="WatchingVmDataContext" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -32,6 +33,23 @@
         <vms:HomePageVM/>
     </Page.DataContext>
     <StackPanel Margin="20 10 10 10">
+
+        <ListView 
+            Grid.Column="1"
+            x:Name="WatchingListView"
+            ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
+            ItemsPanel="{StaticResource VideoItemsPanel}" 
+            Height="Auto"
+            Width="Auto"
+            DataContext="{StaticResource WatchingVmDataContext}"
+            ItemsSource="{Binding WatchingEntities}"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.HorizontalScrollMode="Enabled"                  
+            ScrollViewer.VerticalScrollMode="Disabled" 
+            IsItemClickEnabled="True"
+            VerticalContentAlignment="Top" FontFamily="Segoe UI">
+        </ListView>
         <TextBlock
             Text="Популярные фильмы" 
             Style="{StaticResource SubtitleTextBlockStyle}"

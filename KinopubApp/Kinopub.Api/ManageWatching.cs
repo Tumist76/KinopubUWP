@@ -29,11 +29,11 @@ namespace Kinopub.Api
         /// Получить недосмотренные фильмы
         /// </summary>
         /// <returns></returns>
-        public async Task<List<WatchingMovie>> GetWatchingMovies()
+        public async Task<RootWatchingMovie> GetWatchingMovies()
         {
             var request = BuildRequest("movies");
 
-            var restResponse = await GetRestClient().ExecuteTaskAsync<List<WatchingMovie>>(request);
+            var restResponse = await GetRestClient().ExecuteTaskAsync<RootWatchingMovie>(request);
             return restResponse.Data;
         }
 
@@ -41,11 +41,11 @@ namespace Kinopub.Api
         /// Получить недосмотренные сериалы из "буду смотреть"
         /// </summary>
         /// <returns></returns>
-        public async Task<List<WatchingSerial>> GetWatchingSubscribedSerials()
+        public async Task<RootWatchingSerial> GetWatchingSubscribedSerials()
         {
             var request = BuildRequest("serials");
 
-            var restResponse = await GetRestClient().ExecuteTaskAsync<List<WatchingSerial>>(request);
+            var restResponse = await GetRestClient().ExecuteTaskAsync<RootWatchingSerial>(request);
             return restResponse.Data;
         }
 
@@ -53,21 +53,21 @@ namespace Kinopub.Api
         /// Получить недосмотренные сериалы
         /// </summary>
         /// <returns></returns>
-        public async Task<List<WatchingSerial>> GetWatchingSerials()
+        public async Task<RootWatchingSerial> GetWatchingSerials()
         {
             var request = BuildRequest("serials");
 
-            var restResponse = await GetRestClient().ExecuteTaskAsync<List<WatchingSerial>>(request);
+            var restResponse = await GetRestClient().ExecuteTaskAsync<RootWatchingSerial>(request);
             return restResponse.Data;
         }
 
         public async Task<WatchingItem> GetWatchingItem(int id)
         {
-            var request = BuildRequest("serials");
+            var request = BuildRequest(null);
             request.AddParameter("id", id);
 
-            var restResponse = await GetRestClient().ExecuteTaskAsync<WatchingItem>(request);
-            return restResponse.Data;
+            var restResponse = await GetRestClient().ExecuteTaskAsync<RootWatchingItem>(request);
+            return restResponse.Data.WatchingItem;
         }
 
         private void CheckResponse(IRestResponse restResponse)

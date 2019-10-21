@@ -11,7 +11,7 @@ namespace Kinopub.Api.Entities.VideoContent
         public int Id { get; set; }
 
         [JsonProperty("number")]
-        public uint Number { get; set; }
+        public int Number { get; set; }
 
         [JsonProperty("watched")]
         public int WatchedEpisodes { get; set; }

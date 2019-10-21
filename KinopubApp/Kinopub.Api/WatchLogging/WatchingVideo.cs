@@ -9,7 +9,7 @@ namespace Kinopub.Api.Entities.VideoContent
     public class WatchingVideo
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("number")]
         public int Number { get; set; }
@@ -21,13 +21,13 @@ namespace Kinopub.Api.Entities.VideoContent
         /// Длительность в секундах
         /// </summary>
         [JsonProperty("duration")]
-        public int Duration { get; set; }
+        public uint Duration { get; set; }
 
         /// <summary>
         /// Секунда, на которой остановлен просмотр
         /// </summary>
         [JsonProperty("time")]
-        public int Time { get; set; }
+        public uint Time { get; set; }
 
         [JsonProperty("status")]
         public WatchingStatus Status { get; set; }
@@ -36,6 +36,6 @@ namespace Kinopub.Api.Entities.VideoContent
         /// Время, когда последний раз просматривали видео
         /// </summary>
         [JsonProperty("updated")]
-        public TimeSpan updated { get; set; }
+        public uint updated { get; set; }
     }
 }

@@ -131,7 +131,6 @@
     <Compile Include="Entities\M3u8\M3u8Stream.cs" />
     <Compile Include="Entities\M3u8\M3u8Subtitle.cs" />
     <Compile Include="Entities\WatchingEntity.cs" />
-    <Compile Include="Models\WatchingModel.cs" />
     <Compile Include="Models\M3u8StreamModel.cs" />
     <Compile Include="Resources\ConstantStrings.cs" />
     <Compile Include="ViewModels\MediaPlayerVM.cs" />

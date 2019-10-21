@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="using:Kinopub.UI.ViewModels"
     xmlns:resources="using:Kinopub.UI"
+    xmlns:converters="using:Kinopub.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource SystemChromeLowColor}" 
     >
@@ -14,6 +15,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/VideoListViewTemplate.xaml" />
+                <ResourceDictionary Source="../Resources/WatchingListViewTemplate.xaml" />
                 <ResourceDictionary Source="../Resources/ButtonStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
@@ -26,6 +28,7 @@
                 <Setter Property="TextLineBounds" Value="Full"/>
             </Style>
             <vms:WatchingVM x:Key="WatchingVmDataContext" />
+            <converters:StringFormatConverter x:Key="StringFormatConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -49,6 +52,58 @@
             ScrollViewer.VerticalScrollMode="Disabled" 
             IsItemClickEnabled="True"
             VerticalContentAlignment="Top" FontFamily="Segoe UI">
+<ListView.ItemTemplate>
+    <DataTemplate>
+        <StackPanel VerticalAlignment="Top"
+                    Margin="0 0 0 10"
+                    Height="300">
+            <Grid>
+                <Rectangle
+                    Fill="Aqua"
+                    Height="227"
+                    />
+                <Image 
+                    x:Name="Thumbnail"
+                    Source="{Binding Thumbnail}"
+                    Height="227"
+                />
+                <ProgressBar
+                    Height="10"
+                    IsIndeterminate="False"
+                    Value="{Binding CompletionPercent}"
+                    MaxWidth="{Binding ElementName=Thumbnail, Path=ActualWidth}"
+                    VerticalAlignment="Bottom"
+                    />
+            </Grid>
+            <TextBlock Margin="0 5 0 0" 
+                       Style="{StaticResource BaseTextBlockStyle}" 
+                       Text="{Binding RussianItemTitle}"
+                       MaxWidth="{Binding ElementName=Thumbnail, Path=ActualWidth}"
+            />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Text="{Binding Season, 
+                                Converter={StaticResource StringFormatConverter}, 
+                                ConverterParameter='Сезон \{0\}  |'}"
+                                Margin="0 0 6 0"/>
+                            <TextBlock
+                                Text="{Binding Episode, 
+                                Converter={StaticResource StringFormatConverter}, 
+                                ConverterParameter='Серия \{0\}'}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock
+                                Text="{Binding Duration, 
+                                Converter={StaticResource StringFormatConverter}, 
+                                ConverterParameter='Длительность \{0\}'}"/>
+                            <TextBlock
+                                Text="{Binding LastPosition, 
+                                Converter={StaticResource StringFormatConverter}, 
+                                ConverterParameter='Позиция \{0\}'}"/>
+                        </StackPanel>
+                    </StackPanel>
+    </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <TextBlock
             Text="Популярные фильмы" 
@@ -61,7 +116,7 @@
             x:Name="MovieListView"
             ItemContainerStyle="{StaticResource VideoItemContainerStyle}" 
             ItemsPanel="{StaticResource VideoItemsPanel}" 
-            ItemTemplate="{StaticResource VideoItemTemplate}" 
+            ItemTemplate="{StaticResource WatchingItemTemplate}" 
             Height="Auto"
             Width="Auto"
             ItemsSource="{Binding PopularMovies}"

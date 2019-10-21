@@ -1,0 +1,39 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kinopub.UI.Resources">
+
+    <DataTemplate x:Key="WatchingItemTemplate">
+        <StackPanel VerticalAlignment="Top" Width="150"
+                    Margin="0 0 0 10">
+            <Grid>
+            <Rectangle
+                Width="151.8"
+                Height="227.3"
+                Fill="Aqua"/>
+            <Image Source="{Binding Thumbnail}"
+                   Width="151.8"
+                   Height="227.3"
+                   />
+            </Grid>
+            <TextBlock Margin="0 5 0 0" 
+                       Style="{StaticResource BaseTextBlockStyle}" 
+                       Text="{Binding RussianTitle}"
+                       />
+            <TextBlock Margin="0 3 0 0" 
+                       TextWrapping="WrapWholeWords"
+                       Text="{Binding OriginalTitle}"
+                       MaxLines="2"
+                       Opacity="0.8"
+                       />
+        </StackPanel>
+    </DataTemplate>
+    <ItemsPanelTemplate x:Key="VideoItemsPanel">
+        <ItemsStackPanel Orientation="Horizontal"/>
+    </ItemsPanelTemplate>
+    <Style x:Key="VideoItemContainerStyle" TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+    </Style>
+
+</ResourceDictionary>

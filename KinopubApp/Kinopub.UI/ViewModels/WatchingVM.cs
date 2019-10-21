@@ -44,6 +44,11 @@ namespace Kinopub.UI.ViewModels
                 var entity = MakeEntity(watchingItem);
 
                 ItemContent titleItem = await contentManager.GetItem(entity.TitleId);
+                //entity.Thumbnail = titleItem.Posters.BigUrl;
+
+                //Изначально я хотел сделать широкие превьюшки для начатых эпизодов
+                //Но визуально это выглядело слишком неравномерно
+
                 if (entity.Status == WatchingStatus.Watching)
                 {
                     entity.Thumbnail = titleItem.Videos.FirstOrDefault(x => x.Id == entity.VideoId).Thumbnail;
@@ -52,6 +57,7 @@ namespace Kinopub.UI.ViewModels
                 {
                     entity.Thumbnail = titleItem.Posters.MediumUrl;
                 }
+
 
                 entity.EpisodesLeft = watchingItem.Videos.Count(x => x.Status != WatchingStatus.Watched) - 1;
                 WatchingEntities.Add(entity);
@@ -63,6 +69,7 @@ namespace Kinopub.UI.ViewModels
                 var entity = MakeEntity(watchingItem);
 
                 var titleItem = await contentManager.GetItem(entity.TitleId);
+                //entity.Thumbnail = titleItem.Posters.BigUrl;
                 if (entity.Status == WatchingStatus.Watching)
                 {
                     entity.Thumbnail = titleItem.Seasons.
@@ -73,7 +80,7 @@ namespace Kinopub.UI.ViewModels
                 {
                     entity.Thumbnail = titleItem.Posters.MediumUrl;
                 }
-                
+
                 foreach (var season in titleItem.Seasons)
                 {
                     entity.EpisodesLeft = season.Episodes.Count(x => x.Watching.Status != WatchingStatus.Watched) - 1;

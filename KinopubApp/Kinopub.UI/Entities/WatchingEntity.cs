@@ -77,6 +77,11 @@ namespace Kinopub.UI.Entities
 
         public TimeSpan LastPosition { get; set; }
 
+        public double CompletionPercent
+        {
+            get { return LastPosition * 100 / Duration; }
+        }
+
         public int Season { get; set; }
 
         public int Episode { get; set; }

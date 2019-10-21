@@ -44,6 +44,7 @@ namespace Kinopub.Api
         public async Task<RootWatchingSerial> GetWatchingSubscribedSerials()
         {
             var request = BuildRequest("serials");
+            request.AddParameter("subscribed", 1);
 
             var restResponse = await GetRestClient().ExecuteTaskAsync<RootWatchingSerial>(request);
             return restResponse.Data;

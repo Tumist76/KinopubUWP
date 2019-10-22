@@ -82,6 +82,10 @@ namespace Kinopub.UI.Entities
             get { return LastPosition * 100 / Duration; }
         }
 
+        public int SeasonCount { get; set; }
+
+        public int EpisodeCount { get; set; }
+
         public int Season { get; set; }
 
         public int Episode { get; set; }

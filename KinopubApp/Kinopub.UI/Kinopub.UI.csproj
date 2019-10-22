@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NotZeroToVisibilityConverter.cs" />
+    <Compile Include="Converters\MoreThanOneToVisibilityConverter.cs" />
     <Compile Include="Converters\NullVisibilityConverter.cs" />
     <Compile Include="Converters\ReverseNullOpacityConverter.cs" />
     <Compile Include="Converters\NullOpacityConverter.cs" />

@@ -31,6 +31,8 @@
             </Style>
             <vms:WatchingVM x:Key="WatchingVmDataContext" />
             <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+            <converters:NotZeroToVisibilityConverter x:Key="NotZeroToVisibilityConverter"/>
+            <converters:MoreThanOneToVisibilityConverter x:Key="MoreThanOneToVisibilityConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -63,7 +65,7 @@
                 Height="Auto"
                 Width="Auto"
                 DataContext="{StaticResource WatchingVmDataContext}"
-                ItemsSource="{Binding WatchingEntities}"
+                ItemsSource="{Binding WatchingEntitiesTask.Result}"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollMode="Enabled"                  
@@ -89,16 +91,18 @@
                                     />
                                 <ProgressBar Style="{StaticResource WatchingProgressBar}"
                                     x:Name="WatchingProgressBar"
-                                    Height="10"
+                                    Height="7"
                                     Width="150"
                                     Margin="10 10 10 10"
                                     IsIndeterminate="False"
                                     Value="{Binding CompletionPercent}"
                                     VerticalAlignment="Bottom"
-                                    Foreground="Red"
-                                             Background="Black"
+                                    Foreground="{ThemeResource AppAccentColorPrimary}"
+                                    Background="Black"
+                                    Visibility="{Binding LastPosition.TotalSeconds, 
+                                    Converter={StaticResource NotZeroToVisibilityConverter}}"
                                     />
-                                <Border CornerRadius="5"
+                                <!--<Border CornerRadius="5"
                                         Background="#99000000"
                                         BorderBrush="{ThemeResource SystemBaseMediumHighColor}" 
                                         BorderThickness="1.5"
@@ -114,7 +118,7 @@
                                         Style="{StaticResource BaseTextBlockStyle}"
                                         FontSize="16"
                                 HorizontalAlignment="Center"/>
-                                </Border>
+                                </Border>-->
                             </Grid>
 
                             <TextBlock 
@@ -129,11 +133,15 @@
                                     Text="{Binding Season, 
                                     Converter={StaticResource StringFormatConverter}, 
                                     ConverterParameter='Сезон \{0\}  |'}"
+                                    Visibility="{Binding SeasonCount, 
+                                    Converter={StaticResource NotZeroToVisibilityConverter}}"
                                     Margin="0 0 6 0"/>
                                 <TextBlock
                                     Text="{Binding Episode, 
                                     Converter={StaticResource StringFormatConverter}, 
-                                    ConverterParameter='Серия \{0\}'}"/>
+                                    ConverterParameter='Серия \{0\}'}"
+                                    Visibility="{Binding EpisodeCount, 
+                                    Converter={StaticResource MoreThanOneToVisibilityConverter}}"/>
                             </StackPanel>
                             <!--<StackPanel Orientation="Vertical">
                                 <TextBlock

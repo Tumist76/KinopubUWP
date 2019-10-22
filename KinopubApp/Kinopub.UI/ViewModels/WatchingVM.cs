@@ -3,6 +3,7 @@ using Kinopub.Api.Entities.VideoContent;
 using Kinopub.Api.Entities.VideoContent.TypesConstants;
 using Kinopub.UI.Entities;
 using Kinopub.UI.Models;
+using Kinopub.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,14 +18,14 @@ namespace Kinopub.UI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<WatchingEntity> WatchingEntities { get; set; }
+        public NotifyTaskCompletion<ObservableCollection<WatchingEntity>> WatchingEntitiesTask { get; set; }
 
         public WatchingVM()
         {
-            GetCurrentlyWatchingTitles();
+            WatchingEntitiesTask = new NotifyTaskCompletion<ObservableCollection<WatchingEntity>>(GetCurrentlyWatchingTitles()); 
         }
 
-        private async void GetCurrentlyWatchingTitles()
+        private async Task<ObservableCollection<WatchingEntity>> GetCurrentlyWatchingTitles()
         {
             var authToken = AuthTokenManagementModel.GetAuthToken();
             var watchingManager = new ManageWatching(authToken);
@@ -34,12 +35,13 @@ namespace Kinopub.UI.ViewModels
             var watchingMovies = await watchingManager.GetWatchingMovies();
             var watchingSerials = await watchingManager.GetWatchingSubscribedSerials();
 
-            WatchingEntities = new ObservableCollection<WatchingEntity>();
+            var entities = new ObservableCollection<WatchingEntity>();
 
             //@todo Эти два итератора выполняют почти одно и то же. 
             //Перенести в один метод, но так, чтобы не было кучи лишних инициализаций объектов зря.
             foreach (var item in watchingMovies.WatchingMovies)
             {
+                
                 WatchingItem watchingItem = await watchingManager.GetWatchingItem(item.Id);
                 var entity = MakeEntity(watchingItem);
 
@@ -60,14 +62,14 @@ namespace Kinopub.UI.ViewModels
 
 
                 entity.EpisodesLeft = watchingItem.Videos.Count(x => x.Status != WatchingStatus.Watched) - 1;
-                WatchingEntities.Add(entity);
+                entities.Add(entity);
             }
 
             foreach (var item in watchingSerials.WatchingSerials)
             {
                 WatchingItem watchingItem = await watchingManager.GetWatchingItem(item.Id);
                 var entity = MakeEntity(watchingItem);
-
+                
                 var titleItem = await contentManager.GetItem(entity.TitleId);
                 entity.Thumbnail = "https://cdn.service-kp.com/poster/item/big/" + entity.TitleId + ".jpg";
                 //if (entity.Status == WatchingStatus.Watching)
@@ -85,8 +87,10 @@ namespace Kinopub.UI.ViewModels
                 {
                     entity.EpisodesLeft = season.Episodes.Count(x => x.Watching.Status != WatchingStatus.Watched) - 1;
                 }
-                WatchingEntities.Add(entity);
+                entities.Add(entity);
             }
+
+            return entities;
         }
 
         private WatchingEntity MakeEntity(WatchingItem item)
@@ -109,7 +113,19 @@ namespace Kinopub.UI.ViewModels
             entity.Duration = TimeSpan.FromSeconds(video.Duration);
             entity.Status = video.Status;
             entity.LastPosition = TimeSpan.FromSeconds(video.Time);
+            entity.SeasonCount = item.Seasons != null ? item.Seasons.Count : 0;
+            if (item.Seasons != null)
+            {
+                foreach (var season in item.Seasons)
+                {
+                    entity.EpisodeCount += season.Episodes.Count;
+                }
+            }
 
+            if (item.Videos != null)
+            {
+                entity.EpisodeCount = item.Videos.Count;
+            }
             //@todo глянуть, можно ли упростить проверку "сериальности"
             if (currentSeason != null)
             {

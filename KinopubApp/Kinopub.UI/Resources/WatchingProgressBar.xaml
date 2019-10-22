@@ -207,11 +207,11 @@
                         <Grid>
                             <Rectangle x:Name="DeterminateRoot" Fill="{TemplateBinding Background}"
                                                Opacity="0.5"
-                                               RadiusX="5"
+                                               RadiusX="4"
                                                RadiusY="100">
                             </Rectangle>
                             <Rectangle x:Name="ProgressBarIndicator" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}"
-                                               RadiusX="5"
+                                               RadiusX="4"
                                                RadiusY="100"/>
                         </Grid>
                     </Grid>

@@ -32,10 +32,10 @@ namespace Kinopub.UI.ViewModels
         {
             var requestManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
 
-            //var hotMoviesList = await requestManager.GetHotItems(ContentTypeEnum.Movie, 50, 1);
-            //var hotTvShowsList = await requestManager.GetHotItems(ContentTypeEnum.Serial, 10, 1);
-            //PopularMovies = new ObservableCollection<VideoItem>(hotMoviesList.Items);
-            //PopularTvShows = new ObservableCollection<VideoItem>(hotTvShowsList.Items); 
+            var hotMoviesList = await requestManager.GetHotItems(ContentTypeEnum.Movie, 50, 1);
+            var hotTvShowsList = await requestManager.GetHotItems(ContentTypeEnum.Serial, 10, 1);
+            PopularMovies = new ObservableCollection<VideoItem>(hotMoviesList.Items);
+            PopularTvShows = new ObservableCollection<VideoItem>(hotTvShowsList.Items);
         }
     }
 }

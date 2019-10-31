@@ -8,8 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Kinopub.UI.ViewModels
@@ -20,14 +22,18 @@ namespace Kinopub.UI.ViewModels
 
         public NotifyTaskCompletion<ObservableCollection<WatchingEntity>> WatchingEntitiesTask { get; set; }
 
+        public string WatchingBlockBackgroundImage { get; set; }
+
+
         public WatchingVM()
         {
-            WatchingEntitiesTask = new NotifyTaskCompletion<ObservableCollection<WatchingEntity>>(GetCurrentlyWatchingTitles()); 
+            WatchingEntitiesTask = new NotifyTaskCompletion<ObservableCollection<WatchingEntity>>(GetCurrentlyWatchingTitles());
         }
 
+        private string authToken;
         private async Task<ObservableCollection<WatchingEntity>> GetCurrentlyWatchingTitles()
         {
-            var authToken = AuthTokenManagementModel.GetAuthToken();
+            authToken = AuthTokenManagementModel.GetAuthToken();
             var watchingManager = new ManageWatching(authToken);
             var contentManager = new GetContent(authToken);
 
@@ -35,96 +41,71 @@ namespace Kinopub.UI.ViewModels
             var watchingMovies = await watchingManager.GetWatchingMovies();
             var watchingSerials = await watchingManager.GetWatchingSubscribedSerials();
 
-            var entities = new ObservableCollection<WatchingEntity>();
+            var entities = new List<WatchingEntity>();
 
-            //@todo Эти два итератора выполняют почти одно и то же. 
-            //Перенести в один метод, но так, чтобы не было кучи лишних инициализаций объектов зря.
+            var tasksList = new List<Task<WatchingEntity>>();
             foreach (var item in watchingMovies.WatchingMovies)
             {
-                
-                WatchingItem watchingItem = await watchingManager.GetWatchingItem(item.Id);
-                var entity = MakeEntity(watchingItem);
-
-                ItemContent titleItem = await contentManager.GetItem(entity.TitleId);
-                entity.Thumbnail = "https://cdn.service-kp.com/poster/item/big/" + entity.TitleId + ".jpg";
-
-                //Изначально я хотел сделать широкие превьюшки для начатых эпизодов
-                //Но визуально это выглядело слишком неравномерно
-
-                //if (entity.Status == WatchingStatus.Watching)
-                //{
-                //    entity.Thumbnail = titleItem.Videos.FirstOrDefault(x => x.Id == entity.VideoId).Thumbnail;
-                //}
-                //else
-                //{
-                //    entity.Thumbnail = titleItem.Posters.MediumUrl;
-                //}
-
-
-                entity.EpisodesLeft = watchingItem.Videos.Count(x => x.Status != WatchingStatus.Watched) - 1;
-                entities.Add(entity);
+                tasksList.Add(Task.Run(() => MakeEntity(item.Id)));
             }
 
             foreach (var item in watchingSerials.WatchingSerials)
             {
-                WatchingItem watchingItem = await watchingManager.GetWatchingItem(item.Id);
-                var entity = MakeEntity(watchingItem);
-                
-                var titleItem = await contentManager.GetItem(entity.TitleId);
-                entity.Thumbnail = "https://cdn.service-kp.com/poster/item/big/" + entity.TitleId + ".jpg";
-                //if (entity.Status == WatchingStatus.Watching)
-                //{
-                //    entity.Thumbnail = titleItem.Seasons.
-                //        FirstOrDefault(x => x.Number == entity.Season).Episodes.
-                //        FirstOrDefault(x => x.Id == entity.VideoId).Thumbnail;
-                //}
-                //else
-                //{
-                //    entity.Thumbnail = titleItem.Posters.MediumUrl;
-                //}
-
-                foreach (var season in titleItem.Seasons)
-                {
-                    entity.EpisodesLeft = season.Episodes.Count(x => x.Watching.Status != WatchingStatus.Watched) - 1;
-                }
-                entities.Add(entity);
+                tasksList.Add(Task.Run(() => MakeEntity(item.Id)));
+            }
+            //@todo ловить исключения
+            await Task.WhenAll(tasksList.ToArray());
+            foreach (Task<WatchingEntity> task in tasksList.ToArray())
+            {
+                if (task.IsCompletedSuccessfully == true)
+                    entities.Add(task.Result);
             }
 
-            return entities;
+            entities = entities.OrderByDescending(x => x.CompletionPercent).ToList();
+            return new ObservableCollection<WatchingEntity>(entities);
         }
 
-        private WatchingEntity MakeEntity(WatchingItem item)
+        private WatchingEntity MakeEntity(int titleId)
         {
-            var entity = new WatchingEntity(item);
+            Debug.WriteLine("Thread {0} - Start {1}", Thread.CurrentThread.ManagedThreadId, titleId);
+            //@todo не уверен, что создавать столько экземпляров объекта нормально.
+            //Может, стоит передавать объекты как параметры в метод?
+            var watchingManager = new ManageWatching(authToken);
+            var contentManager = new GetContent(authToken);
+
+            WatchingItem watchingItem = watchingManager.GetWatchingItem(titleId).Result;
+            Debug.WriteLine("Title {0}", watchingItem.Title);
+
+            var entity = new WatchingEntity(watchingItem);
             WatchingVideo video = new WatchingVideo();
 
             WatchingSeason currentSeason = null;
-            if (item.Videos != null)
+            if (watchingItem.Videos != null)
             {
-                video = GetVideoToPlay(item.Videos);
+                video = GetVideoToPlay(watchingItem.Videos);
             }
 
-            if (item.Seasons != null)
+            if (watchingItem.Seasons != null)
             {
-                currentSeason = GetSeasonToPlay(item.Seasons);
+                currentSeason = GetSeasonToPlay(watchingItem.Seasons);
                 video = GetVideoToPlay(currentSeason.Episodes);
             }
 
             entity.Duration = TimeSpan.FromSeconds(video.Duration);
             entity.Status = video.Status;
             entity.LastPosition = TimeSpan.FromSeconds(video.Time);
-            entity.SeasonCount = item.Seasons != null ? item.Seasons.Count : 0;
-            if (item.Seasons != null)
+            entity.SeasonCount = watchingItem.Seasons != null ? watchingItem.Seasons.Count : 0;
+            if (watchingItem.Seasons != null)
             {
-                foreach (var season in item.Seasons)
+                foreach (var season in watchingItem.Seasons)
                 {
                     entity.EpisodeCount += season.Episodes.Count;
                 }
             }
 
-            if (item.Videos != null)
+            if (watchingItem.Videos != null)
             {
-                entity.EpisodeCount = item.Videos.Count;
+                entity.EpisodeCount = watchingItem.Videos.Count;
             }
             //@todo глянуть, можно ли упростить проверку "сериальности"
             if (currentSeason != null)
@@ -135,6 +116,9 @@ namespace Kinopub.UI.ViewModels
             entity.Episode = video.Number;
 
             entity.VideoId = video.Id;
+
+            var titleItem = contentManager.GetItem(entity.TitleId);
+            entity.Thumbnail = "https://cdn.service-kp.com/poster/item/big/" + entity.TitleId + ".jpg";
 
             return entity;
         }

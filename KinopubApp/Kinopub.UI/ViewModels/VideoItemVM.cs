@@ -47,9 +47,8 @@ namespace Kinopub.UI.ViewModels
                 else
                 {
                     SeasonToPlay = itemProperties.Seasons.LastOrDefault(x => x.Watching.Status == WatchingStatus.Watched);
-                    VideoList = new ObservableCollection<Video>(SeasonToPlay.Episodes);
                 }
-                
+                VideoList = new ObservableCollection<Video>(SeasonToPlay.Episodes);
             }
             else
             {

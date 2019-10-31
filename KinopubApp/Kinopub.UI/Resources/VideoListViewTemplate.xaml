@@ -7,11 +7,7 @@
         <StackPanel VerticalAlignment="Top" Width="150"
                     Margin="0 0 0 10">
             <Grid>
-            <Rectangle
-                Width="151.8"
-                Height="227.3"
-                Fill="Aqua"/>
-            <Image Source="{Binding Posters.MediumUrl}"
+                <Image Source="{Binding Posters.MediumUrl}"
                    Width="151.8"
                    Height="227.3"
                    />

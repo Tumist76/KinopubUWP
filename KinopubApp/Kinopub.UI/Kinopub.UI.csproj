@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToVisibityConverter.cs" />
     <Compile Include="Converters\NotZeroToVisibilityConverter.cs" />
     <Compile Include="Converters\MoreThanOneToVisibilityConverter.cs" />
     <Compile Include="Converters\NullVisibilityConverter.cs" />

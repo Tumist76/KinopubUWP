@@ -15,6 +15,15 @@
                    Width="151.8"
                    Height="227.3"
                    />
+            <Rectangle Height="50"
+                       VerticalAlignment="Bottom">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0.0" />
+                        <GradientStop Color="#C0000000" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
             </Grid>
             <TextBlock Margin="0 5 0 0" 
                        Style="{StaticResource BaseTextBlockStyle}" 

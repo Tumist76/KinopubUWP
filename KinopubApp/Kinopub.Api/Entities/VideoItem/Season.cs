@@ -2,7 +2,7 @@
 using Kinopub.Api.Entities.VideoContent.VideoElements;
 using Newtonsoft.Json;
 
-namespace Kinopub.Api.Entities.VideoContent
+namespace Kinopub.Api.Entities.VideoContent.VideoItem
 {
     public class Season
     {

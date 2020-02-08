@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Kinopub.Api.Entities.VideoContent;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 using Newtonsoft.Json;
 
 namespace Kinopub.Api.Entities

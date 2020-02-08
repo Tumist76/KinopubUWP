@@ -9,7 +9,8 @@ using Windows.Web.Syndication;
 using Kinopub.Api;
 using Kinopub.UI.Models;
 using System.ComponentModel;
-using Kinopub.Api.Entities.VideoContent.TypesConstants;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
+using Kinopub.Api.Entities.VideoContent.VideoItem.TypesConstants;
 
 namespace Kinopub.UI.ViewModels
 {

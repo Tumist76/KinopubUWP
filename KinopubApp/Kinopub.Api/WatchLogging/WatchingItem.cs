@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Kinopub.Api.Entities.VideoContent.TypesConstants;
 using Kinopub.Api.Entities.VideoContent.VideoElements;
+using Kinopub.Api.Entities.VideoContent.VideoItem.TypesConstants;
 using Newtonsoft.Json;
 
 namespace Kinopub.Api.Entities.VideoContent

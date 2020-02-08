@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Kinopub.Api.Entities.VideoContent
+namespace Kinopub.Api.Entities.VideoContent.VideoItem
 {
     /// <summary>
     /// Продолжительность видео

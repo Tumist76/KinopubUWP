@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Kinopub.Api.Entities.VideoContent
+namespace Kinopub.Api.Entities.VideoContent.VideoItem
 {
     public class ItemContent: VideoItem
     {

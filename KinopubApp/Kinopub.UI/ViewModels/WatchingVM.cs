@@ -1,6 +1,5 @@
 ﻿using Kinopub.Api;
 using Kinopub.Api.Entities.VideoContent;
-using Kinopub.Api.Entities.VideoContent.TypesConstants;
 using Kinopub.UI.Entities;
 using Kinopub.UI.Models;
 using Kinopub.UI.Utilities;
@@ -13,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Kinopub.Api.Entities.VideoContent.VideoItem.TypesConstants;
 
 namespace Kinopub.UI.ViewModels
 {

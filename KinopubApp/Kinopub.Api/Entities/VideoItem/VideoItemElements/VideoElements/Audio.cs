@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Kinopub.Api.Entities.VideoContent.VideoElements
+namespace Kinopub.Api.Entities.VideoContent.VideoItem.VideoElements
 {
     public class Audio
     {

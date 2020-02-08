@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Kinopub.UI.ViewModels;
 using Kinopub.Api.Entities.VideoContent;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 

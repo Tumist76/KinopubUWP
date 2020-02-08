@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.Storage.Search;
 using Kinopub.Api;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 using Kinopub.UI.Models;
 
 namespace Kinopub.UI.ViewModels

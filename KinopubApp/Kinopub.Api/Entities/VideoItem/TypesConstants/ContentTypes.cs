@@ -1,7 +1,7 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using Windows.Devices.Bluetooth.Advertisement;
 
-namespace Kinopub.Api.Entities.VideoContent.TypesConstants
+namespace Kinopub.Api.Entities.VideoContent.VideoItem.TypesConstants
 {
     /// <summary>
     /// Типы видеоконтента

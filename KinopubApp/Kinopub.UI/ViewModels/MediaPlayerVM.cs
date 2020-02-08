@@ -11,6 +11,7 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Media.Streaming.Adaptive;
 using Kinopub.Api.Entities.VideoContent;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 using Kinopub.UI.Entities.M3u8;
 using Kinopub.UI.Models;
 using Template10.Mvvm;

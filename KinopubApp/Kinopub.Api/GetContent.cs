@@ -4,8 +4,8 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Kinopub.Api.Entities;
-using Kinopub.Api.Entities.VideoContent;
-using Kinopub.Api.Entities.VideoContent.TypesConstants;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
+using Kinopub.Api.Entities.VideoContent.VideoItem.TypesConstants;
 using RestSharp;
 using Kinopub.Api.Tools;
 using Newtonsoft.Json;
@@ -71,7 +71,7 @@ namespace Kinopub.Api
             // @todo Сделать нормальный таймаут и обработчик ошибок
             //@body При некорректном запросе здесь приложение просто вешается. Так быть не должно. 
             //Нужно корректная обработка ошибок с выводом тех, которые могут быть важны пользователю, на экран.
-            CheckResponse(restResponse);
+            ErrorHandler.CheckResult(restResponse);
             return restResponse.Data;
         }
 
@@ -124,10 +124,13 @@ namespace Kinopub.Api
             request.AddHeader("Authorization",
                 AccessToken);
 
-            // @todo @todo поменять на асинхронную работу с одновременной десереализацией
-            var restResponse = GetRestClient().Execute(request);
-            var response = JsonConvert.DeserializeObject<GetItem>(restResponse.Content);
-            return response.Item;
+            ////@todo поменять на асинхронную работу с одновременной десереализацией
+            //var restResponse = GetRestClient().Execute(request);
+            //var response = JsonConvert.DeserializeObject<GetItem>(restResponse.Content);
+
+            var restResponse = await GetRestClient().ExecuteTaskAsync<ItemContent>(request);
+            ErrorHandler.CheckResult(restResponse);
+            return restResponse.Data;
         }
 
         #endregion

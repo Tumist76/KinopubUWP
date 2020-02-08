@@ -14,6 +14,7 @@ using Kinopub.UI.Entities.M3u8;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System.Collections.ObjectModel;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 
 namespace Kinopub.UI.Controls
 {

@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 
 namespace Kinopub.UI.ViewModels
 {

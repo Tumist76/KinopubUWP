@@ -23,6 +23,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Kinopub.UI
 {
@@ -92,6 +93,7 @@ namespace Kinopub.UI
                     // Если стек навигации не восстанавливается для перехода к первой странице,
                     // настройка новой страницы путем передачи необходимой информации в качестве параметра
                     // параметр
+                    Debug.WriteLine("Calling MoveToMainPageAsync()");
                     MoveToMainPageAsync();
 
                 }
@@ -120,16 +122,19 @@ namespace Kinopub.UI
                         if (AuthTokenManagementModel.IsRefreshTokenValid(authData))
                         {
                             await AuthTokenManagementModel.RefreshAccessToken();
+                            Debug.WriteLine("Moving to main page");
                             rootFrame.Navigate(typeof(MainPage));
                         }
                         else
                         {
+                            Debug.WriteLine("Moving to authorization page");
                             rootFrame.Navigate(typeof(AuthorizationPage));
                         }
                     }
                 }
             }
-            
+            Debug.WriteLine("AuthData is null");
+            rootFrame.Navigate(typeof(AuthorizationPage));
         }
         private
         /// <summary>

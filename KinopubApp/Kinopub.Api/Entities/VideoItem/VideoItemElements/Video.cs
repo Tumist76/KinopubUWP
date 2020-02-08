@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Kinopub.Api.Entities.VideoContent.VideoElements;
+using Kinopub.Api.Entities.VideoContent.VideoItem.VideoElements;
 using Newtonsoft.Json;
 
-namespace Kinopub.Api.Entities.VideoContent
+namespace Kinopub.Api.Entities.VideoContent.VideoItem
 {
     public class Video
     {

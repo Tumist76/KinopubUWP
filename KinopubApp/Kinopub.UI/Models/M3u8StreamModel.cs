@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Kinopub.Api.Entities.VideoContent;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 using Kinopub.UI.Entities.M3u8;
 using M3u8Parser.Entity;
 

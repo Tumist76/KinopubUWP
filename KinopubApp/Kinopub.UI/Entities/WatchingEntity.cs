@@ -5,9 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kinopub.Api.Entities.VideoContent;
-using Kinopub.Api.Entities.VideoContent.TypesConstants;
-using Kinopub.Api.Entities.VideoContent.VideoElements;
-using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Kinopub.Api.Entities.VideoContent.VideoItem.TypesConstants;
 
 namespace Kinopub.UI.Entities
 {

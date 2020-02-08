@@ -152,12 +152,16 @@
     <Compile Include="Entities\VideoItem\VideoItemElements\VideoElements\Subtitle.cs" />
     <Compile Include="Entities\VideoItem\VideoItemElements\VideoElements\Watching.cs" />
     <Compile Include="ErrorHandler.cs" />
+    <Compile Include="Errors\KinopubApiException.cs" />
+    <Compile Include="Errors\KinopubError.cs" />
+    <Compile Include="Errors\KinopubErrorType.cs" />
     <Compile Include="ManageWatching.cs" />
     <Compile Include="GetContent.cs" />
     <Compile Include="GetUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Constants.cs" />
     <Compile Include="Tools\JsonSerilializer.cs" />
+    <Compile Include="Tools\TypeHelper.cs" />
     <Compile Include="WatchLogging\RootWatchingSerial.cs" />
     <Compile Include="WatchLogging\RootWatchingMovie.cs" />
     <Compile Include="WatchLogging\RootWatchingItem.cs" />
@@ -180,7 +184,9 @@
       <Version>106.6.10</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Requests\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

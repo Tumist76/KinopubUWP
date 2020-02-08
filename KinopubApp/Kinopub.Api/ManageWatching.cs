@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kinopub.Api.Entities;
 using Kinopub.Api.Entities.VideoContent;
-using Kinopub.Api.Entities.VideoContent.TypesConstants;
 using RestSharp;
 using Kinopub.Api.Tools;
 using Newtonsoft.Json;
@@ -68,6 +67,7 @@ namespace Kinopub.Api
             request.AddParameter("id", id);
 
             var restResponse = await GetRestClient().ExecuteTaskAsync<RootWatchingItem>(request);
+            ErrorHandler.CheckResult(restResponse);
             return restResponse.Data.WatchingItem;
         }
 

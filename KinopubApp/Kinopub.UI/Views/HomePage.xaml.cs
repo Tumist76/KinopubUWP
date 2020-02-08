@@ -17,6 +17,7 @@ using Kinopub.UI.ViewModels;
 using Kinopub.Api.Entities.VideoContent;
 using Kinopub.UI.Views;
 using System.Diagnostics;
+using Kinopub.Api.Entities.VideoContent.VideoItem;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
@@ -70,8 +71,8 @@ namespace Kinopub.UI
 
             var container = ((ListViewItem)(MovieListView.ContainerFromItem(MovieListView.Items.FirstOrDefault())));
             int fullyVisibleItemsWidth =
-                Convert.ToInt32(Math.Floor(scrollViewer.ViewportWidth)) / Convert.ToInt32(Math.Floor(container.ActualWidth))
-                * Convert.ToInt32(Math.Floor(container.ActualWidth));
+                Convert.ToInt32(Math.Round(scrollViewer.ViewportWidth)) / Convert.ToInt32(Math.Round(container.ActualWidth))
+                * Convert.ToInt32(Math.Round(container.ActualWidth));
             scrollViewer.ChangeView(scrollViewer.HorizontalOffset - fullyVisibleItemsWidth, 0, 1);
         }
     }

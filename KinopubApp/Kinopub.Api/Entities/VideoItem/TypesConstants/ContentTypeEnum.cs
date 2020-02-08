@@ -1,4 +1,4 @@
-﻿namespace Kinopub.Api.Entities.VideoContent.TypesConstants
+﻿namespace Kinopub.Api.Entities.VideoContent.VideoItem.TypesConstants
 {
     public enum ContentTypeEnum
     {

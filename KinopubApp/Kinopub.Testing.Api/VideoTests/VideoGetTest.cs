@@ -14,13 +14,13 @@ namespace VideoGetTest
         {
             var token = AuthToken.GetAuthToken();
             if (token == null) return;
-            var DuckTales = new GetContent(token).GetItem(21614);
+            var DuckTales = new GetContentService(token).GetItem(21614);
 
             var expectedTitle = "Утиные истории / DuckTales";
 
-            Debug.WriteLine("Plot: " + DuckTales.Result.Plot);
+            Debug.WriteLine("Plot: " + DuckTales.Result.Item.Plot);
 
-            Assert.AreEqual(expectedTitle, DuckTales.Result.Title);
+            Assert.AreEqual(expectedTitle, DuckTales.Result.Item.Title);
         }
     }
 }

@@ -13,9 +13,9 @@ using RestSharp.Portable.Deserializers;
 
 namespace Kinopub.Api
 {
-    public class GetContent
+    public class GetContentService
     {
-        public GetContent(string accessToken)
+        public GetContentService(string accessToken)
         {
             AccessToken = string.Format("Bearer " + accessToken);
         }
@@ -115,7 +115,7 @@ namespace Kinopub.Api
         /// </summary>
         /// <param name="itemId"></param>
         /// <returns></returns>
-        public async Task<ItemContent> GetItem
+        public async Task<GetItem> GetItem
             (long itemId)
         {
             var request = new RestRequest("/v1/items/" + itemId,
@@ -128,7 +128,7 @@ namespace Kinopub.Api
             //var restResponse = GetRestClient().Execute(request);
             //var response = JsonConvert.DeserializeObject<GetItem>(restResponse.Content);
 
-            var restResponse = await GetRestClient().ExecuteTaskAsync<ItemContent>(request);
+            var restResponse = GetRestClient().Execute<GetItem>(request);
             ErrorHandler.CheckResult(restResponse);
             return restResponse.Data;
         }

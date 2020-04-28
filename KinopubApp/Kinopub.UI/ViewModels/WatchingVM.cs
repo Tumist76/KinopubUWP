@@ -35,7 +35,7 @@ namespace Kinopub.UI.ViewModels
         {
             authToken = AuthTokenManagementModel.GetAuthToken();
             var watchingManager = new ManageWatching(authToken);
-            var contentManager = new GetContent(authToken);
+            var contentManager = new GetContentService(authToken);
 
             //Получаем список недосмотренных сериалов и фильмов
             var watchingMovies = await watchingManager.GetWatchingMovies();
@@ -48,12 +48,12 @@ namespace Kinopub.UI.ViewModels
             {
                 foreach (var item in watchingMovies.WatchingMovies)
                 {
-                    tasksList.Add(Task.Run(() => CreateEntity(item)));
+                    tasksList.Add(Task.Run(() => CreateEntity(item.Id)));
                 }
 
                 foreach (var item in watchingSerials.WatchingSerials)
                 {
-                    tasksList.Add(Task.Run(() => CreateEntity(item)));
+                    tasksList.Add(Task.Run(() => CreateEntity(item.Id)));
                 }
             }
             catch
@@ -78,7 +78,7 @@ namespace Kinopub.UI.ViewModels
             //@todo не уверен, что создавать столько экземпляров объекта нормально.
             //Может, стоит передавать объекты как параметры в метод?
             var watchingManager = new ManageWatching(authToken);
-            var contentManager = new GetContent(authToken);
+            var contentManager = new GetContentService(authToken);
 
 
             WatchingItem watchingItem = await watchingManager.GetWatchingItem(titleId);

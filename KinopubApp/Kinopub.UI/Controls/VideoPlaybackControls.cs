@@ -25,6 +25,7 @@ namespace Kinopub.UI.Controls
         public event EventHandler<EventArgs> QualitySelectionButtonClicked;
         public event RoutedEventHandler GoBackButtonClicked;
         public event RoutedEventHandler GoToStartPositionButtonClicked;
+        public event RoutedEventHandler GoToCompactOverlayModeClicked;
 
         #region DependencyProperties
 
@@ -196,6 +197,9 @@ namespace Kinopub.UI.Controls
             Button closePanel = GetTemplateChild("CloseGoToStartPositionPanel") as Button;
             closePanel.Click += CloseGoToStartPositionPanel_Click;
 
+            Button goToCompactOverlayModeButton = GetTemplateChild("GoToCompactOverlayButton") as Button;
+            goToCompactOverlayModeButton.Click += GoToCompactOverlayModeClicked;
+
             AppBarButton playPauseButton = GetTemplateChild("PlayPauseButton") as AppBarButton;
             playPauseButton.Click += PlayPauseButton_Click;
             
@@ -217,6 +221,10 @@ namespace Kinopub.UI.Controls
         {
             GoToStartPositionButtonClicked?.Invoke(this, new RoutedEventArgs());
         }
+        private void GoToCompactOverlayModeButton_Click(object sender, RoutedEventArgs e)
+        {
+            GoToCompactOverlayModeClicked?.Invoke(this, new RoutedEventArgs());
+        }
 
         private async void CloseGoToStartPositionPanel_Click(object sender, RoutedEventArgs e)
         {
@@ -226,7 +234,7 @@ namespace Kinopub.UI.Controls
 
         private async void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Show();
+            //this.Show();
         }
 
         private void QualityFlyoutMenuItem_Click(object sender, RoutedEventArgs e)

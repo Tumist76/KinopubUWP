@@ -15,6 +15,7 @@ using Kinopub.Api.Entities.VideoContent.VideoItem;
 using Kinopub.UI.Entities.M3u8;
 using Kinopub.UI.Models;
 using Template10.Mvvm;
+using Windows.UI.ViewManagement;
 
 namespace Kinopub.UI.ViewModels
 {
@@ -126,6 +127,7 @@ namespace Kinopub.UI.ViewModels
         //{
         //    CurrentPlaybackPosition = new TimeSpan(0);
         //}
+
 
         private void PlaybackBitrateChanged(AdaptiveMediaSource sender, AdaptiveMediaSourcePlaybackBitrateChangedEventArgs args)
         {

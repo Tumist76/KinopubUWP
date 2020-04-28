@@ -31,7 +31,7 @@ namespace Kinopub.UI.ViewModels
 
         private async void GetItems()
         {
-            var requestManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
+            var requestManager = new GetContentService(AuthTokenManagementModel.GetAuthToken());
             try
             {
                 var hotMoviesList = await requestManager.GetHotItems(ContentTypeEnum.Movie, 50, 1);

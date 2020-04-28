@@ -75,6 +75,7 @@
                     EpisodeNumber="{Binding VideoItem.VideoToPlay.Number}"
                     LastPlayedPosition="{Binding LastPlayedPosition}"
                     GoToStartPositionButtonClicked="VideoPlaybackControls_OnGoToStartPositionButtonClicked"
+                    GoToCompactOverlayModeClicked="VideoPlaybackControls_GoToCompactOverlayModeClicked"
                     >
                 </controls:VideoPlaybackControls>
             </MediaPlayerElement.TransportControls>

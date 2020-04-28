@@ -219,13 +219,25 @@
             ItemsSource="{Binding PopularMovies}"
             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
-            ScrollViewer.HorizontalScrollMode="Enabled"                  
+            ScrollViewer.HorizontalScrollMode="Disabled"                  
             ScrollViewer.VerticalScrollMode="Disabled" 
             IsItemClickEnabled="True"
             ItemClick="ListView_ItemClick"
             VerticalContentAlignment="Top" FontFamily="Segoe UI">
                 </ListView>
-                <Button 
+                    <Button 
+                Width="50"
+                Height="50"
+                x:Name="ScrollLeft"
+                RelativePanel.AlignLeftWith="MovieListView"
+                RelativePanel.AlignVerticalCenterWith="MovieListView"
+                Style="{StaticResource CircleButtonStyle}"
+                Content="&#xE96F;" 
+                    FontFamily="Segoe MDL2 Assets" 
+                VerticalAlignment="Center" 
+                        Click="ScrollLeft_Click"
+            />
+                    <Button 
                 Width="50"
                 Height="50"
                 RelativePanel.AlignRightWith="MovieListView"
@@ -233,21 +245,11 @@
                 Grid.Column="2"
                 Style="{StaticResource CircleButtonStyle}"
                     x:Name="ScrollRight"
-                    Content="R"
+                    Content="&#xE970;" 
                     VerticalAlignment="Center"
+                    FontFamily="Segoe MDL2 Assets" 
                     Click="Button_Click"/>
-                <Button 
-                Width="50"
-                Height="50"
-                Background="Wheat"
-                x:Name="ScrollLeft"
-                RelativePanel.AlignLeftWith="MovieListView"
-                RelativePanel.AlignVerticalCenterWith="MovieListView"
-                Style="{StaticResource CircleButtonStyle}"
-                Content="L"
-                VerticalAlignment="Center" Click="ScrollLeft_Click"
-            />
-            </RelativePanel>
+                </RelativePanel>
 
             <TextBlock
             Text="Популярные сериалы" 

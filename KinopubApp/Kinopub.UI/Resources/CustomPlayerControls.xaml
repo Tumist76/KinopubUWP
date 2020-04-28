@@ -973,12 +973,20 @@
                                             <AppBarButton x:Name='CompactOverlayButton'
                                                 Style='{StaticResource AppBarButtonStyle}'
                                                 MediaTransportControlsHelper.DropoutOrder='24'
-                                                Visibility='Collapsed'>
+                                                Visibility='Visible'>
                                                 <AppBarButton.Icon>
                                                     <FontIcon Glyph="&#xE8B9;" />
                                                 </AppBarButton.Icon>
                                             </AppBarButton>
-                                            <AppBarButton x:Name='FullWindowButton'
+                                                <AppBarButton x:Name='GoToCompactOverlayButton'
+                                                Style='{StaticResource AppBarButtonStyle}'
+                                                MediaTransportControlsHelper.DropoutOrder='24'
+                                                Visibility='Visible'>
+                                                    <AppBarButton.Icon>
+                                                        <FontIcon Glyph="&#xE8B9;" />
+                                                    </AppBarButton.Icon>
+                                                </AppBarButton>
+                                                <AppBarButton x:Name='FullWindowButton'
                                                 Style='{StaticResource AppBarButtonStyle}'
                                                 MediaTransportControlsHelper.DropoutOrder='17'>
                                                 <AppBarButton.Icon>

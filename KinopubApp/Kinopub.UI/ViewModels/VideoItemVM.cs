@@ -90,7 +90,7 @@ namespace Kinopub.UI.ViewModels
             set
             {
                 itemId = value;
-                ItemProperties = new GetContent(AuthTokenManagementModel.GetAuthToken()).GetItem(itemId).Result;
+                ItemProperties = new GetContentService(AuthTokenManagementModel.GetAuthToken()).GetItem(itemId).Result.Item;
             }
         }
 

@@ -18,6 +18,8 @@ using Kinopub.UI.Controls;
 using Kinopub.Api.Entities.VideoContent;
 using Windows.UI.Core;
 using Kinopub.UI.Resources;
+using Windows.UI.ViewManagement;
+using System.Diagnostics;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -97,6 +99,35 @@ namespace Kinopub.UI.Views
         private void VideoPlaybackControls_OnGoToStartPositionButtonClicked(object sender, RoutedEventArgs e)
         {
             MainPlayer.MediaPlayer.PlaybackSession.Position = TimeSpan.MinValue;
+        }
+
+        public async void GoToCompactOverlayMode()
+        {
+            if (Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 4))
+            {
+                Debug.WriteLine("Windows.ApplicationModel.Calls.CallsVoipContract v1.x found");
+                if (ApplicationView.GetForCurrentView().IsViewModeSupported(ApplicationViewMode.CompactOverlay))
+                {
+                    // Supported
+                    if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.Default)
+                    {
+                        await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+                    }
+                    else
+                    {
+                        await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("ApplicationViewMode.CompactOverlay not supported");
+                }
+            }
+        }
+
+        private void VideoPlaybackControls_GoToCompactOverlayModeClicked(object sender, RoutedEventArgs e)
+        {
+            GoToCompactOverlayMode();
         }
     }
 }

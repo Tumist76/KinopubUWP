@@ -9,7 +9,7 @@ using Kinopub.Api.Entities.VideoContent.VideoItem;
 
 namespace Kinopub.Api.Entities
 {
-    class GetItem
+    public class GetItem
     {
         [JsonProperty("item")]
         public ItemContent Item { get; set; }

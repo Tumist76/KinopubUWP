@@ -35,7 +35,7 @@ namespace Kinopub.UI.ViewModels
                 if (QuickResults != null) QuickResults.Clear();
                 return;
             }
-            var requestManager = new GetContent(AuthTokenManagementModel.GetAuthToken());
+            var requestManager = new GetContentService(AuthTokenManagementModel.GetAuthToken());
             var searchRequest = await requestManager.SearchItems(query, 5, 1);
             if (QuickResults == null)
                 QuickResults = new ObservableCollection<VideoItem>();

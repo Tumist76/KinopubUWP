@@ -18,30 +18,35 @@ namespace Kinopub.UI.Entities
             this.item = item;
         }
 
+        public WatchingEntity()
+        {
+        }
+
+        private void SetItemName(string name)
+        {
+            if (String.IsNullOrEmpty(item.Title)) return;
+
+            var titles = item.Title.Split('/');
+            //Устанавливаем русское название
+            russianItemTitle = titles[0].Trim();
+            //Устанавливаем оригинальное название при наличии
+            if (titles.Length == 2)
+            {
+                originalItemTitle = titles[1].Trim();
+            }
+        }
         //Оригинальное название тайтла
         public string OriginalItemTitle
         {
-            get
-            {
-                if (String.IsNullOrEmpty(item.Title)) return null;
-                var titles = item.Title.Split('/');
-                if (titles.Length == 2)
-                {
-                    return titles[1].Trim();
-                }
-                return null;
-            }
+            get => originalItemTitle;
+            set => originalItemTitle = value;
         }
 
         //Русское название тайтла
         public string RussianItemTitle
         {
-            get
-            {
-                if (String.IsNullOrEmpty(item.Title)) return null;
-                var titles = item.Title.Split('/');
-                return titles[0].Trim();
-            }
+            get => russianItemTitle;
+            set => russianItemTitle = value;
         }
         /// <summary>
         /// Название для эпизода/этого видео
@@ -98,6 +103,8 @@ namespace Kinopub.UI.Entities
         private WatchingItem item;
 
         private string episodeTitle;
+        private string originalItemTitle;
+        private string russianItemTitle;
 
         #endregion
 

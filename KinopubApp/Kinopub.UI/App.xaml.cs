@@ -133,8 +133,11 @@ namespace Kinopub.UI
                     }
                 }
             }
-            Debug.WriteLine("AuthData is null");
-            rootFrame.Navigate(typeof(AuthorizationPage));
+            else
+            {
+                Debug.WriteLine("AuthData is null");
+                rootFrame.Navigate(typeof(AuthorizationPage));
+            }
         }
         private
         /// <summary>

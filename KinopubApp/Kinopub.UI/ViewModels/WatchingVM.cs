@@ -44,14 +44,21 @@ namespace Kinopub.UI.ViewModels
             var entities = new List<WatchingEntity>();
 
             var tasksList = new List<Task<WatchingEntity>>();
-            foreach (var item in watchingMovies.WatchingMovies)
+            try
             {
-                tasksList.Add(Task.Run(() => MakeEntity(item.Id)));
-            }
+                foreach (var item in watchingMovies.WatchingMovies)
+                {
+                    tasksList.Add(Task.Run(() => CreateEntity(item)));
+                }
 
-            foreach (var item in watchingSerials.WatchingSerials)
+                foreach (var item in watchingSerials.WatchingSerials)
+                {
+                    tasksList.Add(Task.Run(() => CreateEntity(item)));
+                }
+            }
+            catch
             {
-                tasksList.Add(Task.Run(() => MakeEntity(item.Id)));
+                Debug.WriteLine($"Error after {tasksList.Count} tasks");
             }
             //@todo ловить исключения
             await Task.WhenAll(tasksList.ToArray());
@@ -65,7 +72,7 @@ namespace Kinopub.UI.ViewModels
             return new ObservableCollection<WatchingEntity>(entities);
         }
 
-        private WatchingEntity MakeEntity(int titleId)
+        private async Task<WatchingEntity> CreateEntity(int titleId)
         {
             Debug.WriteLine("Thread {0} - Start {1}", Thread.CurrentThread.ManagedThreadId, titleId);
             //@todo не уверен, что создавать столько экземпляров объекта нормально.
@@ -73,7 +80,8 @@ namespace Kinopub.UI.ViewModels
             var watchingManager = new ManageWatching(authToken);
             var contentManager = new GetContent(authToken);
 
-            WatchingItem watchingItem = watchingManager.GetWatchingItem(titleId).Result;
+
+            WatchingItem watchingItem = await watchingManager.GetWatchingItem(titleId);
             Debug.WriteLine("Title {0}", watchingItem.Title);
 
             var entity = new WatchingEntity(watchingItem);
@@ -117,10 +125,15 @@ namespace Kinopub.UI.ViewModels
 
             entity.VideoId = video.Id;
 
-            var titleItem = contentManager.GetItem(entity.TitleId);
+            //var titleItem = contentManager.GetItem(entity.TitleId);
             entity.Thumbnail = "https://cdn.service-kp.com/poster/item/big/" + entity.TitleId + ".jpg";
 
             return entity;
+        }
+
+        private async Task LoadAdditionalInfo(WatchingEntity entity)
+        {
+
         }
 
         private WatchingSeason GetSeasonToPlay(List<WatchingSeason> seasons)
